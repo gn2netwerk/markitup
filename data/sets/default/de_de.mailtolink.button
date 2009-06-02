@@ -1,0 +1,5 @@
+name:::::'Mailto-Link'
+className:::::'markitup-mailtolink'
+openWith:::::'"'
+closeWith:::::'":[![E-Mail-Link eingeben:!:mailto:]!]'
+placeHolder:::::'Linktext hier'

@@ -1,0 +1,1 @@
+<?php $REX['ADDON']['install']['markitup'] = 1; ?>

@@ -1,0 +1,36 @@
+Eingabe:
+
+<strong>Text:</strong><br/>
+<textarea name="VALUE[1]" class="markitup-text" cols="80" rows="10">REX_VALUE[1]</textarea>
+
+<?php
+a287_markitup::markitup('textarea.markitup-text',
+  'h3,h4,h5,separator,bold,italic,separator,listbullet,listnumeric,separator,intlink,extlink,separator,mailtolink,separator,filelink',
+  '540','380'
+);
+?>
+
+
+
+
+
+Ausgabe:
+
+
+<?php
+
+$text =<<< EOT
+REX_HTML_VALUE[1]
+EOT;
+
+$text = html_entity_decode($text);
+
+if (trim($text) != "") 
+{
+  $textile = new Textile; 
+  $text = $textile->TextileThis($text);
+}
+
+echo $text;
+
+?>

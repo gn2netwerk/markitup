@@ -1,0 +1,6 @@
+name:::::'Überschrift 5'
+className:::::'markitup-h5'
+key:::::'5'
+openWith:::::'\nh5(!(([![Class]!]))!). '
+closeWith:::::'\n'
+placeHolder:::::'Überschrift hier...' 

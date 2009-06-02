@@ -1,0 +1,6 @@
+name:::::'Überschrift 2'
+className:::::'markitup-h2'
+key:::::'2'
+openWith:::::'\nh2(!(([![Class]!]))!). '
+closeWith:::::'\n'
+placeHolder:::::'Überschrift hier...' 

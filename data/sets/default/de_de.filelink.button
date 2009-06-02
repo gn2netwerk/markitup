@@ -1,0 +1,4 @@
+name:::::'Datei-Link'
+className:::::'markitup-filelink'
+beforeInsert:::::function() { openMediaPool('TINY'); }
+placeHolder:::::'Beschreibung hier...' 
