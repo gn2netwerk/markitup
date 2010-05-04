@@ -1,0 +1,10 @@
+###
+name:::::'translate:markitup_name_linkmailto'
+###
+className:::::'markitup-linkmailto'
+###
+openWith:::::'"'
+###
+closeWith:::::'":[![translate:markitup_linkmailto_text_1:!:mailto:]!]'
+###
+placeHolder:::::'translate:markitup_linkmailto_text_2'

@@ -5,8 +5,8 @@ Eingabe:
 
 <?php
 a287_markitup::markitup('textarea.markitup-text',
-  'h3,h4,h5,separator,bold,italic,separator,listbullet,listnumeric,separator,intlink,extlink,separator,mailtolink,separator,filelink',
-  '540','380'
+'h1,h2,h3,h4,h5,h6,separator,alignleft,alignright,aligncenter,alignjustify,separator,bold,italic,stroke,underline,superscript,subscript,table,separator,listbullet,listnumeric,separator,image,linkmedia,separator,linkintern,linkextern,linkmailto,separator,blockquote,code,separator,clean,separator,preview',
+'700','400'
 );
 ?>
 
@@ -14,23 +14,45 @@ a287_markitup::markitup('textarea.markitup-text',
 
 
 
-Ausgabe:
-
+Ausgabe UTF-8:
 
 <?php
-
-$text =<<< EOT
-REX_HTML_VALUE[1]
-EOT;
-
-$text = html_entity_decode($text);
-
-if (trim($text) != "") 
+$textile = '';
+$markitup_textile_preview = rex_post('markitup_textile_preview_REX_SLICE_ID', 'string');
+if ($markitup_textile_preview != '')
 {
-  $textile = new Textile; 
-  $text = $textile->TextileThis($text);
+	$textile = stripslashes($markitup_textile_preview);
+}
+elseif(REX_IS_VALUE[1])
+{
+	$textile = htmlspecialchars_decode('REX_VALUE[1]');	
 }
 
-echo $text;
+if ($textile != '')
+{
+	$textile = str_replace("<br />", "", $textile);
+	echo rex_a79_textile($textile);
+}
+?>
 
+
+Ausgabe ISO:
+
+<?php
+$textile = '';
+$markitup_textile_preview = rex_post('markitup_textile_preview_REX_SLICE_ID', 'string');
+if ($markitup_textile_preview != '')
+{
+	$textile = utf8_decode(stripslashes($markitup_textile_preview));
+}
+elseif(REX_IS_VALUE[1])
+{
+	$textile = htmlspecialchars_decode('REX_VALUE[1]');	
+}
+
+if ($textile != '')
+{
+	$textile = str_replace("<br />", "", $textile);
+	echo rex_a79_textile($textile);
+}
 ?>

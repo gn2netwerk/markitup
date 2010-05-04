@@ -1,0 +1,10 @@
+###
+name:::::'translate:markitup_name_blockquote'
+###
+className:::::'markitup-blockquote'
+###
+openWith:::::'\nbq(!(([![Class]!]))!). '
+###
+closeWith:::::'\n'
+###
+placeHolder:::::'Zitat hier...' 

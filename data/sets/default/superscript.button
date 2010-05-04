@@ -1,0 +1,8 @@
+###
+name:::::'translate:markitup_name_superscript'
+###
+className:::::'markitup-superscript'
+###
+openWith:::::'^'
+###
+closeWith:::::'^'

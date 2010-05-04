@@ -1,0 +1,10 @@
+###
+name:::::'translate:markitup_name_linkextern'
+###
+className:::::'markitup-linkextern'
+###
+openWith:::::'"'
+###
+closeWith:::::'":[![translate:markitup_linkextern_text_1:!:http://]!]'
+###
+placeHolder:::::'translate:markitup_linkextern_text_2'

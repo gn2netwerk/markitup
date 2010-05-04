@@ -1,0 +1,39 @@
+###
+name:::::'translate:markitup_name_clean'
+###
+className:::::'markitup-clean'
+###
+replaceWith:::::function(h)
+{
+	var s = h.selection;
+	// link intern / extern / mailto / linkfiles
+	s = s.replace(/"(.*?)":(https?|redaxo|mailto|files)(:|\/)(\/\/)?.+?\s/g, '$1 ');
+	// files
+	s = s.replace(/!files\/.*?!/g, '');
+	// p
+	s = s.replace(/p.*?\.\s(.*?)/g, '$1');
+	// h(1-9)
+	s = s.replace(/h\d+.*?\.\s(.*?)/g, '$1');
+	// strong
+	s = s.replace(/\s\*(.*?)\*\s/g, ' $1 ');
+	// italic
+	s = s.replace(/\s\_(.*?)\_\s/g, ' $1 ');
+	// stroke
+	s = s.replace(/\s\-(.*?)\-\s/g, ' $1 ');
+	// underline
+	s = s.replace(/\s\+(.*?)\+\s/g, ' $1 ');
+	// superscript
+	s = s.replace(/\s\^(.*?)\^\s/g, ' $1 ');
+	// subscript
+	s = s.replace(/\s\~(.*?)\~\s/g, ' $1 ');
+	// code
+	s = s.replace(/\s\@(.*?)\@\s/g, ' $1 ');
+	// blockquote
+	s = s.replace(/bq.*?\.\s(.*?)/g, '$1');
+	// ul
+	s = s.replace(/\*\s(.*?)/g, '$1');
+	// ol
+	s = s.replace(/\#\s(.*?)/g, '$1');
+
+	return s;
+}

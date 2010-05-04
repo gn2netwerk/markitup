@@ -1,0 +1,12 @@
+###
+name:::::'translate:markitup_name_h3'
+###
+className:::::'markitup-h3'
+###
+key:::::'3'
+###
+openWith:::::'\nh3(!(([![Class]!]))!). '
+###
+closeWith:::::'\n'
+###
+placeHolder:::::'Überschrift hier...' 

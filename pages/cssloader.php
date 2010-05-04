@@ -15,19 +15,19 @@ foreach ($buttons as $button) {
 	$fn = $REX['INCLUDE_PATH'].'/addons/markitup/data/sets/default/images/'.$button.'.png';
 	if (file_exists($fn)) {
 		echo '.set-'.$setname.' .markitup-'.$button.' a{';
-		echo 'background-image:url('.$dir.'/'.$button.'.png);';
+		echo 'background-image:url('.$dir.'/'.$button.'.png) !important;';
 		echo '}'."\n"; 
 	}
 }
 ?>
 
 <?php echo '.set-'.$setname; ?> {
-	width:<?php echo rex_request('width').'px'; ?>;
+	width:<?php echo rex_request('width').'px !important'; ?>;
 }
 
 <?php echo '.set-'.$setname.' .markItUpEditor'; ?> {
-	width:<?php echo (rex_request('width')-29).'px'; ?>;
-	height:<?php echo (rex_request('height')-10).'px'; ?>;	
+	width:<?php echo (rex_request('width')-22).'px !important'; ?>;
+	height:<?php echo (rex_request('height')-7).'px !important'; ?>;	
 }
 
 .markItUpContainer ul{

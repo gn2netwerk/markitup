@@ -1,0 +1,29 @@
+###
+name:::::'translate:markitup_name_table'
+###
+className:::::'markitup-table'
+###
+replaceWith:::::function(h)
+{
+	cols = prompt("translate:markitup_table_how_many_cols");
+	rows = prompt("translate:markitup_table_how_many_rows");
+	html = "\n";
+	for (r = 1; r <= rows; r++)
+	{
+		for (c = 1; c <= cols; c++)
+		{
+			var th = "Inhalt";
+			var th_m = "";
+			if (r == 1)
+			{
+				th = "translate:markitup_table_headline";
+				th_m = "_.";
+			}
+						
+			insert = prompt(th + ": translate:markitup_table_col " + c + " - translate:markitup_table_row" + r);
+			html += "|" + th_m + " " + insert + " ";
+		}
+		html += "|\n";
+	}
+	return html;
+}

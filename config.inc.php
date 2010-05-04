@@ -8,6 +8,13 @@ $REX['ADDON']['version'][$mypage] = '1.0';
 
 require_once $REX['INCLUDE_PATH'].'/addons/markitup/classes/class.markitup.php';
 
+
+if ($REX['REDAXO'])
+{
+  $I18N->appendFile($REX['INCLUDE_PATH'] . '/addons/' . $mypage . '/lang');
+}
+
+
 if (rex_request('a287_markitup_set')!="") {
 	require_once $REX['INCLUDE_PATH'].'/addons/markitup/pages/setloader.php';	
 	exit();
@@ -16,7 +23,6 @@ if (rex_request('a287_markitup_css')!="") {
 	require_once $REX['INCLUDE_PATH'].'/addons/markitup/pages/cssloader.php';	
 	exit();
 }
-
 
 function a287_markitup($params) {
 	global $REX;

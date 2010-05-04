@@ -1,0 +1,6 @@
+###
+name:::::'translate:markitup_name_preview'
+###
+className:::::'markitup-preview'
+###
+call:::::'preview'

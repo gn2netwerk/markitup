@@ -1,0 +1,32 @@
+###
+name:::::'translate:markitup_name_listbullet'
+###
+className:::::'markitup-listbullet'
+###
+replaceWith:::::function(h) {
+	var selection = h.selection;
+	
+	var lines = selection.split(/\r?\n/);
+	var r = "";
+	var start = "* ";
+	for (var i=0; i < lines.length; i++) {
+		line = lines[i];
+		
+		if (line.substr(0,1) == "*" || line.substr(0,1) == "#")
+		{
+			start = "*";
+			
+			if (i != lines.length - 1)
+			{
+				line = line + "\n";
+			}
+		}
+		else
+		{
+			line = line + "\n";
+		}
+
+		r = r + start + line;
+	}
+	return r;
+}

@@ -1,0 +1,8 @@
+###
+name:::::'translate:markitup_name_linkmedia'
+###
+className:::::'markitup-linkmedia'
+###
+beforeInsert:::::function() { openMediaPool('TINY'); }
+###
+placeHolder:::::'markitup_linkmedia_text_1...' 
