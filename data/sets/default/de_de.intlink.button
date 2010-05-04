@@ -1,4 +1,0 @@
-name:::::'Interner Link'
-className:::::'markitup-intlink'
-key:::::'L'
-beforeInsert:::::function() { openLinkMap('TINY','&clang='+markitup_getURLParam('clang')); }

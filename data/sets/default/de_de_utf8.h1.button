@@ -1,6 +1,0 @@
-name:::::'Überschrift 1'
-className:::::'markitup-h1'
-key:::::'1'
-openWith:::::'\nh1(!(([![Class]!]))!). '
-closeWith:::::'\n'
-placeHolder:::::'Überschrift hier...' 

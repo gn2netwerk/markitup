@@ -1,4 +1,0 @@
-name:::::'Bild'
-className:::::'markitup-image'
-key:'P'
-beforeInsert:::::function() { openMediaPool('TINYIMG'); }
