@@ -113,6 +113,7 @@
 	width:16px; height:16px;
 	text-indent:-10000px;
 	background-repeat:no-repeat;
+	overflow:hidden;
 	padding:3px;
 	margin:0px;
 }
