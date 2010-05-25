@@ -44,6 +44,21 @@ class a287_markitup {
 	function markitup($cssClass,$buttons='',$width=550,$height=400) {
 		global $REX;
 		
+		$old_buttons = array(
+		'/extlink/',
+		'/intlink/',
+		'/mailtolink/',
+		'/filelink/'
+		);
+		$new_buttons = array(
+		'linkextern',
+		'linkintern',
+		'linkmailto',
+		'linkmedia'
+		);
+		
+		$buttons = preg_replace($old_buttons, $new_buttons, $buttons);
+		
 		$slice_id = rex_request('slice_id', 'int');
 		
 		$params['selector'] 	= $cssClass;
