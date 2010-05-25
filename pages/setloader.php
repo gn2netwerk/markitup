@@ -1,4 +1,15 @@
-<?php 
+<?php
+
+/**
+ * MARKITUP Addon
+ * Textile Markup Editor
+ * 
+ * @author Markitup by Jay Salvat - http://markitup.jaysalvat.com
+ * @author Redaxo Addon by http://www.gn2-netwerk.de/
+ * @package redaxo4.2
+ * @version svn:$Id$
+ */
+
 header('Content-type:text/javascript');
 $setname = md5(rex_request('a287_markitup_set'));
 
