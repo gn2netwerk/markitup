@@ -1,7 +1,7 @@
 <?php 
 header('Content-type:text/css');
 $setname = md5(rex_request('a287_markitup_css'));
-$dir = 'include/addons/markitup/data/sets/default/images';
+$dir = 'include/addons/markitup/data/sets/default';
 $css = rex_request('css');
 $css = base64_decode($css);
 
@@ -12,7 +12,7 @@ foreach ($buttons as $button) {
 	$button = str_replace('\\','',$button);
 	$button = str_replace('.','',$button);
 	
-	$fn = $REX['INCLUDE_PATH'].'/addons/markitup/data/sets/default/images/'.$button.'.png';
+	$fn = $REX['INCLUDE_PATH'].'/addons/markitup/data/sets/default/'.$button.'.png';
 	if (file_exists($fn)) {
 		echo '.set-'.$setname.' .markitup-'.$button.' a{';
 		echo 'background-image:url('.$dir.'/'.$button.'.png) !important;';
