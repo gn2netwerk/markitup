@@ -12,10 +12,23 @@
 
 $mypage = 'markitup';
 
+// COMMONS
 $REX['ADDON']['rxid'][$mypage] = '287';
 $REX['ADDON']['page'][$mypage] = $mypage;
-$REX['ADDON']['perm'][$mypage] = 'markitup[]';
-$REX['ADDON']['version'][$mypage] = '1.0';
+$REX['ADDON']['name'][$mypage] = 'Markitup';
+$REX['ADDON']['version'][$mypage] = "1.0 SVN #".ereg_replace('[^0-9]',"","$Revision: 49 $");
+$REX['ADDON']['author'][$mypage] = "Jay Salvat, Rüdiger Nitschke, Dave Holloway";
+
+// PERMISSIONS
+$REX['ADDON']['perm'][$mypage] = $mypage.'[]';
+$REX['PERM'][] = $mypage.'[]';
+
+// USER SETTINGS
+// --- DYN
+$REX['ADDON']['markitup']['default']['buttons'] = 'h1,h2,h3,h4,h5,h6,separator,alignleft,alignright,aligncenter,alignjustify,separator,bold,italic,stroke,underline,superscript,subscript,table,separator,listbullet,listnumeric,separator,image,linkmedia,separator,linkintern,linkextern,linkmailto,separator,blockquote,code,separator,clean,separator,preview';
+$REX['ADDON']['markitup']['default']['width'] = '550';
+$REX['ADDON']['markitup']['default']['height'] = '400';
+// --- /DYN
 
 require_once $REX['INCLUDE_PATH'].'/addons/markitup/classes/class.markitup.php';
 

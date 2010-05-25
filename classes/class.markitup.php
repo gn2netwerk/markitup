@@ -11,7 +11,7 @@
  */
  
 function a287_markitup_extpoint($params) {
-	global $REX;
+	global $REX; fb($params,'$params');
 	$output = $params['subject'];
 
 
@@ -52,9 +52,24 @@ class a287_markitup {
 	}	
 	
 	
-	function markitup($cssClass,$buttons='',$width=550,$height=400) {
-		global $REX;
+	function markitup($cssClass,$buttons=null,$width=null,$height=null) {
+		global $REX; fb($buttons,'$buttons'); fb($width,'$width'); fb($height,'$height');
 		
+		// DEFAULTS
+		if(!$buttons)
+		{
+		  $buttons = $REX['ADDON']['markitup']['default']['buttons'];
+		}
+		if(!$width)
+		{
+		  $width = $REX['ADDON']['markitup']['default']['width'];
+		}
+		if(!$height)
+		{
+		  $height = $REX['ADDON']['markitup']['default']['height'];
+		} fb($buttons,'$buttons'); fb($width,'$width'); fb($height,'$height');
+		
+		// LEGACY BUTTON REPLACEMENT
 		$old_buttons = array(
 		'/extlink/',
 		'/intlink/',
@@ -67,7 +82,6 @@ class a287_markitup {
 		'linkmailto',
 		'linkmedia'
 		);
-		
 		$buttons = preg_replace($old_buttons, $new_buttons, $buttons);
 		
 		$slice_id = rex_request('slice_id', 'int');
