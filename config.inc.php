@@ -16,7 +16,7 @@ $mypage = 'markitup';
 $REX['ADDON']['rxid'][$mypage] = '287';
 $REX['ADDON']['page'][$mypage] = $mypage;
 $REX['ADDON']['name'][$mypage] = 'Markitup';
-$REX['ADDON']['version'][$mypage] = "1.0 SVN #".ereg_replace('[^0-9]',"","$Revision: 49 $");
+$REX['ADDON']['version'][$mypage] = "1.0 SVN #".ereg_replace('[^0-9]',"","$Revision$");
 $REX['ADDON']['author'][$mypage] = "Jay Salvat, Rüdiger Nitschke, Dave Holloway";
 
 // PERMISSIONS
