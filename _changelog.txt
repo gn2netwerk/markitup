@@ -1,5 +1,9 @@
 
 h1. Markitup Changelog
 
+h4. 16.12.2008
+
+* erstes release
+* "http://blog.gn2-netwerk.de/2008/12/markitup-fuer-redaxo/":http://blog.gn2-netwerk.de/2008/12/markitup-fuer-redaxo/
 
 "www.gn2-netwerk.de":http://www.gn2-netwerk.de
