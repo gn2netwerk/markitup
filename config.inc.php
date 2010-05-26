@@ -25,7 +25,7 @@ $REX['PERM'][] = $mypage.'[]';
 
 // USER SETTINGS
 // --- DYN
-$REX['ADDON']['markitup']['default']['buttons'] = 'h1,h2,h3,h4,h5,h6,separator,alignleft,alignright,aligncenter,alignjustify,separator,bold,italic,stroke,underline,superscript,subscript,table,separator,listbullet,listnumeric,separator,image,linkmedia,separator,linkintern,linkextern,linkmailto,separator,blockquote,code,separator,clean,separator,preview';
+$REX['ADDON']['markitup']['default']['buttons'] = 'h1,h2,h3,h4,h5,h6,separator,bold,italic,stroke,separator,listbullet,listnumeric,separator,image,linkmedia,separator,linkintern,linkextern,linkmailto';
 $REX['ADDON']['markitup']['default']['width'] = '550';
 $REX['ADDON']['markitup']['default']['height'] = '400';
 // --- /DYN

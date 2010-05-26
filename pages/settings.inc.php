@@ -15,7 +15,8 @@
 $myself          = rex_request('page', 'string');
 $subpage         = rex_request('subpage', 'string');
 $func            = rex_request('func', 'string');
-$buttons         = rex_request('buttons', 'string');
+$buttons         = rex_request('MEDIALIST', 'array');
+$buttons = $buttons[1];
 $width           = rex_request('width', 'string');
 $height          = rex_request('height', 'string');
 
@@ -39,9 +40,9 @@ $REX[\'ADDON\'][\'markitup\'][\'default\'][\'height\'] = \''.$height.'\';
   echo rex_info('Konfiguration wurde aktualisiert');
 }
 
-// BUTTON ITEMS SELECT OPTION
+// WIDGET OPTIONS
 ////////////////////////////////////////////////////////////////////////////////
-$markitup_buttons = array(
+$builtin_buttons = array(
 
 'Button hinzufügen' =>      '',
 
@@ -57,7 +58,6 @@ $markitup_buttons = array(
 'bold' =>               'bold',
 'italic' =>             'italic',
 'stroke' =>             'stroke',
-'underline' =>          'underline',
 'superscript' =>        'superscript',
 'subscript' =>          'subscript',
 
@@ -89,53 +89,100 @@ $markitup_buttons = array(
 'preview' =>            'preview',
 );
 
-$button_options = '';
-$optgroup = '';
+/*require_once $REX['INCLUDE_PATH'].'/addons/markitup/functions/function.rexdev_scandir.inc.php';
 
-foreach($markitup_buttons as $k => $v)
+$button_root = $REX['INCLUDE_PATH'].'/addons/markitup/data/sets/default/';
+$availlable_buttons = rexdev_scandir($button_root,0,array(),array('*.button'));
+$availlable_buttons = $availlable_buttons['files']; fb($availlable_buttons,'$availlable_buttons');
+
+foreach($availlable_buttons as $k => $v)
 {
-  if($v=='optgroup')
+  $v = str_replace('.button','',$v);
+  $builtin_group .='<a href="javascript:selectMedialist(\''.$v.'\');" style="float:left;background:#EFF9F9;margin:1px;padding:1px;border:1px solid silver;"><img src="include/addons/markitup/data/sets/default/'.$v.'.png" width="16" height="16" /></a>';
+}*/
+
+$optgroup = '';
+foreach($builtin_buttons as $k => $v)
+{
+  switch($v)
   {
-    if($optgroup = 'open')
-    {
-      $button_options .='</optgroup>';
-    }
-    $button_options .='<optgroup label="'.$k.'" style="background:#DFE9E9;color:silver;font-style:normal;text-align:center;padding:0;">';
-    $optgroup = 'open';
-  }
-  else
-  {
-    if($v != '')
-    {
-      $button_options .='<option value="'.$v.'" style="background:#EFF9F9;color:black;border-bottom:1px solid white;padding:2px 0 2px 6px;text-align:left;"'.$selected.'>'.$k.'</option>';
-    }
-    else
-    {
-      $button_options .='<option value="'.$v.'" style="background:transparent;color:silver;padding:0;margin:0;"'.$selected.'>'.$k.'</option>';
-    }
+    case '':
+    break;
+    
+    case 'optgroup':
+      
+      if($optgroup = 'open')
+      {
+        $builtin_group .='</p>';
+      }
+      $builtin_group .='<h4 style="float:none;clear:left;margin:0 0 4px 0;color:gray;">'.$k.'</h4>';
+      $builtin_group .='<p style="margin:0 0 6px 0;">';
+      $optgroup = 'open';
+    break;
+    
+    default:
+    $builtin_group .='<a href="javascript:selectMedialist(\''.$v.'\');" style="float:left;background:#EFF9F9;margin:1px;padding:1px;border:1px solid silver;"><img src="include/addons/markitup/data/sets/default/'.$v.'.png" alt="Button '.$v.' hinzufügen" title="Button '.$v.' hinzufügen" width="16" height="16" /></a>';
   }
 }
-
 if($optgroup = 'open')
 {
-  $button_options .='</optgroup>';
+  $builtin_group .='</p>';
 }
 
+$selected_buttons ='';
+foreach(explode(',',$REX['ADDON']['markitup']['default']['buttons']) as $v)
+{
+  // $selected_buttons .='<option style="background:url(include/addons/markitup/data/sets/default/'.$v.'.png) no-repeat 6px 0;padding: 1px 0 1px 50px;border-bottom:1px solid white;height:16px;float:left;" value="'.$v.'">'.$v.'</option>';
+  $selected_buttons .='<option value="'.$v.'">'.$v.'</option>';
+}
 
+$select_size = count(explode(',',$REX['ADDON']['markitup']['default']['buttons'])) + 2;
 
 // FORM
 ////////////////////////////////////////////////////////////////////////////////
 echo '
-
-<script>
+<script type="text/javascript">
 <!--
-function AddButton(myButton)
+
+var opener = self;
+
+function selectMedia(filename)
 {
-  myButton = ","+myButton;
-  document.getElementById(\'buttons\').value += myButton;
-  document.getElementById(\'buttons\').style.color = "red";
-  return true;
+  opener.document.getElementById("REX_MEDIALIST_1").value = filename;  self.close();
 }
+
+function selectMedialist(filename)
+{
+  var medialist = "REX_MEDIALIST_SELECT_1";
+
+  var source = opener.document.getElementById(medialist);
+  var sourcelength = source.options.length;
+
+  option = opener.document.createElement("OPTION");
+  option.text = filename;
+  option.value = filename;
+
+  source.options.add(option, sourcelength);
+  opener.writeREXMedialist(1);}
+
+function insertImage(src,alt)
+{
+  window.opener.insertImage(\'files/\' + src, alt);
+  self.close();
+}
+
+function insertLink(src)
+{
+  window.opener.insertFileLink(\'files/\' + src);
+  self.close();
+}
+
+function openPage(src)
+{
+  window.opener.location.href = src;
+  self.close();
+}
+
 //-->
 </script>
 
@@ -152,13 +199,37 @@ function AddButton(myButton)
       <div class="rex-form-wrapper">
 
       <div class="rex-form-row">
-        <p class="rex-form-col-a rex-form-textarea">
-          <label for="buttons">Button-Set [<a href="index.php?page=markitup&subpage=help">?</a>]</label>
-          <textarea id="buttons" name="buttons" class="rex-form-textarea" rows="6" cols="50">'.stripslashes($REX['ADDON']['markitup']['default']['buttons']).'</textarea><br />
-          <label for="addbutton"></label>
-          <select id="addbutton" name="addbutton" style="background:white;color:silver;width:200px;text-align:center;height:20px;border:1px solid #999999;border-top:0;margin-top:-2px;" onChange="AddButton(this.options[this.selectedIndex].value);">'.$button_options.'</select>
-        </p>
+          <label for="rex-widget">Button-Set [<a href="index.php?page=markitup&subpage=help">?</a>]</label>
+        <div class="rex-widget" id="rex-widget">
+          <div class="rex-widget-medialist">
+
+            <input type="hidden" name="MEDIALIST[1]" id="REX_MEDIALIST_1" value="'.$REX['ADDON']['markitup']['default']['buttons'].'" />
+
+            <p class="rex-widget-field">
+              <select name="MEDIALIST_SELECT[1]" id="REX_MEDIALIST_SELECT_1" size="'.$select_size.'" tabindex="31" style="width:200px;font-family:monospace;font-size:12px;">
+              '.$selected_buttons.'
+              </select>
+            </p>
+
+            <p class="rex-widget-icons">
+              <a href="#" class="rex-icon-file-top" onclick="moveREXMedialist(1,\'top\');return false;" tabindex="32"><img src="media/file_top.gif" width="16" height="16" title="Ausgewähltes Medium an den Anfang verschieben" alt="Ausgewähltes Medium an den Anfang verschieben" /></a>
+              <a href="#" class="rex-icon-file-delete" onclick="deleteREXMedialist(1);return false;" tabindex="37"><img src="media/file_del.gif" width="16" height="16" title="Ausgewähltes Medium löschen" alt="Ausgewähltes Medium löschen" /></a>
+              <br />
+              <a href="#" class="rex-icon-file-up" onclick="moveREXMedialist(1,\'up\');return false;" tabindex="34"><img src="media/file_up.gif" width="16" height="16" title="Ausgewähltes Medium nach oben verschieben" alt="Ausgewähltes Medium an den Anfang verschieben" /></a>
+              <br />
+              <a href="#" class="rex-icon-file-down" onclick="moveREXMedialist(1,\'down\');return false;" tabindex="36"><img src="media/file_down.gif" width="16" height="16" title="Ausgewähltes Medium nach unten verschieben" alt="Ausgewähltes Medium nach unten verschieben" /></a>
+              <br />
+              <a href="#" class="rex-icon-file-bottom" onclick="moveREXMedialist(1,\'bottom\');return false;" tabindex="38"><img src="media/file_bottom.gif" width="16" height="16" title="Ausgewähltes Medium an das Ende verschieben" alt="Ausgewähltes Medium an das Ende verschieben" /></a>
+            </p>
+
+            <div class="rex-widget-icons" style="margin-left:10px;float:left;">
+            '.$builtin_group.'
+            </div>
+
+          </div>
+        </div>
       </div>
+
 
       <div class="rex-form-row">
         <p class="rex-form-col-a rex-form-text">
