@@ -11,7 +11,7 @@
  */
  
 function a287_markitup_extpoint($params) {
-	global $REX; fb($params,'$params');
+	global $REX;
 	$output = $params['subject'];
 
 
@@ -53,7 +53,7 @@ class a287_markitup {
 	
 	
 	function markitup($cssClass,$buttons=null,$width=null,$height=null) {
-		global $REX; fb($buttons,'$buttons'); fb($width,'$width'); fb($height,'$height');
+		global $REX;
 		
 		// DEFAULTS
 		if(!$buttons)
@@ -67,7 +67,7 @@ class a287_markitup {
 		if(!$height)
 		{
 		  $height = $REX['ADDON']['markitup']['default']['height'];
-		} fb($buttons,'$buttons'); fb($width,'$width'); fb($height,'$height');
+		}
 		
 		// LEGACY BUTTON REPLACEMENT
 		$old_buttons = array(
