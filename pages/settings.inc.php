@@ -40,11 +40,14 @@ $REX[\'ADDON\'][\'markitup\'][\'default\'][\'height\'] = \''.$height.'\';
   echo rex_info('Konfiguration wurde aktualisiert');
 }
 
-// WIDGET OPTIONS
+// BUTTON SET WIDGET
 ////////////////////////////////////////////////////////////////////////////////
-$builtin_buttons = array(
+require_once $REX['INCLUDE_PATH'].'/addons/markitup/functions/function.rexdev_scandir.inc.php';
+$button_root = $REX['INCLUDE_PATH'].'/addons/markitup/data/sets/default/';
+$found_buttons = rexdev_scandir($button_root,0,array(),array('*.button'));
+$found_buttons = $found_buttons['files'];
 
-'Button hinzufügen' =>      '',
+$builtin_buttons = array(
 
 'Überschriften' =>      'optgroup',
 'h1' =>                 'h1',
@@ -83,60 +86,72 @@ $builtin_buttons = array(
 'blockquote' =>         'blockquote',
 'code' =>               'code',
 
-'Spezial' =>            'optgroup',
+'Sonderfunktionen' =>            'optgroup',
 'separator' =>          'separator',
 'clean' =>              'clean',
-'preview' =>            'preview',
+'preview' =>            'preview'
 );
 
-/*require_once $REX['INCLUDE_PATH'].'/addons/markitup/functions/function.rexdev_scandir.inc.php';
-
-$button_root = $REX['INCLUDE_PATH'].'/addons/markitup/data/sets/default/';
-$availlable_buttons = rexdev_scandir($button_root,0,array(),array('*.button'));
-$availlable_buttons = $availlable_buttons['files']; fb($availlable_buttons,'$availlable_buttons');
-
-foreach($availlable_buttons as $k => $v)
-{
-  $v = str_replace('.button','',$v);
-  $builtin_group .='<a href="javascript:selectMedialist(\''.$v.'\');" style="float:left;background:#EFF9F9;margin:1px;padding:1px;border:1px solid silver;"><img src="include/addons/markitup/data/sets/default/'.$v.'.png" width="16" height="16" /></a>';
-}*/
-
+// BUILTIN BUTTONS
+$button_panel = '';
 $optgroup = '';
+$builtin_raw = array();
+
 foreach($builtin_buttons as $k => $v)
 {
   switch($v)
   {
-    case '':
-    break;
-    
     case 'optgroup':
-      
       if($optgroup = 'open')
       {
-        $builtin_group .='</p>';
+        $button_panel .='</p>';
       }
-      $builtin_group .='<h4 style="float:none;clear:left;margin:0 0 4px 0;color:gray;">'.$k.'</h4>';
-      $builtin_group .='<p style="margin:0 0 6px 0;">';
+      $button_panel .='<h4 style="float:none;clear:left;margin:0;color:gray;">'.$k.'</h4>';
+      $button_panel .='<p style="margin:0 0 6px 0;">';
       $optgroup = 'open';
     break;
     
     default:
-    $builtin_group .='<a href="javascript:selectMedialist(\''.$v.'\');" style="float:left;background:#EFF9F9;margin:1px;padding:1px;border:1px solid silver;"><img src="include/addons/markitup/data/sets/default/'.$v.'.png" alt="Button '.$v.' hinzufügen" title="Button '.$v.' hinzufügen" width="16" height="16" /></a>';
+      $button_panel .='<a href="javascript:selectMedialist(\''.$v.'\');" style="float:left;background:#EFF9F9;margin:1px;padding:1px;border:1px solid silver;"><img src="include/addons/markitup/data/sets/default/'.$v.'.png" alt="Button '.strtoupper($v).' hinzufügen" title="Button '.strtoupper($v).' hinzufügen" width="16" height="16" /></a>';
+      $builtin_raw[] = $v.'.button';
   }
 }
-if($optgroup = 'open')
+
+// 3RD PARTY BUTTONS
+$extra_buttons = array_diff($found_buttons, $builtin_raw);
+
+if(count($extra_buttons) > 0)
 {
-  $builtin_group .='</p>';
+  if($optgroup = 'open')
+  {
+    $button_panel .='</p>';
+  }
+  $button_panel .='<h4 style="float:none;clear:left;margin:0;color:gray;">3rd Party</h4>';
+  $button_panel .='<p style="margin:0 0 6px 0;">';
+  foreach($extra_buttons as $k => $v)
+  {
+    $v = str_replace('.button','',$v);
+    $button_panel .='<a href="javascript:selectMedialist(\''.$v.'\');" style="float:left;background:#EFF9F9;margin:1px;padding:1px;border:1px solid silver;"><img src="include/addons/markitup/data/sets/default/'.$v.'.png" alt="Button '.strtoupper($v).' hinzufügen" title="Button '.strtoupper($v).' hinzufügen" width="16" height="16" /></a>';
+  }
+  $optgroup = 'open';
 }
 
-$selected_buttons ='';
+if($optgroup = 'open')
+{
+  $button_panel .='</p>';
+}
+
+// ACTIVE BUTTONS
+$active_buttons ='';
 foreach(explode(',',$REX['ADDON']['markitup']['default']['buttons']) as $v)
 {
-  // $selected_buttons .='<option style="background:url(include/addons/markitup/data/sets/default/'.$v.'.png) no-repeat 6px 0;padding: 1px 0 1px 50px;border-bottom:1px solid white;height:16px;float:left;" value="'.$v.'">'.$v.'</option>';
-  $selected_buttons .='<option value="'.$v.'">'.$v.'</option>';
+  // $active_buttons .='<option style="background:url(include/addons/markitup/data/sets/default/'.$v.'.png) no-repeat 6px 0;padding: 1px 0 1px 50px;border-bottom:1px solid white;height:16px;float:left;" value="'.$v.'">'.$v.'</option>';
+  $active_buttons .='<option value="'.$v.'">'.$v.'</option>';
 }
 
 $select_size = count(explode(',',$REX['ADDON']['markitup']['default']['buttons'])) + 2;
+
+
 
 // FORM
 ////////////////////////////////////////////////////////////////////////////////
@@ -207,7 +222,7 @@ function openPage(src)
 
             <p class="rex-widget-field">
               <select name="MEDIALIST_SELECT[1]" id="REX_MEDIALIST_SELECT_1" size="'.$select_size.'" tabindex="31" style="width:200px;font-family:monospace;font-size:12px;">
-              '.$selected_buttons.'
+              '.$active_buttons.'
               </select>
             </p>
 
@@ -223,7 +238,7 @@ function openPage(src)
             </p>
 
             <div class="rex-widget-icons" style="margin-left:10px;float:left;">
-            '.$builtin_group.'
+            '.$button_panel.'
             </div>
 
           </div>
