@@ -3,10 +3,11 @@
 /**
  * MARKITUP Addon
  * Textile Markup Editor
- * 
+ *
  * @author Markitup by Jay Salvat - http://markitup.jaysalvat.com
  * @author Redaxo Addon by http://www.gn2-netwerk.de/
  * @package redaxo4.2
+ * @version 1.1
  * @version svn:$Id$
  */
 
@@ -24,13 +25,13 @@ if ($rex_version != '')
 	$parser_path .= '&rex_version='.$rex_version;
 
 echo 'set_'.$setname.' = {';
-//	previewInWindow: "width=1000, height=800, resizable=yes, scrollbars=yes", 
+//	previewInWindow: "width=1000, height=800, resizable=yes, scrollbars=yes",
 //	previewParserPath: "~/templates/preview.html",
 //	previewIFrame:	true,
 //	previewParserPath: "index.php",
 echo '
 	nameSpace:"set-'.$setname.'",
-	previewInWindow: "width=1000, height=800, resizable=yes, scrollbars=yes", 
+	previewInWindow: "width=1000, height=800, resizable=yes, scrollbars=yes",
 	previewParserPath: "'.$parser_path.'",
 	previewParserVar: "markitup_textile_preview_'.$slice_id.'",
 	previewAutoRefresh: true,
@@ -42,18 +43,18 @@ foreach ($buttons as $button) {
 	$button = str_replace('/','',$button);
 	$button = str_replace('\\','',$button);
 	$button = str_replace('.','',$button);
-	
+
 	$fn = $REX['INCLUDE_PATH'].'/addons/markitup/data/sets/default/'.$button.'.button';
 	if (file_exists($fn)) {
 		$params = array();
 		$data = file_get_contents($fn);
 		$data = explode("###\n",$data);
 		foreach ($data as $line) {
-			
+
 			$line = explode(':::::',$line);
 			if (count($line)==2)
 			{
-				
+
 				$string = $line[1];
 				preg_match_all('/(translate:markitup_\w+)/', $string, $matches);
 				if (count($matches[1]) >= 1)
@@ -65,19 +66,19 @@ foreach ($buttons as $button) {
 						$srch[] = $match;
 						$rplc[] = rex_translate($match);
 					}
-					
+
 					$string = str_replace($srch, $rplc, $string);
 				}
 				/*
 				$search = 'markitup_name_'.$button;
-				
+
 				if (strpos($string, $search) !== false)
 				{
 					$string = str_replace($search, $I18N->msg($search), $string);
 				}
 				*/
 				$params[$line[0]]= $string;
-				
+
 			}
 		}
 		if (count($params)>0) {
@@ -87,13 +88,13 @@ foreach ($buttons as $button) {
 				$pcount++;
 				echo $k.':'.$v;
 				if ($pcount<count($params)) {
-					echo ', '	;	
+					echo ', '	;
 				}
 			}
 			echo '},';
 		}
-		
-	}	
+
+	}
 }
 $out=ob_get_contents();
 ob_end_clean();
@@ -129,4 +130,4 @@ aQueryString[iParam].indexOf(strParamName.toLowerCase() + "=") > -1 ){
     }
   }
   return unescape(strReturn);
-} 
+}

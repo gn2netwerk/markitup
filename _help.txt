@@ -1,52 +1,92 @@
-h3. Überschriften
+h1. 1. Button-Set
 
-* h1
-* h2
-* h3
-* h4
-* h5
-* h6
+* Alle verfügbaren Buttons werden im Default-Set Editor angezeigt
+* Ein Klick auf einen Button fügt diesen der Default-Set Liste hinzu
+* Position/Reihenfolge der Buttons kann - wie vom MEDIALIST Widget gewohnt - bearbeitet werde.
+* Nachträglich bzw. zusätzlich installierte Buttons werden in der Auswahl unter _Extras_ automatisch aufgelistet.
 
-h3. Textformatierung
 
-* bold
-* italic
-* stroke
-* underline
-* superscript
-* subscript
+h1. 2. Marktitup Instanz aufrufen
 
-h3. Ausrichtung
+Marktitup kann wahlweise mit expliziten Einstellungen für _Button-Set_, _Breite_ & _Höhe_ aufgerufen werden, als auch vereinfacht mit den default Einstellungen aus dem Backend. Zu beachten ist in beiden Fällen, daß die CSS Klasse in der textarea (im Beispiel: @markitup-text@) und im markitup Aufruf identisch sind:
 
-* alignleft
-* alignright
-* aligncenter
-* alignjustify
+h3. 2.1 Mit Einstellungen aus Addon Backend
 
-h3. Tabellen & Listen
+bc.. <textarea name="VALUE[1]" class="markitup-text" cols="80" rows="10">REX_VALUE[1]</textarea>
 
-* table
-* listbullet
-* listnumeric
+<?php
+a287_markitup::markitup(
+  'textarea.markitup-text'
+  );
+?>
 
-h3. Dateien & Links
+h3. 2.2 Mit expliziten Einstellungen
 
-* image
-* linkmedia
-* separator
-* linkintern
-* linkextern
-* linkmailto
+bc.. <textarea name="VALUE[1]" class="markitup-text" cols="80" rows="10">REX_VALUE[1]</textarea>
 
-h3. Code-Blöcke
+<?php
+a287_markitup::markitup(
+  'textarea.markitup-text',
+  'h1,h2,h3,h4,h5,h6,separator,alignleft,alignright,aligncenter,alignjustify,separator,bold,italic,stroke,underline,superscript,subscript,table,separator,listbullet,listnumeric,separator,image,linkmedia,separator,linkintern,linkextern,linkmailto,separator,blockquote,code,separator,clean,separator,preview',
+  '700',
+  '400'
+);
+?>
 
-* blockquote
-* code
+h1. 3. Beispielmodul
 
-h3. Sonderfunktionen
+h3. Eingabe (mit expliziten Einstellungen)
 
-* separator
-* clean
-* preview
+bc.. <strong>Text:</strong><br/>
+<textarea name="VALUE[1]" class="markitup-text" cols="80" rows="10">REX_VALUE[1]</textarea>
 
-"www.gn2-netwerk.de":http://www.gn2-netwerk.de
+<?php
+a287_markitup::markitup('textarea.markitup-text',
+'h1,h2,h3,h4,h5,h6,separator,alignleft,alignright,aligncenter,alignjustify,separator,bold,italic,stroke,underline,superscript,subscript,table,separator,listbullet,listnumeric,separator,image,linkmedia,separator,linkintern,linkextern,linkmailto,separator,blockquote,code,separator,clean,separator,preview',
+'700','400'
+);
+?>
+
+h3. Ausgabe (UTF8)
+
+bc.. <?php
+$textile = '';
+$markitup_textile_preview = rex_post('markitup_textile_preview_REX_SLICE_ID', 'string');
+if ($markitup_textile_preview != '')
+{
+	$textile = stripslashes($markitup_textile_preview);
+}
+elseif(REX_IS_VALUE[1])
+{
+	$textile = htmlspecialchars_decode('REX_VALUE[1]');
+}
+
+if ($textile != '')
+{
+	$textile = str_replace("<br />", "", $textile);
+	echo rex_a79_textile($textile);
+}
+?>
+
+h3. Ausgabe (ISO)
+
+bc.. <?php
+$textile = '';
+$markitup_textile_preview = rex_post('markitup_textile_preview_REX_SLICE_ID', 'string');
+if ($markitup_textile_preview != '')
+{
+	$textile = utf8_decode(stripslashes($markitup_textile_preview));
+}
+elseif(REX_IS_VALUE[1])
+{
+	$textile = htmlspecialchars_decode('REX_VALUE[1]');
+}
+
+if ($textile != '')
+{
+	$textile = str_replace("<br />", "", $textile);
+	echo rex_a79_textile($textile);
+}
+?>
+
+p. "www.gn2-netwerk.de":http://www.gn2-netwerk.de

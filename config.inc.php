@@ -3,10 +3,11 @@
 /**
  * MARKITUP Addon
  * Textile Markup Editor
- * 
+ *
  * @author Markitup by Jay Salvat - http://markitup.jaysalvat.com
  * @author Redaxo Addon by http://www.gn2-netwerk.de/
  * @package redaxo4.2
+ * @version 1.1
  * @version svn:$Id$
  */
 
@@ -17,7 +18,7 @@ $mypage = 'markitup';
 $REX['ADDON']['rxid'][$mypage] = '287';
 $REX['ADDON']['page'][$mypage] = $mypage;
 $REX['ADDON']['name'][$mypage] = 'Markitup';
-$REX['ADDON']['version'][$mypage] = "1.0 SVN #".ereg_replace('[^0-9]',"","$Revision$");
+$REX['ADDON']['version'][$mypage] = "1.1 SVN #".ereg_replace('[^0-9]',"","$Revision$");
 $REX['ADDON']['author'][$mypage] = "Jay Salvat, Rüdiger Nitschke, Dave Holloway";
 
 // PERMISSIONS
@@ -61,11 +62,11 @@ if ($REX['REDAXO'])
 // OUTPUT
 ////////////////////////////////////////////////////////////////////////////////
 if (rex_request('a287_markitup_set')!="") {
-	require_once $REX['INCLUDE_PATH'].'/addons/markitup/pages/setloader.php';	
+	require_once $REX['INCLUDE_PATH'].'/addons/markitup/pages/setloader.php';
 	exit();
 }
 if (rex_request('a287_markitup_css')!="") {
-	require_once $REX['INCLUDE_PATH'].'/addons/markitup/pages/cssloader.php';	
+	require_once $REX['INCLUDE_PATH'].'/addons/markitup/pages/cssloader.php';
 	exit();
 }
 
@@ -80,11 +81,13 @@ function a287_markitup($params) {
   <link rel="stylesheet" type="text/css" href="include/addons/markitup/data/skins/markitup/style.css" />
 ';
 	}
-	
-	
+
+
 	$output = str_replace('</head>',$scripts.'</head>',$output);
 	return $output;
 }
 
-rex_register_extension('OUTPUT_FILTER', 'a287_markitup'); 
+rex_register_extension('OUTPUT_FILTER', 'a287_markitup');
+fb($REX['INCLUDE_PATH'].'/addons/'.$mypage.'/controller.inc.php','MARKITUP');
+include $REX['INCLUDE_PATH'].'/addons/'.$mypage.'/controller.inc.php';
 ?>

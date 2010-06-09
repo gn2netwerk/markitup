@@ -1,0 +1,116 @@
+/**
+ * MARKITUP Addon
+ * Textile Markup Editor
+ *
+ * @author Markitup by Jay Salvat - http://markitup.jaysalvat.com
+ * @author Redaxo Addon by http://www.gn2-netwerk.de/
+ * @package redaxo4.2
+ * @version 1.1
+ * @version svn:$Id$
+ */
+
+
+/* ADDON HEADLINE */
+span.addonversion {
+  font-size:10px;
+  color:silver;
+  }
+
+/* ADDON CHAPTER-LINKS */
+a.jsopenwin,
+a.blank,
+span.jsopenwin {
+  padding-right:16px;
+  background:url('index.php?markitup_func=jsopenwin.gif') no-repeat 100% 0 ;
+  }
+
+/* ADDON CONTENT */
+.markitup  {
+  padding:2px 8px 8px 8px;
+  line-height:1.3;
+  }
+
+.markitup p {
+  font-size:12px;
+  margin:0 0 20px 0;
+  }
+
+.markitup h1 {
+  color:#14568A;
+  font-size:18px;
+  border-bottom:1px solid #DFE9E9;
+  margin:26px 0 10px 0;
+  padding:0 0 2px 0;
+  }
+
+.markitup h1:first-child {
+  margin:0 0 10px 0;
+  }
+
+.markitup h2 {
+  font-size:14px;
+  margin:2px 0 10px 0;
+  padding:0;
+  }
+
+.markitup h3 {
+  font-size:13px;
+  margin:2px 0 10px 0;
+  padding:0;
+  }
+
+.markitup h4 {
+  font-size:12px;
+  margin:2px 0 10px 0;
+  padding:0;
+  }
+
+.markitup h5 {
+  font-size:11px;
+  margin:2px 0 10px 0;
+  padding:0;
+  }
+
+.markitup cite,
+.markitup code,
+.markitup pre {
+  color:red;
+  font-family:monospace;
+  font-style:normal;
+  font-size:12px;
+  }
+
+.markitup pre {
+  overflow:auto;
+  border:1px dashed #C0C0C0;
+  background:#FAF9F5;
+  margin:2px 4px 8px 0;
+  padding:8px;
+  line-height:12px;
+  }
+
+.markitup hr {
+  height:1px;
+  border:0;
+  border-top:1px solid silver;
+  margin:8px 0;
+  padding:0;
+  }
+
+.markitup li {
+  line-height:1.4;
+  }
+
+#markitup_robots {
+  height:100px;
+}
+
+#markitup_redirects {
+  height:100px;
+}
+.markitup_ticket {
+	margin:2px 0 2px 0;
+}
+.markitup_ticket .markitup_date {
+	margin-right:15px;
+}

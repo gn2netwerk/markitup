@@ -3,10 +3,11 @@
 /**
  * MARKITUP Addon
  * Textile Markup Editor
- * 
+ *
  * @author Markitup by Jay Salvat - http://markitup.jaysalvat.com
  * @author Redaxo Addon by http://www.gn2-netwerk.de/
  * @package redaxo4.2
+ * @version 1.1
  * @version svn:$Id$
  */
 
@@ -20,15 +21,15 @@ $myroot  = $REX['INCLUDE_PATH'].'/addons/'.$myself;
 
 // BACKEND CSS
 ////////////////////////////////////////////////////////////////////////////////
-/*$header = array(
-'  <link rel="stylesheet" type="text/css" href="index.php?rexseo_func=backend.css" media="screen, projection, print" />
+$header = array(
+'  <link rel="stylesheet" type="text/css" href="index.php?markitup_func=backend.css" media="screen, projection, print" />
 '
 );
 
 if ($REX['REDAXO']) {
   include_once $myroot.'/functions/function.rexdev_header_add.inc.php';
   rex_register_extension('PAGE_HEADER', 'rexdev_header_add',$header);
-}*/
+}
 
 // INCLUDE CLASSES
 ////////////////////////////////////////////////////////////////////////////////

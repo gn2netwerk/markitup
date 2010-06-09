@@ -3,10 +3,11 @@
 /**
  * MARKITUP Addon
  * Textile Markup Editor
- * 
+ *
  * @author Markitup by Jay Salvat - http://markitup.jaysalvat.com
  * @author Redaxo Addon by http://www.gn2-netwerk.de/
  * @package redaxo4.2
+ * @version 1.1
  * @version svn:$Id$
  */
 
@@ -110,7 +111,7 @@ foreach($builtin_buttons as $k => $v)
       $button_panel .='<p style="margin:0 0 6px 0;">';
       $optgroup = 'open';
     break;
-    
+
     default:
       $button_panel .='<a href="javascript:selectMedialist(\''.$v.'\');" style="float:left;background:#EFF9F9;margin:1px;padding:1px;border:1px solid silver;"><img src="include/addons/markitup/data/sets/default/'.$v.'.png" alt="Button '.strtoupper($v).' hinzufügen" title="Button '.strtoupper($v).' hinzufügen" width="16" height="16" /></a>';
       $builtin_raw[] = $v.'.button';
@@ -267,7 +268,7 @@ function openPage(src)
         </p>
       </div>
 
-        
+
       </div>
     </fieldset>
   </form>

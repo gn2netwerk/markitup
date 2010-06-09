@@ -3,10 +3,11 @@
 /**
  * MARKITUP Addon
  * Textile Markup Editor
- * 
+ *
  * @author Markitup by Jay Salvat - http://markitup.jaysalvat.com
  * @author Redaxo Addon by http://www.gn2-netwerk.de/
  * @package redaxo4.2
+ * @version 1.1
  * @version svn:$Id$
  */
 
@@ -20,7 +21,7 @@ $func    = rex_request('func', 'string');
 // CHAPTER DEFS ('CHAPTER GET PARAM' => array('TITLE','SOURCE','PARSEMODE'))
 ////////////////////////////////////////////////////////////////////////////////
 $chapterpages = array (
-''            => array('Markitup Buttons','_help.txt','textile'),
+''            => array('Addon Hilfe','_help.txt','textile'),
 'changelog'   => array('Addon Changelog','pages/changelog.inc.php','php'),
 'tickets'     => array('Addon Tickets','pages/tickets.inc.php','php')
 );
