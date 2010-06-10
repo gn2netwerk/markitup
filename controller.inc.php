@@ -13,7 +13,7 @@
 $mypage = 'markitup';
 
 if (rex_request('markitup_func')!="")
-{fb($mypage,'markitup: $mypage');
+{
   $path = $REX['INCLUDE_PATH'].'/addons/'.$mypage;
 
   switch (rex_request('markitup_func'))

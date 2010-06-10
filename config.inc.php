@@ -88,6 +88,6 @@ function a287_markitup($params) {
 }
 
 rex_register_extension('OUTPUT_FILTER', 'a287_markitup');
-fb($REX['INCLUDE_PATH'].'/addons/'.$mypage.'/controller.inc.php','MARKITUP');
+
 include $REX['INCLUDE_PATH'].'/addons/'.$mypage.'/controller.inc.php';
 ?>
