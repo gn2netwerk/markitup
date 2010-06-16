@@ -1,7 +1,7 @@
 <?php
 
 /**
- * CONTENT PARSER FUNKTIONEN 
+ * CONTENT PARSER FUNKTIONEN
  * @author rexdev.de
  * @package redaxo4.2
  * @version svn:$Id$
@@ -13,7 +13,7 @@ if (!function_exists('rexdev_incparse'))
 {
   function rexdev_incparse($root,$source,$parsemode,$return=false)
   {
-    
+
     switch ($parsemode)
     {
       case 'textile':
@@ -21,30 +21,30 @@ if (!function_exists('rexdev_incparse'))
       $content = file_get_contents($source);
       $html = rexdev_textileparser($content,true);
       break;
-      
+
       case 'txt':
       $source = $root.$source;
       $content = file_get_contents($source);
       $html =  '<pre class="plain">'.$content.'</pre>';
       break;
-      
+
       case 'raw':
       $source = $root.$source;
       $content = file_get_contents($source);
       $html = $content;
       break;
-      
+
       case 'php':
       $source = $root.$source;
       $html =  get_include_contents($source);
       break;
-	  
-	
-      
+
+
+
       case 'iframe':
       $html = '<iframe src="'.$source.'" width="99%" height="600px"></iframe>';
       break;
-      
+
       case 'jsopenwin':
       $html = 'Externer link: <a href="'.$source.'">'.$source.'</a>
       <script language="JavaScript">
@@ -53,12 +53,12 @@ if (!function_exists('rexdev_incparse'))
       //-->
       </script>';
       break;
-      
+
       case 'extlink':
       $html = 'Externer link: <a href="'.$source.'">'.$source.'</a>';
       break;
     }
-    
+
     if($return)
     {
       return $html;
@@ -67,7 +67,7 @@ if (!function_exists('rexdev_incparse'))
     {
       echo $html;
     }
-    
+
   }
 }
 
@@ -80,7 +80,7 @@ if (!function_exists('rexdev_textileparser'))
     if(OOAddon::isAvailable("textile"))
     {
       global $REX;
-      
+
       if($textile!='')
       {
         $textile = htmlspecialchars_decode($textile);
@@ -94,7 +94,7 @@ if (!function_exists('rexdev_textileparser'))
         {
           $html =  utf8_decode(rex_a79_textile($textile));
         }
-    
+
         if($return)
         {
           return $html;
@@ -104,13 +104,13 @@ if (!function_exists('rexdev_textileparser'))
           echo $html;
         }
       }
-      
+
     }
     else
     {
       $html = rex_warning('WARNUNG: Das <a href="index.php?page=addon">Textile Addon</a> ist nicht aktiviert! Der Text wird ungeparst angezeigt..');
       $html .= '<pre>'.$textile.'</pre>';
-    
+
       if($return)
       {
         return $html;
@@ -150,14 +150,17 @@ if (!function_exists('echotextile'))
 
 // http://php.net/manual/de/function.include.php
 ////////////////////////////////////////////////////////////////////////////////
-function get_include_contents($filename) {
-  if (is_file($filename)) {
-    ob_start();
-    include $filename;
-    $contents = ob_get_contents();
-    ob_end_clean();
-    return $contents;
+if (!function_exists('get_include_contents'))
+{
+  function get_include_contents($filename) {
+    if (is_file($filename)) {
+      ob_start();
+      include $filename;
+      $contents = ob_get_contents();
+      ob_end_clean();
+      return $contents;
+    }
+    return false;
   }
-  return false;
 }
 ?>
