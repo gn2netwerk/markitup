@@ -113,12 +113,7 @@ foreach($builtin_buttons as $k => $v)
     break;
 
     default:
-<<<<<<< .mine
-      $img = '<img src="include/addons/markitup/data/sets/default/'.$v.'.png" alt="Button '.strtoupper($v).' hinzufügen" title="Button '.strtoupper($v).' hinzufügen" width="16" height="16" />';
-      $button_panel .='<a href="javascript:selectMedialist(\''.$v.'\');" style="float:left;background:#EFF9F9;margin:1px;padding:1px;border:1px solid silver;">'.$img.'</a>';
-=======
       $button_panel .='<a href="javascript:selectMedialist(\''.$v.'\');" style="float:left;background:#EFF9F9;margin:1px;padding:1px;border:1px solid silver;"><img src="include/addons/markitup/data/sets/default/'.$v.'.png" alt="Button '.strtoupper($v).' hinzufuegen" title="Button '.strtoupper($v).' hinzufuegen" width="16" height="16" /></a>';
->>>>>>> .r20
       $builtin_raw[] = $v.'.button';
   }
 }
@@ -237,7 +232,6 @@ function openPage(src)
             // 4.3.x
             echo '
             <p class="rex-widget-icons">
-<<<<<<< .mine
               <a href="#" class="rex-icon-file-top" onclick="moveREXMedialist(1,\'top\');return false;" tabindex="32"></a>
               <a href="#" class="rex-icon-file-up" onclick="moveREXMedialist(1,\'up\');return false;" tabindex="34"></a>
               <a href="#" class="rex-icon-file-down" onclick="moveREXMedialist(1,\'down\');return false;" tabindex="36"></a>
@@ -253,10 +247,6 @@ function openPage(src)
             <p class="rex-widget-icons">
               <a href="#" class="rex-icon-file-top" onclick="moveREXMedialist(1,\'top\');return false;" tabindex="32"><img src="media/file_top.gif" width="16" height="16" title="Ausgewähltes Medium an den Anfang verschieben" alt="Ausgewähltes Medium an den Anfang verschieben" /></a>
               <a href="#" class="rex-icon-file-delete" onclick="deleteREXMedialist(1);return false;" tabindex="37"><img src="media/file_del.gif" width="16" height="16" title="Ausgewähltes Medium löschen" alt="Ausgewähltes Medium löschen" /></a>
-=======
-              <a href="#" class="rex-icon-file-top" onclick="moveREXMedialist(1,\'top\');return false;" tabindex="32"><img src="media/file_top.gif" width="16" height="16" title="Ausgewaehltes Medium an den Anfang verschieben" alt="Ausgewaehltes Medium an den Anfang verschieben" /></a>
-              <a href="#" class="rex-icon-file-delete" onclick="deleteREXMedialist(1);return false;" tabindex="37"><img src="media/file_del.gif" width="16" height="16" title="Ausgewaehltes Medium loeschen" alt="Ausgewaehltes Medium loeschen" /></a>
->>>>>>> .r20
               <br />
               <a href="#" class="rex-icon-file-up" onclick="moveREXMedialist(1,\'up\');return false;" tabindex="34"><img src="media/file_up.gif" width="16" height="16" title="Ausgewaehltes Medium nach oben verschieben" alt="Ausgewaehltes Medium an den Anfang verschieben" /></a>
               <br />
