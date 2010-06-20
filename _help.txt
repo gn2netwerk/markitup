@@ -15,9 +15,10 @@ h3. 2.1 Mit Einstellungen aus Addon Backend
 bc.. <textarea name="VALUE[1]" class="markitup-text" cols="80" rows="10">REX_VALUE[1]</textarea>
 
 <?php
-a287_markitup::markitup(
-  'textarea.markitup-text'
-  );
+if(OOAddon::isAvailable('markitup'))
+{
+  a287_markitup::markitup('textarea.markitup-text');
+}
 ?>
 
 h3. 2.2 Mit expliziten Einstellungen
@@ -25,12 +26,15 @@ h3. 2.2 Mit expliziten Einstellungen
 bc.. <textarea name="VALUE[1]" class="markitup-text" cols="80" rows="10">REX_VALUE[1]</textarea>
 
 <?php
-a287_markitup::markitup(
-  'textarea.markitup-text',
-  'h1,h2,h3,h4,h5,h6,separator,alignleft,alignright,aligncenter,alignjustify,separator,bold,italic,stroke,underline,superscript,subscript,table,separator,listbullet,listnumeric,separator,image,linkmedia,separator,linkintern,linkextern,linkmailto,separator,blockquote,code,separator,clean,separator,preview',
-  '700',
-  '400'
-);
+if(OOAddon::isAvailable('markitup'))
+{
+  a287_markitup::markitup(
+    'textarea.markitup-text',
+    'h1,h2,h3,h4,h5,h6,separator,alignleft,alignright,aligncenter,alignjustify,separator,bold,italic,stroke,underline,superscript,subscript,table,separator,listbullet,listnumeric,separator,image,linkmedia,separator,linkintern,linkextern,linkmailto,separator,blockquote,code,separator,clean,separator,preview',
+    '700',
+    '400'
+  );
+}
 ?>
 
 h1. 3. Beispielmodul
