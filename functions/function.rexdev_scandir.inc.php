@@ -6,7 +6,7 @@
 *
 * @package redaxo4
 * @version 1.0
-* $Id$: 
+* $Id$:
 *
 * @param $source    (string)    Pfad des zu scanenden Verzeichnisses
 * @param $limit     (int)       Scantiefe limitiert (1.-n.) Level bzw. nicht (0)
@@ -38,11 +38,11 @@
 *                               )
 */
 
-if (!function_exists('fb')) {
+/*if (!function_exists('fb')) {
   function fb() {
     echo 'no FirePHP installed!';
   }
-}
+}*/
 
 if (!function_exists('rexdev_scandir'))
 {
@@ -79,7 +79,7 @@ if (!function_exists('rexdev_scandir'))
       if(count($i) == 2) // is valid wildcard string
       {//$fb->log($i,'$i');
         if(array_search('', $i) == 0) // wildcard string is extension
-        { 
+        {
           //$fb->group('EXTENSION matching');
           foreach($dirscan as $item) // run through prior scan result
           {//$fb->log($dirscan,'$dirscan');
@@ -91,7 +91,7 @@ if (!function_exists('rexdev_scandir'))
           //$fb->groupEnd();
         }
         else // wildcard string is prefix
-        { 
+        {
           //$fb->group('PREFIX matching');
           foreach($dirscan as $item) // run through prior scan result
           {
@@ -115,13 +115,13 @@ if (!function_exists('rexdev_scandir'))
         $i = count($result['folders']) + 1;
         $result['folders'][$i] = str_replace($result['root'], '', $source.$item).'/';
         $result['counter']['folders']++;
-        
+
         $depth = count(explode('/',str_replace($result['root'], '', $source.$item.'/'))); //fb($depth,'$depth');
         if($depth>$result['depth'])
         {
           $result['depth'] = $depth;
         }
-        
+
         // RECURSION IF NOT LIMITED
         if($limit && intval($limit))
         { //fb('LIMITED recursion');
@@ -135,12 +135,12 @@ if (!function_exists('rexdev_scandir'))
           rexdev_scandir($source.$item.'/', $limit, $blacklist, $whitelist, $result);
         }
       }
-      
+
       // DO FILE STUFF
       elseif (is_file($source.$item))
       {
         $depth = count(explode('/',$source));
-        
+
         if(count($whitelist)>0) // LIMIT ACCORDING WHITELIST
         {//fb('LIMIT ACCORDING WHITELIST --------------------------------------');
           foreach($whitelist as $w)
@@ -177,7 +177,7 @@ if (!function_exists('rexdev_scandir'))
         }
       }
     }
-    
+
     // CHECK RESULT, IF NO MATCHES AT ALL -> RETURN NULL
     if ($result['files']==NULL && $result['folders']==NULL)
     {
