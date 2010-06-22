@@ -41,6 +41,28 @@ $REX[\'ADDON\'][\'markitup\'][\'default\'][\'height\'] = \''.$height.'\';
   echo rex_info('Konfiguration wurde aktualisiert');
 }
 
+// REVISION CHECK
+////////////////////////////////////////////////////////////////////////////////
+$this_revision = intval($REX['ADDON'][$myself]['revision']);
+$Parser = new rexseo_FeedParser();
+$Parser->parse('http://www.gn2-code.de/projects/markitup/activity.atom?key=4372f934b085621f0878e4d8d2dc8b1a4c3fd9dc');
+$items = $Parser->getItems();
+$latest_revision = false;
+
+foreach ($items as $item)
+{
+  if (strpos($item['TITLE'],'Revision') !== false)
+  {
+    $latest_revision = intval(str_replace('Revision ','',$item['TITLE']));
+    break;
+  }
+}
+unset($Parser);
+if($latest_revision > $this_revision)
+{
+  echo rex_info('Eine neue SVN Version ist verf&uuml;gbar: <a href="index.php?page='.$myself.'&subpage=help&chapter=changelog&highlight=Revision+'.$latest_revision.'">Revision '.$latest_revision.'</a>');
+}
+
 // BUTTON SET WIDGET
 ////////////////////////////////////////////////////////////////////////////////
 require_once $REX['INCLUDE_PATH'].'/addons/markitup/functions/function.rexdev_scandir.inc.php';

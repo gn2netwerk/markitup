@@ -10,11 +10,11 @@
  * @version svn:$Id$
  */
 
-$mypage = 'markitup';
+$myself = 'markitup';
 
 if (rex_request('markitup_func')!="")
 {
-  $path = $REX['INCLUDE_PATH'].'/addons/'.$mypage;
+  $path = $REX['INCLUDE_PATH'].'/addons/'.$myself;
 
   switch (rex_request('markitup_func'))
   {

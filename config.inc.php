@@ -11,20 +11,21 @@
  * @version svn:$Id$
  */
 
-$mypage = 'markitup';
+$myself = 'markitup';
 
 // COMMONS
 ////////////////////////////////////////////////////////////////////////////////
-$REX['ADDON']['rxid'][$mypage] = '287';
-$REX['ADDON']['page'][$mypage] = $mypage;
-$REX['ADDON']['name'][$mypage] = 'Markitup';
-$REX['ADDON']['version'][$mypage] = "1.1 SVN #".ereg_replace('[^0-9]',"","$Revision$");
-$REX['ADDON']['author'][$mypage] = "Jay Salvat, Rüdiger Nitschke, Dave Holloway";
+$REX['ADDON']['rxid'][$myself] = '287';
+$REX['ADDON']['page'][$myself] = $myself;
+$REX['ADDON']['name'][$myself] = 'Markitup';
+$REX['ADDON'][$myself]['revision'] = ereg_replace('[^0-9]',"","$Revision$");
+$REX['ADDON']['version'][$myself] = '1.1 SVN #'.$REX['ADDON'][$myself]['revision'];
+$REX['ADDON']['author'][$myself] = "Jay Salvat, Rüdiger Nitschke, Dave Holloway";
 
 // PERMISSIONS
 ////////////////////////////////////////////////////////////////////////////////
-$REX['ADDON']['perm'][$mypage] = $mypage.'[]';
-$REX['PERM'][] = $mypage.'[]';
+$REX['ADDON']['perm'][$myself] = $myself.'[]';
+$REX['PERM'][] = $myself.'[]';
 
 // USER SETTINGS
 ////////////////////////////////////////////////////////////////////////////////
@@ -44,17 +45,17 @@ require_once $REX['INCLUDE_PATH'].'/addons/markitup/functions/function.rexdev_sc
 if ($REX['REDAXO'])
 {
   // BUILTIN
-  $I18N->appendFile($REX['INCLUDE_PATH'] . '/addons/' . $mypage . '/lang');
+  $I18N->appendFile($REX['INCLUDE_PATH'] . '/addons/' . $myself . '/lang');
 
   // 3RD PARTY
-  $lang_root = $REX['INCLUDE_PATH'].'/addons/' . $mypage . '/lang/';
+  $lang_root = $REX['INCLUDE_PATH'].'/addons/' . $myself . '/lang/';
   $extra_langs = rexdev_scandir($lang_root,0,array(),array());
   $extra_langs = $extra_langs['folders'];
   if(count($extra_langs) > 0)
   {
     foreach($extra_langs as $lang)
     {
-      $I18N->appendFile($REX['INCLUDE_PATH'] . '/addons/' . $mypage . '/lang/'.$lang);
+      $I18N->appendFile($REX['INCLUDE_PATH'] . '/addons/' . $myself . '/lang/'.$lang);
     }
   }
 }
@@ -89,5 +90,5 @@ function a287_markitup($params) {
 
 rex_register_extension('OUTPUT_FILTER', 'a287_markitup');
 
-include $REX['INCLUDE_PATH'].'/addons/'.$mypage.'/controller.inc.php';
+include $REX['INCLUDE_PATH'].'/addons/'.$myself.'/controller.inc.php';
 ?>
