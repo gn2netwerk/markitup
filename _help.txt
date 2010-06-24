@@ -39,58 +39,6 @@ if(OOAddon::isAvailable('markitup'))
 
 h1. 3. Beispielmodul
 
-h3. Eingabe (mit expliziten Einstellungen)
-
-bc.. <strong>Text:</strong><br/>
-<textarea name="VALUE[1]" class="markitup-text" cols="80" rows="10">REX_VALUE[1]</textarea>
-
-<?php
-a287_markitup::markitup('textarea.markitup-text',
-'h1,h2,h3,h4,h5,h6,separator,alignleft,alignright,aligncenter,alignjustify,separator,bold,italic,stroke,underline,superscript,subscript,table,separator,listbullet,listnumeric,separator,image,linkmedia,separator,linkintern,linkextern,linkmailto,separator,blockquote,code,separator,clean,separator,preview',
-'700','400'
-);
-?>
-
-h3. Ausgabe (UTF8)
-
-bc.. <?php
-$textile = '';
-$markitup_textile_preview = rex_post('markitup_textile_preview_REX_SLICE_ID', 'string');
-if ($markitup_textile_preview != '')
-{
-	$textile = stripslashes($markitup_textile_preview);
-}
-elseif(REX_IS_VALUE[1])
-{
-	$textile = htmlspecialchars_decode('REX_VALUE[1]');
-}
-
-if ($textile != '')
-{
-	$textile = str_replace("<br />", "", $textile);
-	echo rex_a79_textile($textile);
-}
-?>
-
-h3. Ausgabe (ISO)
-
-bc.. <?php
-$textile = '';
-$markitup_textile_preview = rex_post('markitup_textile_preview_REX_SLICE_ID', 'string');
-if ($markitup_textile_preview != '')
-{
-	$textile = utf8_decode(stripslashes($markitup_textile_preview));
-}
-elseif(REX_IS_VALUE[1])
-{
-	$textile = htmlspecialchars_decode('REX_VALUE[1]');
-}
-
-if ($textile != '')
-{
-	$textile = str_replace("<br />", "", $textile);
-	echo rex_a79_textile($textile);
-}
-?>
+Befindet sich im Addon Ordner: @/_beispielmodul.txt@
 
 p. "www.gn2-netwerk.de":http://www.gn2-netwerk.de
