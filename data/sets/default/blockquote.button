@@ -3,8 +3,8 @@ name:::::'translate:markitup_name_blockquote'
 ###
 className:::::'markitup-blockquote'
 ###
-openWith:::::'\nbq(!(([![Class]!]))!). '
+openWith:::::'\n\nbq(!(([![Class]!]))!). '
 ###
-closeWith:::::'\n'
+closeWith:::::'\n\n'
 ###
-placeHolder:::::'Zitat hier...' 
+placeHolder:::::'Zitat hier...'

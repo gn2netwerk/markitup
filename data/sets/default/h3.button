@@ -5,8 +5,8 @@ className:::::'markitup-h3'
 ###
 key:::::'3'
 ###
-openWith:::::'\nh3(!(([![Class]!]))!). '
+openWith:::::'\n\nh3(!(([![Class]!]))!). '
 ###
-closeWith:::::'\n'
+closeWith:::::'\n\n'
 ###
-placeHolder:::::'Überschrift hier...' 
+placeHolder:::::'Überschrift hier...'

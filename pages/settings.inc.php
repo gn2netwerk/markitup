@@ -111,8 +111,8 @@ $builtin_buttons = array(
 
 'Sonderfunktionen' =>   'optgroup',
 'separator' =>          'separator',
-'clean' =>              'clean'/*,
-'preview' =>            'preview'*/
+'clean' =>              'clean',
+'preview' =>            'preview'
 );
 
 // BUILTIN BUTTONS

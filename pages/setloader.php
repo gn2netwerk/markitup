@@ -19,7 +19,8 @@ $clang = rex_request('clang', 'int', '1');
 $slice_id = rex_request('slice_id', 'int');
 $rex_version = rex_request('rex_version', 'int', '');
 
-$parser_path = 'http://'.$REX['SERVER'].'/index.php?article_id='.$article_id.'&clang='.$article_clang;
+$parser_path = 'index.php?page=markitup&subpage=preview&article_id='.$article_id.'&clang='.$article_clang.'&slice_id='.$slice_id;
+
 
 if ($rex_version != '')
 	$parser_path .= '&rex_version='.$rex_version;
@@ -31,8 +32,7 @@ echo 'set_'.$setname.' = {';
 //	previewParserPath: "index.php",
 echo '
 	nameSpace:"set-'.$setname.'",
-	previewInWindow: "width=1000, height=800, resizable=yes, scrollbars=yes",
-	previewParserPath: "'.$parser_path.'",
+  previewParserPath: "'.$parser_path.'",
 	previewParserVar: "markitup_textile_preview_'.$slice_id.'",
 	previewAutoRefresh: true,
 	markupSet:  [';
@@ -112,7 +112,11 @@ function insertLink(url,desc)
 { jQuery.markItUp({openWith:'"', closeWith:'":'+url}); }
 
 function insertImage(src, desc)
-{ jQuery.markItUp({replaceWith:"!"+ src +"!"}); }
+{
+  // jQuery.markItUp({replaceWith:"!./"+ src +"!"});
+  img = src.replace(/files\//, "");
+  jQuery.markItUp({ replaceWith:"!index.php?rex_resize=[![Image Width]!]w__"+ img +"!"});
+}
 
 function markitup_getURLParam(strParamName){
   var strReturn = "";

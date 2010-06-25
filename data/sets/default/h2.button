@@ -5,8 +5,8 @@ className:::::'markitup-h2'
 ###
 key:::::'2'
 ###
-openWith:::::'\nh2(!(([![Class]!]))!). '
+openWith:::::'\n\nh2(!(([![Class]!]))!). '
 ###
-closeWith:::::'\n'
+closeWith:::::'\n\n'
 ###
-placeHolder:::::'Überschrift hier...' 
+placeHolder:::::'Überschrift hier...'

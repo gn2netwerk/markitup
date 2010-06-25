@@ -3,6 +3,6 @@ name:::::'translate:markitup_name_code'
 ###
 className:::::'markitup-code'
 ###
-openWith:::::'\n@'
+openWith:::::' @'
 ###
-closeWith:::::'@\n'
+closeWith:::::'@ '

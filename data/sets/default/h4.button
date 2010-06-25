@@ -5,8 +5,8 @@ className:::::'markitup-h4'
 ###
 key:::::'4'
 ###
-openWith:::::'\nh4(!(([![Class]!]))!). '
+openWith:::::'\n\nh4(!(([![Class]!]))!). '
 ###
-closeWith:::::'\n'
+closeWith:::::'\n\n'
 ###
-placeHolder:::::'Überschrift hier...' 
+placeHolder:::::'Überschrift hier...'

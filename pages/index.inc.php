@@ -39,28 +39,34 @@ require_once $myroot.'/classes/class.feedparser.inc.php';
 ////////////////////////////////////////////////////////////////////////////////
 require_once $myroot.'/functions/function.rexdev_incparse.inc.php';
 
-// REX TOP
+// MAIN
 ////////////////////////////////////////////////////////////////////////////////
-require $REX['INCLUDE_PATH'] . '/layout/top.php';
-
-// BUILD SUBPAGE NAVIGATION
-////////////////////////////////////////////////////////////////////////////////
-$subpages = array (
-    array ('settings','Einstellungen'),
-    array ('help','Hilfe')
-  );
-
-rex_title('Markitup <span class="addonversion">'.$REX['ADDON']['version'][$myself].'</span>', $subpages);
-
-// SET DEFAULT PAGE / INCLUDE SUBPAGE
-////////////////////////////////////////////////////////////////////////////////
-if(!$subpage) {
-  $subpage = 'settings';
+if ($subpage == 'preview')
+{
+  // INLINE PREVIEW
+  require $REX['INCLUDE_PATH'] . '/addons/'.$myself.'/pages/'.$subpage.'.inc.php';
 }
-require $REX['INCLUDE_PATH'] . '/addons/'.$myself.'/pages/'.$subpage.'.inc.php';
+else
+{
+  // REX TOP
+  require $REX['INCLUDE_PATH'] . '/layout/top.php';
 
-// REX BOTTOM
-////////////////////////////////////////////////////////////////////////////////
-require $REX['INCLUDE_PATH'] . '/layout/bottom.php';
+  // BUILD SUBPAGE NAVIGATION
+  $subpages = array (
+      array ('settings','Einstellungen'),
+      array ('help','Hilfe')
+    );
+
+  rex_title('Markitup <span class="addonversion">'.$REX['ADDON']['version'][$myself].'</span>', $subpages);
+
+  // SET DEFAULT PAGE / INCLUDE SUBPAGE
+  if(!$subpage) {
+    $subpage = 'settings';
+  }
+  require $REX['INCLUDE_PATH'] . '/addons/'.$myself.'/pages/'.$subpage.'.inc.php';
+
+  // REX BOTTOM
+  require $REX['INCLUDE_PATH'] . '/layout/bottom.php';
+}
 
 ?>
