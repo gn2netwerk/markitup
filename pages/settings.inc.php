@@ -46,7 +46,7 @@ $REX[\'ADDON\'][\'markitup\'][\'default\'][\'preview\']  = \''.$preview.'\';
 
 // REVISION CHECK
 ////////////////////////////////////////////////////////////////////////////////
-/*$this_revision = intval($REX['ADDON'][$myself]['revision']);
+$this_revision = intval($REX['ADDON'][$myself]['revision']);
 $Parser = new rexseo_FeedParser();
 $Parser->parse('http://www.gn2-code.de/projects/markitup/activity.atom?key=4372f934b085621f0878e4d8d2dc8b1a4c3fd9dc');
 $items = $Parser->getItems();
@@ -64,7 +64,7 @@ unset($Parser);
 if($latest_revision > $this_revision)
 {
   echo rex_info('Eine neue SVN Version ist verf&uuml;gbar: <a href="index.php?page='.$myself.'&subpage=help&chapter=changelog&highlight=Revision+'.$latest_revision.'">Revision '.$latest_revision.'</a>');
-}*/
+}
 
 // BUTTON SET WIDGET
 ////////////////////////////////////////////////////////////////////////////////
