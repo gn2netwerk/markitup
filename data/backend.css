@@ -80,14 +80,23 @@ span.jsopenwin {
   font-size:12px;
   }
 
-.markitup pre {
+.markitup pre,
+.markitup p.rex-code {
   overflow:auto;
-  border:1px dashed #C0C0C0;
-  background:#FAF9F5;
+  border:1px solid #CBCBCB;
+  background:white url("../files/addons/be_style/plugins/agk_skin/website.gif") repeat-x 0 -100px;
   margin:2px 4px 8px 0;
   padding:8px;
   line-height:12px;
+  border-radius:6px;
+  -moz-border-radius:6px;
+  -moz-webkit-radius:6px;
   }
+
+.markitup pre code {
+  color:#0000BB;
+}
+
 
 .markitup hr {
   height:1px;

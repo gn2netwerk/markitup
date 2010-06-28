@@ -23,6 +23,7 @@ function a287_markitup_extpoint($params) {
 		$src_params .= '&article_id='.$params['article_id'];
 		$src_params .= '&clang='.$params['clang'];
 		$src_params .= '&slice_id='.$params['slice_id'];
+		$src_params .= '&function='.rex_request('function','string');
 
 		if (isset($params['rex_version']))
 			$src_params .= '&rex_version='.$params['rex_version'];

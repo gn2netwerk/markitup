@@ -11,34 +11,82 @@
  * @version svn:$Id$
  */
 
-header('Content-type:text/javascript');
+// SWITCH CHARSET
+////////////////////////////////////////////////////////////////////////////////
+if (strpos($REX['LANG'],'utf'))
+{
+  header('Content-type:text/javascript; charset=utf-8');
+}
+else
+{
+  header('Content-type:text/javascript; charset=iso-8859-1');
+}
+
+// PARAMS
+////////////////////////////////////////////////////////////////////////////////
 $setname = md5(rex_request('a287_markitup_set'));
 
-$article_id 		= rex_request('article_id', 'int');
-$clang = rex_request('clang', 'int', '1');
-$slice_id = rex_request('slice_id', 'int');
-$rex_version = rex_request('rex_version', 'int', '');
+$article_id = rex_request('article_id', 'int');
+$clang      = rex_request('clang', 'int', '1');
+$slice_id   = rex_request('slice_id', 'int');
+$function   = rex_request('function', 'string');
+$preview    = $REX['ADDON']['markitup']['default']['preview'];
 
-$parser_path = 'index.php?page=markitup&subpage=preview&article_id='.$article_id.'&clang='.$article_clang.'&slice_id='.$slice_id;
+// AUS SLICE ID AUF VERSION SCHLIESSEN
+////////////////////////////////////////////////////////////////////////////////
+if($slice_id > 0)
+{
+  $rev = new rex_sql;
+  //$rev->debug = true;
+  $rev->setQuery('select `revision` from rex_article_slice where `id` ='.$slice_id);
+  $rex_version = $rev->getValue('revision');
+}
 
-
-if ($rex_version != '')
-	$parser_path .= '&rex_version='.$rex_version;
-
+// MAIN
+////////////////////////////////////////////////////////////////////////////////
 echo 'set_'.$setname.' = {';
-//	previewInWindow: "width=1000, height=800, resizable=yes, scrollbars=yes",
-//	previewParserPath: "~/templates/preview.html",
-//	previewIFrame:	true,
-//	previewParserPath: "index.php",
-echo '
-	nameSpace:"set-'.$setname.'",
-  previewParserPath: "'.$parser_path.'",
-	previewParserVar: "markitup_textile_preview_'.$slice_id.'",
-	previewAutoRefresh: true,
-	markupSet:  [';
+
+if($REX['ADDON']['markitup']['default']['preview'] == 'inline')
+{
+  $parser_path = 'index.php?page=markitup&subpage=preview&article_id='.$article_id.'&clang='.$article_clang.'&slice_id='.$slice_id.'&rex_version='.$rex_version;
+
+  echo '
+    nameSpace:"set-'.$setname.'",
+    previewParserPath: "'.$parser_path.'",
+    previewParserVar: "markitup_textile_preview_'.$slice_id.'",
+    previewAutoRefresh: true,
+    markupSet:  [';
+}
+else
+{
+  if ($REX['MOD_REWRITE'] == true && (OOAddon::isAvailable('rexseo') || OOAddon::isAvailable('url_rewrite')))
+  {
+    require_once $REX['INCLUDE_PATH'].'/generated/files/pathlist.php';
+    $parser_path = 'http://'.$_SERVER['HTTP_HOST'].'/'.$REXPATH[$article_id][$clang].'?slice_id='.$slice_id.'&rex_version='.$rex_version;
+	}
+	else
+	{
+    $parser_path = 'http://'.$_SERVER['HTTP_HOST'].'/index.php?article_id='.$article_id.'&clang='.$article_clang.'&slice_id='.$slice_id.'&rex_version='.$rex_version;
+	}
+
+  echo '
+    nameSpace:"set-'.$setname.'",
+    previewInWindow: "width=1000, height=800, resizable=yes, scrollbars=yes",
+    previewParserPath: "'.$parser_path.'",
+    previewParserVar: "markitup_textile_preview_'.$slice_id.'",
+    previewAutoRefresh: true,
+    markupSet:  [';
+}
 
 ob_start();
 $buttons = explode(',',rex_request('a287_markitup_set'));
+
+// @ MODUL ADD & WYSIWYG PREVIEW -> PREVIEW BUTTON DISABLED
+if($function == 'add' && $preview == 'wysiwyg')
+{
+  $buttons = array_diff($buttons,array('preview'));
+}
+
 foreach ($buttons as $button) {
 	$button = str_replace('/','',$button);
 	$button = str_replace('\\','',$button);

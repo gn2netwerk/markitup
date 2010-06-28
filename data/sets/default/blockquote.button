@@ -7,4 +7,4 @@ openWith:::::'\n\nbq(!(([![Class]!]))!). '
 ###
 closeWith:::::'\n\n'
 ###
-placeHolder:::::'Zitat hier...'
+placeHolder:::::'translate:markitup_placeholder_blockquote'

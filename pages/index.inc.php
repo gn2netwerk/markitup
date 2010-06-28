@@ -53,7 +53,8 @@ else
 
   // BUILD SUBPAGE NAVIGATION
   $subpages = array (
-      array ('settings','Einstellungen'),
+      array ('','Einstellungen'),
+      array ('modul','Beispielmodul'),
       array ('help','Hilfe')
     );
 

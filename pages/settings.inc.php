@@ -20,19 +20,22 @@ $buttons         = rex_request('MEDIALIST', 'array');
 $buttons = $buttons[1];
 $width           = rex_request('width', 'string');
 $height          = rex_request('height', 'string');
+$preview         = rex_request('preview', 'string');
 
 // UPDATE/SAVE SETTINGS
 ////////////////////////////////////////////////////////////////////////////////
 if ($func == "update")
 {
   $REX['ADDON']['markitup']['default']['buttons'] = $buttons;
-  $REX['ADDON']['markitup']['default']['width'] = $width;
-  $REX['ADDON']['markitup']['default']['height'] = $height;
+  $REX['ADDON']['markitup']['default']['width']   = $width;
+  $REX['ADDON']['markitup']['default']['height']  = $height;
+  $REX['ADDON']['markitup']['default']['preview'] = $preview;
 
   $content = '
 $REX[\'ADDON\'][\'markitup\'][\'default\'][\'buttons\'] = \''.$buttons.'\';
-$REX[\'ADDON\'][\'markitup\'][\'default\'][\'width\'] = \''.$width.'\';
-$REX[\'ADDON\'][\'markitup\'][\'default\'][\'height\'] = \''.$height.'\';
+$REX[\'ADDON\'][\'markitup\'][\'default\'][\'width\']   = \''.$width.'\';
+$REX[\'ADDON\'][\'markitup\'][\'default\'][\'height\']  = \''.$height.'\';
+$REX[\'ADDON\'][\'markitup\'][\'default\'][\'preview\']  = \''.$preview.'\';
 ';
 
   $file = $REX['INCLUDE_PATH'].'/addons/markitup/config.inc.php';
@@ -43,7 +46,7 @@ $REX[\'ADDON\'][\'markitup\'][\'default\'][\'height\'] = \''.$height.'\';
 
 // REVISION CHECK
 ////////////////////////////////////////////////////////////////////////////////
-$this_revision = intval($REX['ADDON'][$myself]['revision']);
+/*$this_revision = intval($REX['ADDON'][$myself]['revision']);
 $Parser = new rexseo_FeedParser();
 $Parser->parse('http://www.gn2-code.de/projects/markitup/activity.atom?key=4372f934b085621f0878e4d8d2dc8b1a4c3fd9dc');
 $items = $Parser->getItems();
@@ -61,7 +64,7 @@ unset($Parser);
 if($latest_revision > $this_revision)
 {
   echo rex_info('Eine neue SVN Version ist verf&uuml;gbar: <a href="index.php?page='.$myself.'&subpage=help&chapter=changelog&highlight=Revision+'.$latest_revision.'">Revision '.$latest_revision.'</a>');
-}
+}*/
 
 // BUTTON SET WIDGET
 ////////////////////////////////////////////////////////////////////////////////
@@ -174,7 +177,25 @@ foreach(explode(',',$REX['ADDON']['markitup']['default']['buttons']) as $v)
 
 $select_size = count(explode(',',$REX['ADDON']['markitup']['default']['buttons'])) + 2;
 
+// PREVIEW SELECT BOX OPTIONS
+////////////////////////////////////////////////////////////////////////////////
+$def_preview_option = array(
+'inline'  => 'INLINE (Unterhalb Markitup Fenster, reines HTML ohne CSS)',
+'wysiwyg' => 'WYSIWYG (Frontend Voransicht in neuem Fenster)'
+);
 
+$preview_option = '';
+foreach($def_preview_option as $val => $str)
+{
+  if($val == $REX['ADDON']['markitup']['default']['preview'])
+  {
+    $preview_option .= '<option value="'.$val.'" selected="selected">'.$str.'</option>';
+  }
+  else
+  {
+    $preview_option .= '<option value="'.$val.'">'.$str.'</option>';
+  }
+}
 
 // FORM
 ////////////////////////////////////////////////////////////////////////////////
@@ -291,17 +312,25 @@ function openPage(src)
 
       <div class="rex-form-row">
         <p class="rex-form-col-a rex-form-text">
-          <label for="width">Width</label>
+          <label for="width">Breite:</label>
           <input type="text" id="width" name="width" value="'.stripslashes($REX['ADDON']['markitup']['default']['width']).'">
         </p>
       </div>
 
       <div class="rex-form-row">
         <p class="rex-form-col-a rex-form-text">
-          <label for="height">Height</label>
+          <label for="height">H&ouml;he:</label>
           <input type="text" id="height" name="height" value="'.stripslashes($REX['ADDON']['markitup']['default']['height']).'">
         </p>
       </div>
+
+        <div class="rex-form-row">
+          <p class="rex-form-col-a rex-form-select">
+            <label for="preview">Preview Typ:</label>
+            <select id="preview" name="preview" class="rex-form-select">
+              '.$preview_option.'
+            </select>
+          </p>
 
 
       <div class="rex-form-row rex-form-element-v2">

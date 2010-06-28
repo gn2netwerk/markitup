@@ -37,8 +37,30 @@ if(OOAddon::isAvailable('markitup'))
 }
 ?>
 
-h1. 3. Beispielmodul
+h1. 3. Preview Varianten - Vor & Nachteile
 
-Befindet sich im Addon Ordner: @/_beispielmodul.txt@
+h3. 3.1 INLINE
+
+* *Vorteile*
+## Preview steht schon beim Anlegen eines Block zur Verfügung
+## Modulausgabe muß nicht angepaßt werden.
+## Schneller workflow
+* *Nachteile*
+## Preview ohne das CSS styling des Frontends
+(wichtiges CSS markup kann aber in @./files/addons/markitup/preview.css@ notiert werden)
+
+h3. 3.2 WYSIWYG
+
+* *Vorteile*
+## Echtes WYSIWYG
+* *Nachteile*
+## Anzeige der WYSIWYG Preview erfordert extra Code im Modul OUT - siehe "Beispielmodul":index.php?page=markitup&subpage=modul .
+## Preview ist erst möglich sobald das Modul/der Block bereits hinzugefügt worden ist.
+(Aus diesem Grund wird beim hinzufügen eines Moduls der Preview button in der Symbolleiste *nicht angezeigt*)
+## Langsamerer workflow
+
+h1. 4. Beispielmodul
+
+Befindet sich im Addon Ordner: @./addons/markitup/modules/...@
 
 p. "www.gn2-netwerk.de":http://www.gn2-netwerk.de

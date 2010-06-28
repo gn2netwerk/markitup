@@ -1,0 +1,50 @@
+markitup_name_h1                = heading
+markitup_name_h2                = heading
+markitup_name_h3                = heading
+markitup_name_h4                = heading
+markitup_name_h5                = heading
+markitup_name_h6                = heading
+markitup_placeholder_h1         = heading text here..
+markitup_placeholder_h2         = heading text here..
+markitup_placeholder_h3         = heading text here..
+markitup_placeholder_h4         = heading text here..
+markitup_placeholder_h5         = heading text here..
+markitup_placeholder_h6         = heading text here..
+
+markitup_name_bold              = bold
+markitup_name_italic            = italic
+markitup_name_stroke            = stroke
+markitup_name_superscript       = superscript
+markitup_name_subscript         = subscript
+
+markitup_name_aligncenter       = centered - empty line before
+markitup_name_alignjustify      = justified - empty line before
+markitup_name_alignleft         = aligned left - empty line before
+markitup_name_alignright        = aligned right - empty line before
+
+markitup_name_table             = table
+markitup_table_headline         = table heading
+markitup_table_how_many_cols    = how many columns?
+markitup_table_how_many_rows    = how many rows?
+markitup_table_col              = columns
+markitup_table_row              = row
+markitup_name_listbullet        = list - unordered
+markitup_name_listnumeric       = list - ordered(numeric)
+
+markitup_name_image             = image
+markitup_name_linkmedia         = file link
+markitup_linkmedia_text_1       = description here
+markitup_name_linkintern        = internal link
+markitup_name_linkextern        = external link
+markitup_linkextern_text_1      = enter link
+markitup_linkextern_text_2      = link text here
+markitup_name_linkmailto        = mailto link
+markitup_linkmailto_text_1      = enter e-mail-link
+markitup_linkmailto_text_2      = link text here
+
+markitup_name_blockquote        = blockquote
+markitup_placeholder_blockquote = blockquote here...
+markitup_name_code              = source code
+
+markitup_name_clean             = remove textile markup
+markitup_name_preview           = preview
