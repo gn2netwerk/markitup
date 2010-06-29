@@ -29,7 +29,6 @@ else
 }
 
 $textile = str_replace('\"','"',$textile);
-//$textile = stripslashes($markitup_textile_preview);
 $textile = markitup_previewlinks($textile);
 $html    = rex_a79_textile($textile);
 

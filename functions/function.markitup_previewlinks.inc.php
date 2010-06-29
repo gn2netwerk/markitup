@@ -14,6 +14,11 @@
 function markitup_previewlinks($content)
 {
   global $REX;
+
+  // FIX CONTENT FROM POST
+  $content = str_replace("\n","\r\n",$content);
+  $content = $content.' ';
+
   // Hier beachten, dass man auch ein Zeichen nach dem jeweiligen Link mitmatched,
   // damit beim ersetzen von z.b. redaxo://11 nicht auch innerhalb von redaxo://112
   // ersetzt wird

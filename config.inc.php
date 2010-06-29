@@ -33,7 +33,7 @@ $REX['PERM'][] = $myself.'[]';
 $REX['ADDON']['markitup']['default']['buttons'] = 'h1,h2,h3,h4,h5,h6,separator,bold,italic,stroke,separator,listbullet,listnumeric,separator,image,linkmedia,separator,linkintern,linkextern,linkmailto,separator,code,blockquote,separator,preview';
 $REX['ADDON']['markitup']['default']['width']   = '680';
 $REX['ADDON']['markitup']['default']['height']  = '250';
-$REX['ADDON']['markitup']['default']['preview']  = 'inline';
+$REX['ADDON']['markitup']['default']['preview']  = 'wysiwyg';
 // --- /DYN
 
 // INCLUDES
