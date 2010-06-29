@@ -13,40 +13,38 @@
 
 // GET PARAMS
 ////////////////////////////////////////////////////////////////////////////////
-$myself          = rex_request('page', 'string');
-$subpage         = rex_request('subpage', 'string');
-$func            = rex_request('func', 'string');
-$module_id       = rex_request('module_id', 'int');
+$myself             = rex_request('page', 'string');
+$subpage            = rex_request('subpage', 'string');
+$func               = rex_request('func', 'string');
+$wysiwyg_module_id  = rex_request('wysiwyg_module_id', 'int');
+$standard_module_id = rex_request('standard_module_id', 'int');
 
-// MODUL SOURCE
+// STANDARD MODUL INSTALL
 ////////////////////////////////////////////////////////////////////////////////
-$modul_in  = $REX['INCLUDE_PATH'].'/addons/'.$myself.'/modules/markitup_demo.modul.in.php';
-$modul_out = $REX['INCLUDE_PATH'].'/addons/'.$myself.'/modules/markitup_demo.modul.out.php';
-
-// MODUL INSTALL
-////////////////////////////////////////////////////////////////////////////////
-$searchtext = ' * MARKITUP Addon
- * DEMO MODUL';
+$standard_modul_in  = $REX['INCLUDE_PATH'].'/addons/'.$myself.'/modules/markitup_standard.modul.in.php';
+$standard_modul_in_file = array_pop(explode('/',$standard_modul_in));
+$standard_modul_out = $REX['INCLUDE_PATH'].'/addons/'.$myself.'/modules/markitup_standard.modul.out.php';
+$standard_modul_out_file = array_pop(explode('/',$standard_modul_out));
+$standard_search = '### UID:m287standard ###';
+$standard_module_id = 0;
+$standard_module_name = "";
 
 $gm = new rex_sql;
-$gm->setQuery('select * from rex_module where ausgabe LIKE "%'.$searchtext.'%"');
+$gm->setQuery('select * from rex_module where ausgabe LIKE "%'.$standard_search.'%"');
 
-$module_id = 0;
-$module_name = "";
-foreach($gm->getArray() as $module)
+foreach($gm->getArray() as $standard_module)
 {
-  $module_id = $module["id"];
-  $module_name = $module["name"];
+  $standard_module_id = $standard_module["id"];
+  $standard_module_name = $standard_module["name"];
 }
 
-if ($func == 'modulinstall')
+if ($func == 'install_standard')
 {
-
-  $xform_module_name = "Markitup Demo Modul";
+  $default_module_name = "Markitup STANDARD Modul";
 
   // Daten einlesen
-  $in = rex_get_file_contents($modul_in);
-  $out = rex_get_file_contents($modul_out);
+  $in = rex_get_file_contents($standard_modul_in);
+  $out = rex_get_file_contents($standard_modul_out);
 
   $mi = new rex_sql;
   // $mi->debugsql = 1;
@@ -55,62 +53,150 @@ if ($func == 'modulinstall')
   $mi->setValue("ausgabe",addslashes($out));
 
   // altes Module aktualisieren
-  if (isset($_REQUEST["module_id"]) && $module_id==$_REQUEST["module_id"])
+  if (isset($_REQUEST["standard_module_id"]) && $standard_module_id==$_REQUEST["standard_module_id"])
   {
-    $mi->setWhere('id="'.$module_id.'"');
+    $mi->setWhere('id="'.$standard_module_id.'"');
     $mi->update();
-    echo rex_info('Modul "'.$module_name.'" wurde aktualisiert');
-  }else
-  {
-    $mi->setValue("name",$xform_module_name);
-    $mi->insert();
-    echo rex_info('Modul wurde angelegt unter "'.$xform_module_name.'"');
+    echo rex_info('Modul "'.$standard_module_name.'" wurde wiederhergestellt.');
   }
+  else
+  {
+    $mi->setValue("name",$default_module_name);
+    $mi->insert();
+    echo rex_info('Modul wurde angelegt als "'.$default_module_name.'"');
+  }
+  unset($mi);
+}
 
+// WYSIWYG MODUL INSTALL
+////////////////////////////////////////////////////////////////////////////////
+$wysiwyg_modul_in  = $REX['INCLUDE_PATH'].'/addons/'.$myself.'/modules/markitup_wysiwyg.modul.in.php';
+$wysiwyg_modul_in_file = array_pop(explode('/',$wysiwyg_modul_in));
+$wysiwyg_modul_out = $REX['INCLUDE_PATH'].'/addons/'.$myself.'/modules/markitup_wysiwyg.modul.out.php';
+$wysiwyg_modul_out_file = array_pop(explode('/',$wysiwyg_modul_out));
+$wysiwyg_search = '### UID:m287wysiwyg ###';
+$wysiwyg_module_id = 0;
+$wysiwyg_module_name = "";
+
+$gm = new rex_sql;
+$gm->setQuery('select * from rex_module where ausgabe LIKE "%'.$wysiwyg_search.'%"');
+
+foreach($gm->getArray() as $wysiwyg_module)
+{
+  $wysiwyg_module_id = $wysiwyg_module["id"];
+  $wysiwyg_module_name = $wysiwyg_module["name"];
+}
+
+if ($func == 'install_wysiwyg')
+{
+  $default_module_name = "Markitup WYSIWYG Modul";
+
+  // Daten einlesen
+  $in = rex_get_file_contents($wysiwyg_modul_in);
+  $out = rex_get_file_contents($wysiwyg_modul_out);
+
+  $mi = new rex_sql;
+  // $mi->debugsql = 1;
+  $mi->setTable("rex_module");
+  $mi->setValue("eingabe",addslashes($in));
+  $mi->setValue("ausgabe",addslashes($out));
+
+  // altes Module aktualisieren
+  if (isset($_REQUEST["wysiwyg_module_id"]) && $wysiwyg_module_id==$_REQUEST["wysiwyg_module_id"])
+  {
+    $mi->setWhere('id="'.$wysiwyg_module_id.'"');
+    $mi->update();
+    echo rex_info('Modul "'.$wysiwyg_module_name.'" wurde wiederhergestellt.');
+  }
+  else
+  {
+    $mi->setValue("name",$default_module_name);
+    $mi->insert();
+    echo rex_info('Modul wurde angelegt als "'.$default_module_name.'"');
+  }
+  unset($mi);
 }
 
 // MAIN
 ////////////////////////////////////////////////////////////////////////////////
-echo '
-
-<div class="rex-addon-output">
-  <h2 class="rex-hl2" style="font-size: 1em;">Beispielmodul</h2>
-
-  <div class="rex-addon-content">
-    <ul>
-      <li><a href="index.php?page='.$myself.'&amp;subpage=modul&amp;func=modulinstall">Beispielmodul installieren</a></li>';
-
-if ($module_id>0)
+$standard_msg = array('','');
+if($standard_module_id > 0)
 {
-  echo '<li><a href="index.php?page='.$myself.'&amp;subpage=modul&amp;func=modulinstall&amp;module_id='.$module_id.'">Dieses Modul aktualisieren: <em style="color:red;font-style:normal;">['.$module_id.'] '.htmlspecialchars($module_name).'</em></a></li>';
+  $standard_msg = array(
+  'Weiteres ',
+  ' oder vorhandenes Modul wiederherstellen: <a href="index.php?page='.$myself.'&amp;subpage=modul&amp;func=install_standard&amp;standard_module_id='.$standard_module_id.'">['.$standard_module_id.'] '.htmlspecialchars($standard_module_name).'</a>'
+  );
+}
+$wysiwyg_msg = array('','');
+if($wysiwyg_module_id > 0)
+{
+  $wysiwyg_msg = array(
+  'Weiteres ',
+  ' oder vorhandenes Modul wiederherstellen: <a href="index.php?page='.$myself.'&amp;subpage=modul&amp;func=install_wysiwyg&amp;wysiwyg_module_id='.$wysiwyg_module_id.'">['.$wysiwyg_module_id.'] '.htmlspecialchars($wysiwyg_module_name).'</a>'
+  );
 }
 
 echo '
-      <li><a id="code_show">Modul Code anzeigen</a></li>
-    </ul>
-   <!--<h2><a href="index.php?page=markitup&subpage=modul&func=modulinstall">Beispielmodul installieren</a></h2>
-   <h2><a id="code_show">Modul Code anzeigen</a></h2>-->
+<div class="rex-addon-output">
+  <h2 class="rex-hl2" style="font-size: 1em;">Beispielmodule</h2>
 
-
-    <div class="markitup" id="code_block" style="display:none;margin:0;padding:0;">
-    <h4>MODUL IN:  <span style="color:gray;font-weight:normal;">(./'.$myself.'/modules/markitup_demo.modul.in.php)</span></h4>';
-
-$file = $modul_in;
-$fh = fopen($file, 'r');
-$contents = fread($fh, filesize($file));
-echo rex_highlight_string($contents);
-
-echo '
-    <h4>MODUL OUT: <span style="color:gray;font-weight:normal;">(./'.$myself.'/modules/markitup_demo.modul.in.php)</span></h4>
-    ';
-
-$file = $modul_out;
-$fh = fopen($file, 'r');
-$contents = fread($fh, filesize($file));
-echo rex_highlight_string($contents);
-
-echo '
+  <div class="rex-addon-content">
+    <div class="markitup">
+      <h1>Standard Modul</h1>
+      <ul>
+        <li>'.$standard_msg[0].'<a href="index.php?page='.$myself.'&amp;subpage=modul&amp;func=install_standard">Beispielmodul installieren</a>'.$standard_msg[1].'</li>
+        <li><a id="standard_show">Modul Code anzeigen</a></li>
+      </ul>
     </div><!-- /.markitup -->
+
+
+  <div class="markitup" id="standard_modul" style="display:none;">
+  <h4>'.$standard_modul_in_file.':</h4>';
+    $file = $standard_modul_in;
+    $fh = fopen($file, 'r');
+    $contents = fread($fh, filesize($file));
+    ini_set('highlight.comment', 'silver;font-size:10px;display:none;');
+    echo rex_highlight_string($contents);
+
+    echo '
+    <h4>'.$standard_modul_out_file.':</h4>';
+    $file = $standard_modul_out;
+    $fh = fopen($file, 'r');
+    $contents = fread($fh, filesize($file));
+    echo rex_highlight_string($contents);
+    echo '
+  </div><!-- /.markitup -->
+
+  <div class="markitup">
+    <h1>WYSIWYG Modul</h1>
+    <ul>
+      <li>'.$wysiwyg_msg[0].'<a href="index.php?page='.$myself.'&amp;subpage=modul&amp;func=install_wysiwyg">Beispielmodul installieren</a>'.$wysiwyg_msg[1].'</li>
+      <li><a id="wysiwyg_show">Modul Code anzeigen</a></li>
+    </ul>
+   </div><!-- /.markitup -->
+
+
+  <div class="markitup" id="wysiwyg_modul" style="display:none;">
+  <h4>'.$wysiwyg_modul_in_file.':</h4>';
+    $file = $wysiwyg_modul_in;
+    $fh = fopen($file, 'r');
+    $contents = fread($fh, filesize($file));
+    //ini_set('highlight.comment', 'silver;font-size:10px;display:inline;');
+    echo rex_highlight_string($contents);
+    echo '
+    <h4>'.$wysiwyg_modul_out_file.':</h4>';
+    $file = $wysiwyg_modul_out;
+    $fh = fopen($file, 'r');
+    $contents = fread($fh, filesize($file));
+    echo rex_highlight_string($contents);
+    echo '
+  </div><!-- /.markitup -->
+
+  <div class="markitup">
+    <p>Die Dateien der Beispielmodule befinden sich im Addon Ordner: <cite>./addons/markitup/modules/...</cite></p>
+  </div><!-- /.markitup -->
+
+
   </div><!-- /.rex-addon-content -->
 </div><!-- /.rex-addon-output -->
 
@@ -120,8 +206,12 @@ echo '
 jQuery(function($) {
 
 
-  $("#code_show").click(function() {
-    $("#code_block").slideToggle("slow");
+  $("#standard_show").click(function() {
+    $("#standard_modul").slideToggle("slow");
+  });
+
+  $("#wysiwyg_show").click(function() {
+    $("#wysiwyg_modul").slideToggle("slow");
   });
 
 

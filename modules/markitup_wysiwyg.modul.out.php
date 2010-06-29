@@ -1,11 +1,11 @@
 <?php
 /**
- * MARKITUP Addon
- * DEMO MODUL OUT
+ * MARKITUP Addon - WYSIWYG MODUL OUT
+ * ### UID:m287wysiwyg ###
  *
  * @package redaxo4.2
  * @version Addon 1.1
- * @version Modul 1.0
+ * @version Modul 1.1
  * @version svn:$Id$
  */
 
@@ -20,6 +20,7 @@ if(OOAddon::isAvailable('textile'))
   if ($markitup_textile_preview != '')
   {
     $textile = stripslashes($markitup_textile_preview);
+    $textile = markitup_previewlinks($textile);
   }
   elseif(REX_IS_VALUE[1])
   {

@@ -54,13 +54,9 @@ h3. 3.2 WYSIWYG
 * *Vorteile*
 ## Echtes WYSIWYG
 * *Nachteile*
-## Anzeige der WYSIWYG Preview erfordert extra Code im Modul OUT - siehe "Beispielmodul":index.php?page=markitup&subpage=modul .
+## Anzeige der WYSIWYG Preview erfordert extra Code im Modul OUT - siehe "WYSIWYG Beispielmodul":index.php?page=markitup&subpage=modul .
 ## Preview ist erst möglich sobald das Modul/der Block bereits hinzugefügt worden ist.
-(Aus diesem Grund wird beim hinzufügen eines Moduls der Preview button in der Symbolleiste *nicht angezeigt*)
+## Potentielle Konflikte mit dynamisch nachgeladenen Elementen (z.b. "(blank)Lightbox/scriptaculous.js":http://www.gn2-code.de/issues/101 ).
 ## Langsamerer workflow
-
-h1. 4. Beispielmodul
-
-Befindet sich im Addon Ordner: @./addons/markitup/modules/...@
 
 p. "www.gn2-netwerk.de":http://www.gn2-netwerk.de

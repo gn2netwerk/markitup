@@ -40,6 +40,7 @@ $REX['ADDON']['markitup']['default']['preview']  = 'inline';
 ////////////////////////////////////////////////////////////////////////////////
 require_once $REX['INCLUDE_PATH'].'/addons/markitup/classes/class.markitup.php';
 require_once $REX['INCLUDE_PATH'].'/addons/markitup/functions/function.rexdev_scandir.inc.php';
+require_once $REX['INCLUDE_PATH'].'/addons/markitup/functions/function.markitup_previewlinks.inc.php';
 
 // LANG FILES
 ////////////////////////////////////////////////////////////////////////////////

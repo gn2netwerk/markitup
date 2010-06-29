@@ -1,11 +1,11 @@
 <?php
 /**
- * MARKITUP Addon
- * DEMO MODUL IN
+ * MARKITUP Addon - WYSIWYG MODUL IN
+ * ### UID:m287wysiwyg ###
  *
  * @package redaxo4.2
  * @version Addon 1.1
- * @version Modul 1.0
+ * @version Modul 1.1
  * @version svn:$Id$
  */
 

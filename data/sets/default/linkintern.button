@@ -5,4 +5,8 @@ className:::::'markitup-linkintern'
 ###
 key:::::'L'
 ###
+openWith:::::''
+###
+closeWith:::::' '
+###
 beforeInsert:::::function() { openLinkMap('TINY','&clang='+markitup_getURLParam('clang')); }
