@@ -3,8 +3,6 @@ name:::::'translate:markitup_name_h3'
 ###
 className:::::'markitup-h3'
 ###
-key:::::'3'
-###
 openWith:::::'\n\nh3(!(([![Class]!]))!). '
 ###
 closeWith:::::'\n\n'

@@ -20,13 +20,13 @@ if (rex_request('markitup_func')!="")
   {
     case "backend.css":
       header('Content-Type:text/css');
-      echo file_get_contents($path.'/data/backend.css');
+      echo file_get_contents($path.'/media/backend.css');
       die();
     break;
 
     case "jsopenwin.gif":
       header('Content-Type:image/gif');
-      echo file_get_contents($path.'/data/jsopenwin.gif');
+      echo file_get_contents($path.'/media/jsopenwin.gif');
       die();
     break;
 

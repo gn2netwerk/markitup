@@ -3,8 +3,6 @@ name:::::'translate:markitup_name_h4'
 ###
 className:::::'markitup-h4'
 ###
-key:::::'4'
-###
 openWith:::::'\n\nh4(!(([![Class]!]))!). '
 ###
 closeWith:::::'\n\n'

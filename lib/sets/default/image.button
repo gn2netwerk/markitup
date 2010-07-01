@@ -3,7 +3,9 @@ name:::::'translate:markitup_name_image'
 ###
 className:::::'markitup-image'
 ###
-key:'P'
+openWith:::::' '
+###
+closeWith:::::' '
 ###
 beforeInsert:::::function(h) {
   openMediaPool('TINYIMG');

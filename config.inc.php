@@ -30,11 +30,13 @@ $REX['PERM'][] = $myself.'[]';
 // USER SETTINGS
 ////////////////////////////////////////////////////////////////////////////////
 // --- DYN
-$REX['ADDON']['markitup']['default']['buttons'] = 'h1,h2,h3,h4,h5,h6,separator,bold,italic,stroke,separator,listbullet,listnumeric,separator,image,linkmedia,separator,linkintern,linkextern,linkmailto,separator,code,blockquote,separator,preview';
-$REX['ADDON']['markitup']['default']['width']   = '680';
-$REX['ADDON']['markitup']['default']['height']  = '250';
-$REX['ADDON']['markitup']['default']['preview']  = 'wysiwyg';
+$REX['ADDON']['markitup']['default']['buttons']   = 'h1,h2,h3,h4,h5,h6,separator,bold,italic,stroke,separator,listbullet,listnumeric,separator,image,linkmedia,separator,linkintern,linkextern,linkmailto,separator,code,blockquote,separator,preview';
+$REX['ADDON']['markitup']['default']['width']     = '680';
+$REX['ADDON']['markitup']['default']['height']    = '250';
+$REX['ADDON']['markitup']['default']['preview']   = 'wysiwyg';
+$REX['ADDON']['markitup']['default']['shortcuts'] = 'h1:1|h2:2|h3:3|h4:4|h5:5|h6:6|bold:B|italic:I|stroke:S|image:P|linkmedia:M|linkintern:L|linkextern:E|linkmailto:M|preview:Y';
 // --- /DYN
+// 'h1:1|h2:2|h3:3|h4:4|h5:5|h6:6|bold:B|italic:I|image:M|linkintern:L|preview:P|'
 
 // INCLUDES
 ////////////////////////////////////////////////////////////////////////////////
@@ -80,8 +82,8 @@ function a287_markitup($params) {
 	$scripts='';
 	if ($REX['REDAXO']) {
 		$scripts.='
-  <script type="text/javascript" src="include/addons/markitup/data/jquery.markitup.pack.js"></script>
-  <link rel="stylesheet" type="text/css" href="include/addons/markitup/data/skins/markitup/style.css" />
+  <script type="text/javascript" src="include/addons/markitup/lib/jquery.markitup.pack.js"></script>
+  <link rel="stylesheet" type="text/css" href="include/addons/markitup/lib/skins/markitup/style.css" />
 ';
 	}
 

@@ -17,10 +17,12 @@ $myself          = rex_request('page', 'string');
 $subpage         = rex_request('subpage', 'string');
 $func            = rex_request('func', 'string');
 $buttons         = rex_request('MEDIALIST', 'array');
-$buttons = $buttons[1];
+$buttons         = $buttons[1];
 $width           = rex_request('width', 'string');
 $height          = rex_request('height', 'string');
 $preview         = rex_request('preview', 'string');
+$shortcuts       = rex_request('shortcuts', 'string');
+$shortcuts       = rtrim(str_replace("\n",'|',str_replace("\r",'',$shortcuts)),'|');
 
 // UPDATE/SAVE SETTINGS
 ////////////////////////////////////////////////////////////////////////////////
@@ -30,12 +32,14 @@ if ($func == "update")
   $REX['ADDON']['markitup']['default']['width']   = $width;
   $REX['ADDON']['markitup']['default']['height']  = $height;
   $REX['ADDON']['markitup']['default']['preview'] = $preview;
+  $REX['ADDON']['markitup']['default']['shortcuts'] = $shortcuts;
 
   $content = '
-$REX[\'ADDON\'][\'markitup\'][\'default\'][\'buttons\'] = \''.$buttons.'\';
-$REX[\'ADDON\'][\'markitup\'][\'default\'][\'width\']   = \''.$width.'\';
-$REX[\'ADDON\'][\'markitup\'][\'default\'][\'height\']  = \''.$height.'\';
-$REX[\'ADDON\'][\'markitup\'][\'default\'][\'preview\']  = \''.$preview.'\';
+$REX[\'ADDON\'][\'markitup\'][\'default\'][\'buttons\']   = \''.$buttons.'\';
+$REX[\'ADDON\'][\'markitup\'][\'default\'][\'width\']     = \''.$width.'\';
+$REX[\'ADDON\'][\'markitup\'][\'default\'][\'height\']    = \''.$height.'\';
+$REX[\'ADDON\'][\'markitup\'][\'default\'][\'preview\']   = \''.$preview.'\';
+$REX[\'ADDON\'][\'markitup\'][\'default\'][\'shortcuts\'] = \''.$shortcuts.'\';
 ';
 
   $file = $REX['INCLUDE_PATH'].'/addons/markitup/config.inc.php';
@@ -69,7 +73,7 @@ if($latest_revision > $this_revision)
 // BUTTON SET WIDGET
 ////////////////////////////////////////////////////////////////////////////////
 require_once $REX['INCLUDE_PATH'].'/addons/markitup/functions/function.rexdev_scandir.inc.php';
-$button_root = $REX['INCLUDE_PATH'].'/addons/markitup/data/sets/default/';
+$button_root = $REX['INCLUDE_PATH'].'/addons/markitup/lib/sets/default/';
 $found_buttons = rexdev_scandir($button_root,0,array(),array('*.button'));
 $found_buttons = $found_buttons['files'];
 
@@ -138,7 +142,7 @@ foreach($builtin_buttons as $k => $v)
     break;
 
     default:
-      $button_panel .='<a href="javascript:selectMedialist(\''.$v.'\');" style="float:left;background:#EFF9F9;margin:1px;padding:1px;border:1px solid silver;"><img src="include/addons/markitup/data/sets/default/'.$v.'.png" alt="Button '.strtoupper($v).' hinzufuegen" title="Button '.strtoupper($v).' hinzufuegen" width="16" height="16" /></a>';
+      $button_panel .='<a href="javascript:selectMedialist(\''.$v.'\');" style="float:left;background:#EFF9F9;margin:1px;padding:1px;border:1px solid silver;"><img src="include/addons/markitup/lib/sets/default/'.$v.'.png" alt="Button '.strtoupper($v).' hinzufuegen" title="Button '.strtoupper($v).' hinzufuegen" width="16" height="16" /></a>';
       $builtin_raw[] = $v.'.button';
   }
 }
@@ -157,7 +161,7 @@ if(count($extra_buttons) > 0)
   foreach($extra_buttons as $k => $v)
   {
     $v = str_replace('.button','',$v);
-    $button_panel .='<a href="javascript:selectMedialist(\''.$v.'\');" style="float:left;background:#EFF9F9;margin:1px;padding:1px;border:1px solid silver;"><img src="include/addons/markitup/data/sets/default/'.$v.'.png" alt="Button '.strtoupper($v).' hinzufuegen" title="Button '.strtoupper($v).' hinzufuegen" width="16" height="16" /></a>';
+    $button_panel .='<a href="javascript:selectMedialist(\''.$v.'\');" style="float:left;background:#EFF9F9;margin:1px;padding:1px;border:1px solid silver;"><img src="include/addons/markitup/lib/sets/default/'.$v.'.png" alt="Button '.strtoupper($v).' hinzufuegen" title="Button '.strtoupper($v).' hinzufuegen" width="16" height="16" /></a>';
   }
   $optgroup = 'open';
 }
@@ -171,11 +175,11 @@ if($optgroup = 'open')
 $active_buttons ='';
 foreach(explode(',',$REX['ADDON']['markitup']['default']['buttons']) as $v)
 {
-  // $active_buttons .='<option style="background:url(include/addons/markitup/data/sets/default/'.$v.'.png) no-repeat 6px 0;padding: 1px 0 1px 50px;border-bottom:1px solid white;height:16px;float:left;" value="'.$v.'">'.$v.'</option>';
+  // $active_buttons .='<option style="background:url(include/addons/markitup/lib/sets/default/'.$v.'.png) no-repeat 6px 0;padding: 1px 0 1px 50px;border-bottom:1px solid white;height:16px;float:left;" value="'.$v.'">'.$v.'</option>';
   $active_buttons .='<option value="'.$v.'">'.$v.'</option>';
 }
 
-$select_size = count(explode(',',$REX['ADDON']['markitup']['default']['buttons'])) + 2;
+$widget_size = count(explode(',',$REX['ADDON']['markitup']['default']['buttons'])) + 2;
 
 // PREVIEW SELECT BOX OPTIONS
 ////////////////////////////////////////////////////////////////////////////////
@@ -196,6 +200,13 @@ foreach($def_preview_option as $val => $str)
     $preview_option .= '<option value="'.$val.'">'.$str.'</option>';
   }
 }
+// SHORTCUTS
+////////////////////////////////////////////////////////////////////////////////
+$shortcuts = stripslashes($REX['ADDON']['markitup']['default']['shortcuts']);
+$shortcuts = str_replace('|',"\n",$shortcuts);
+$shortcuts_size = count(explode('|',$REX['ADDON']['markitup']['default']['shortcuts']));
+$rex_keys = implode(', ',$REX['ACKEY']); fb($rex_keys);
+
 
 // FORM
 ////////////////////////////////////////////////////////////////////////////////
@@ -265,7 +276,7 @@ function openPage(src)
             <input type="hidden" name="MEDIALIST[1]" id="REX_MEDIALIST_1" value="'.$REX['ADDON']['markitup']['default']['buttons'].'" />
 
             <p class="rex-widget-field">
-              <select name="MEDIALIST_SELECT[1]" id="REX_MEDIALIST_SELECT_1" size="'.$select_size.'" tabindex="31" style="width:200px;font-family:monospace;font-size:12px;">
+              <select name="MEDIALIST_SELECT[1]" id="REX_MEDIALIST_SELECT_1" size="'.$widget_size.'" tabindex="31" style="width:200px;font-family:monospace;font-size:12px;">
               '.$active_buttons.'
               </select>
             </p>';
@@ -324,13 +335,28 @@ function openPage(src)
         </p>
       </div>
 
+      <div class="rex-form-row">
+        <p class="rex-form-col-a rex-form-select">
+          <label for="preview">Preview Typ:</label>
+          <select id="preview" name="preview" class="rex-form-select">
+            '.$preview_option.'
+          </select>
+        </p>
+      </div>
+
+      </div><!--rex-form-wrapper-->
+    </fieldset>
+
+    <fieldset class="rex-form-col-1">
+      <legend>Shortcuts</legend>
+      <div class="rex-form-wrapper">
+
         <div class="rex-form-row">
           <p class="rex-form-col-a rex-form-select">
-            <label for="preview">Preview Typ:</label>
-            <select id="preview" name="preview" class="rex-form-select">
-              '.$preview_option.'
-            </select>
+            <label for="shortcuts">Button : <i style="color:silver;">Ctrl.- </i>Key</label>
+            <textarea id="shortcuts" name="shortcuts" rows="'.$shortcuts_size.'">'.$shortcuts.'</textarea>
           </p>
+        </div>
 
 
       <div class="rex-form-row rex-form-element-v2">
@@ -339,9 +365,9 @@ function openPage(src)
         </p>
       </div>
 
-
-      </div>
+      </div><!--rex-form-wrapper-->
     </fieldset>
+
   </form>
   </div>
 </div>

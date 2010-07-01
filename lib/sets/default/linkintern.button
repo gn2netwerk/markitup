@@ -3,8 +3,6 @@ name:::::'translate:markitup_name_linkintern'
 ###
 className:::::'markitup-linkintern'
 ###
-key:::::'L'
-###
 openWith:::::''
 ###
 closeWith:::::' '
