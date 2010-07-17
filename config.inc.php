@@ -20,7 +20,7 @@ $REX['ADDON']['page'][$myself] = $myself;
 $REX['ADDON']['name'][$myself] = 'Markitup';
 $REX['ADDON'][$myself]['revision'] = ereg_replace('[^0-9]','',"$Revision$");
 $REX['ADDON']['version'][$myself] = '1.1 SVN #'.$REX['ADDON'][$myself]['revision'];
-$REX['ADDON']['author'][$myself] = "Jay Salvat, Rüdiger Nitschke, Dave Holloway";
+$REX['ADDON']['author'][$myself] = 'Jay Salvat, Rüdiger Nitschke, Dave Holloway';
 
 // PERMISSIONS
 ////////////////////////////////////////////////////////////////////////////////

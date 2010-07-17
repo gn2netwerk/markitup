@@ -205,7 +205,7 @@ foreach($def_preview_option as $val => $str)
 $shortcuts = stripslashes($REX['ADDON']['markitup']['default']['shortcuts']);
 $shortcuts = str_replace('|',"\n",$shortcuts);
 $shortcuts_size = count(explode('|',$REX['ADDON']['markitup']['default']['shortcuts']));
-$rex_keys = implode(', ',$REX['ACKEY']); fb($rex_keys);
+$rex_keys = implode(', ',$REX['ACKEY']);
 
 
 // FORM
