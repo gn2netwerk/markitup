@@ -38,12 +38,6 @@
 *                               )
 */
 
-/*if (!function_exists('fb')) {
-  function fb() {
-    echo 'no FirePHP installed!';
-  }
-}*/
-
 if (!function_exists('rexdev_scandir'))
 {
   function rexdev_scandir($source, $limit=0, $blacklist=array(), $whitelist=array(), &$result=array())
@@ -56,7 +50,7 @@ if (!function_exists('rexdev_scandir'))
     }
 
     // INIT RESULT ARRAY
-    if(!$result['root'])
+    if(!isset($result['root']))
     {
       $root = $result['root'] = $source;
       $result['folders'] = NULL;
