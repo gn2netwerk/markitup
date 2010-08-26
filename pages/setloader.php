@@ -38,6 +38,7 @@ $preview    = $REX['ADDON']['markitup']['default']['preview'];
 
 // AUS SLICE ID AUF VERSION SCHLIESSEN
 ////////////////////////////////////////////////////////////////////////////////
+$rex_version = 0;
 if($slice_id > 0)
 {
   $rev = new rex_sql;
