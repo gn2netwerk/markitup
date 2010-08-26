@@ -17,7 +17,7 @@ $myself          = rex_request('page', 'string');
 $subpage         = rex_request('subpage', 'string');
 $func            = rex_request('func', 'string');
 $buttons         = rex_request('MEDIALIST', 'array');
-$buttons         = $buttons[1];
+$buttons         = isset($buttons[1]) ? $buttons[1] : '';
 $width           = rex_request('width', 'string');
 $height          = rex_request('height', 'string');
 $preview         = rex_request('preview', 'string');
@@ -48,27 +48,51 @@ $REX[\'ADDON\'][\'markitup\'][\'default\'][\'shortcuts\'] = \''.$shortcuts.'\';
   echo rex_info('Konfiguration wurde aktualisiert');
 }
 
-// REVISION CHECK
+// SVN & DOWNLOAD CHECK
 ////////////////////////////////////////////////////////////////////////////////
-$this_revision = intval($REX['ADDON'][$myself]['revision']);
-$Parser = new rexseo_FeedParser();
-$Parser->parse('http://www.gn2-code.de/projects/markitup/activity.atom?key=4372f934b085621f0878e4d8d2dc8b1a4c3fd9dc');
-$items = $Parser->getItems();
-$latest_revision = false;
+$Parser = new SimplePie();
+$Parser->set_cache_location($REX['INCLUDE_PATH'].'/generated/files');
+$Parser->set_feed_url('http://www.gn2-code.de/projects/'.$myself.'/activity.atom?key=4372f934b085621f0878e4d8d2dc8b1a4c3fd9dc');
+$Parser->init();
+$Parser->handle_content_type();
 
-foreach ($items as $item)
+$this_revision = intval($REX['ADDON'][$myself]['VERSION']['SUBVERSION']);
+$latest_download = false;
+foreach ($Parser->get_items(0,10) as $item)
 {
-  if (strpos($item['TITLE'],'Revision') !== false)
+  $title = $item->get_title();
+  if (strpos($title,'.zip') !== false)
   {
-    $latest_revision = intval(str_replace('Revision ','',$item['TITLE']));
+    $latest_download = intval(str_replace('rexseo_1.2_r','',$title));
+    $latest_download = intval(str_replace('.zip','',$latest_download));
     break;
   }
 }
-unset($Parser);
-if($latest_revision > $this_revision)
+
+if($latest_download > $this_revision)
 {
-  echo rex_info('Eine neue SVN Version ist verf&uuml;gbar: <a href="index.php?page='.$myself.'&subpage=help&chapter=changelog&highlight=Revision+'.$latest_revision.'">Revision '.$latest_revision.'</a>');
+  echo rex_info('Eine neue Download Version ist verf&uuml;gbar: <a href="index.php?page='.$myself.'&subpage=help&chapter=downloads&highlight='.$title.'">'.$title.'</a>');
 }
+
+if($REX['ADDON'][$myself]['svn_version_notify'])
+{
+  $latest_revision = false;
+  foreach ($Parser->get_items(0,10) as $item)
+  {
+    $title = $item->get_title();
+    if (strpos($title,'Revision') !== false)
+    {
+      $latest_revision = intval(str_replace('Revision ','',$title));
+      break;
+    }
+  }
+
+  if($latest_revision > $this_revision)
+  {
+    echo rex_info('Eine neue SVN Version ist verf&uuml;gbar: <a href="index.php?page='.$myself.'&subpage=help&chapter=changelog&highlight=Revision+'.$latest_revision.'">Revision '.$latest_revision.'</a>');
+  }
+}
+unset($Parser);
 
 // BUTTON SET WIDGET
 ////////////////////////////////////////////////////////////////////////////////

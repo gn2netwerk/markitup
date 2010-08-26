@@ -14,26 +14,30 @@
 
 global $REX;
 
-$Parser = new rexseo_FeedParser();
+$Parser = new SimplePie();
+$Parser->set_cache_location($REX['INCLUDE_PATH'].'/generated/files');
+$Parser->set_feed_url('http://www.gn2-code.de/projects/markitup/activity.atom?key=4372f934b085621f0878e4d8d2dc8b1a4c3fd9dc');
+$Parser->init();
+$Parser->handle_content_type();
 
-$Parser->parse('http://www.gn2-code.de/projects/markitup/activity.atom?key=4372f934b085621f0878e4d8d2dc8b1a4c3fd9dc');
+foreach($Parser->get_items(0,20) as $item)
+{
+  $date  = $item->get_date('d.m.Y H:i');
+  $id    = $item->get_id();
+  $title = $item->get_title();
 
-$items = $Parser->getItems();
+  //$title = str_replace('Markitup -','',$title);
+  if(!strpos($REX['LANG'],'utf'))
+  {
+    $title = utf8_decode($title);
+  }
 
-foreach ($items as $item) {
-
-	if(!strpos($REX['LANG'],'utf')) {
-		$item['TITLE'] = utf8_decode($item['TITLE']);
-	}
-
-	$date = date('d.m.Y H:i:s',$item['UPDATED']);
-	$item['TITLE'] = str_replace('REXseo -','',$item['TITLE']);
-
-	if (substr($item['TITLE'],0,8)!="Revision") {
-		echo '<div class="markitup_ticket">';
-		echo '<span class="markitup_date">'.$date.'</span><a class="jsopenwin" target="_blank" href="'.$item['ID'].'">'.$item['TITLE'].'</a>';
-		echo '</div>';
-	}
+  if (substr($title,0,8)!='Revision' && substr($title,-4,4)!='.zip')
+  {
+    echo '<div class="markitup_ticket">';
+    echo '<span class="markitup_date">'.$date.'</span><a class="jsopenwin" target="_blank" href="'.$id.'">'.$title.'</a>';
+    echo '</div>';
+  }
 }
 
-?>
+unset($Parser);

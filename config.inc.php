@@ -11,21 +11,34 @@
  * @version svn:$Id$
  */
 
+// ERROR_REPORTING
+////////////////////////////////////////////////////////////////////////////////
+@ ini_set('error_reporting', E_ALL);
+@ ini_set('display_errors', On);
+
+// ADDON IDENTIFIER
+////////////////////////////////////////////////////////////////////////////////
 $myself = 'markitup';
 
-// COMMONS
+// ADDON VERSION
 ////////////////////////////////////////////////////////////////////////////////
-$REX['ADDON']['rxid'][$myself] = '287';
-$REX['ADDON']['page'][$myself] = $myself;
-$REX['ADDON']['name'][$myself] = 'Markitup';
-$REX['ADDON'][$myself]['revision'] = ereg_replace('[^0-9]','',"$Revision$");
-$REX['ADDON']['version'][$myself] = '1.1 SVN #'.$REX['ADDON'][$myself]['revision'];
-$REX['ADDON']['author'][$myself] = 'Jay Salvat, Rüdiger Nitschke, Dave Holloway';
+$Revision = '';
+$REX['ADDON'][$myself]['VERSION'] = array
+(
+'VERSION'      => 1,
+'MINORVERSION' => 1,
+'SUBVERSION'   => preg_replace('/[^0-9]/','',"$Revision$")
+);
 
-// PERMISSIONS
+// ADDON REX COMMONS
 ////////////////////////////////////////////////////////////////////////////////
-$REX['ADDON']['perm'][$myself] = $myself.'[]';
-$REX['PERM'][] = $myself.'[]';
+$REX['ADDON']['rxid'][$myself]    = '287';
+$REX['ADDON']['page'][$myself]    = $myself;
+$REX['ADDON']['name'][$myself]    = 'Markitup';
+$REX['ADDON']['version'][$myself] = implode('.', $REX['ADDON'][$myself]['VERSION']);
+$REX['ADDON']['author'][$myself]  = 'Jay Salvat, Rüdiger Nitschke, Dave Holloway';
+$REX['ADDON']['perm'][$myself]    = $myself.'[]';
+$REX['PERM'][]                    = $myself.'[]';
 
 // USER SETTINGS
 ////////////////////////////////////////////////////////////////////////////////
@@ -36,7 +49,18 @@ $REX['ADDON']['markitup']['default']['height']    = '250';
 $REX['ADDON']['markitup']['default']['preview']   = 'wysiwyg';
 $REX['ADDON']['markitup']['default']['shortcuts'] = 'h1:1|h2:2|h3:3|h4:4|h5:5|h6:6|bold:B|italic:I|stroke:S|image:P|linkmedia:M|linkintern:L|linkextern:E|linkmailto:M|preview:Y';
 // --- /DYN
-// 'h1:1|h2:2|h3:3|h4:4|h5:5|h6:6|bold:B|italic:I|image:M|linkintern:L|preview:P|'
+
+/* DEFAULTS BACKUP:
+$REX['ADDON']['markitup']['default']['buttons']   = 'h1,h2,h3,h4,h5,h6,separator,bold,italic,stroke,separator,listbullet,listnumeric,separator,image,linkmedia,separator,linkintern,linkextern,linkmailto,separator,code,blockquote,separator,preview';
+$REX['ADDON']['markitup']['default']['width']     = '680';
+$REX['ADDON']['markitup']['default']['height']    = '250';
+$REX['ADDON']['markitup']['default']['preview']   = 'wysiwyg';
+$REX['ADDON']['markitup']['default']['shortcuts'] = 'h1:1|h2:2|h3:3|h4:4|h5:5|h6:6|bold:B|italic:I|stroke:S|image:P|linkmedia:M|linkintern:L|linkextern:E|linkmailto:M|preview:Y';
+*/
+
+// STATIC/HIDDEN SETTINGS
+////////////////////////////////////////////////////////////////////////////////
+$REX['ADDON'][$myself]['svn_version_notify'] = false;
 
 // INCLUDES
 ////////////////////////////////////////////////////////////////////////////////
@@ -64,32 +88,32 @@ if ($REX['REDAXO'])
   }
 }
 
-// OUTPUT
+// MAIN
 ////////////////////////////////////////////////////////////////////////////////
 if (rex_request('a287_markitup_set')!="") {
-	require_once $REX['INCLUDE_PATH'].'/addons/markitup/pages/setloader.php';
-	exit();
+  require_once $REX['INCLUDE_PATH'].'/addons/markitup/pages/setloader.php';
+  exit();
 }
 if (rex_request('a287_markitup_css')!="") {
-	require_once $REX['INCLUDE_PATH'].'/addons/markitup/pages/cssloader.php';
-	exit();
+  require_once $REX['INCLUDE_PATH'].'/addons/markitup/pages/cssloader.php';
+  exit();
 }
 
 function a287_markitup($params) {
-	global $REX;
-	$output = $params['subject'];
+  global $REX;
+  $output = $params['subject'];
 
-	$scripts='';
-	if ($REX['REDAXO']) {
-		$scripts.='
+  $scripts='';
+  if ($REX['REDAXO']) {
+    $scripts.='
   <script type="text/javascript" src="include/addons/markitup/lib/jquery.markitup.pack.js"></script>
   <link rel="stylesheet" type="text/css" href="include/addons/markitup/lib/skins/markitup/style.css" />
 ';
-	}
+  }
 
 
-	$output = str_replace('</head>',$scripts.'</head>',$output);
-	return $output;
+  $output = str_replace('</head>',$scripts.'</head>',$output);
+  return $output;
 }
 
 rex_register_extension('OUTPUT_FILTER', 'a287_markitup');
