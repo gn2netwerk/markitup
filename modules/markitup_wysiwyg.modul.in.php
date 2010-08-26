@@ -32,5 +32,3 @@ else
 {
   echo rex_warning('Dieses Modul ben&ouml;tigt das "textile" Addon!');
 }
-
-?>

@@ -396,4 +396,3 @@ function openPage(src)
   </div>
 </div>
 ';
-?>

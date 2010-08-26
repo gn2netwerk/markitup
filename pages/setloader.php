@@ -11,6 +11,10 @@
  * @version svn:$Id$
  */
 
+// ERROR_REPORTING OFF -> SCRIPT FAILURE ON ANY NOTICE !!!
+////////////////////////////////////////////////////////////////////////////////
+@ ini_set('display_errors', On);
+
 // SWITCH CHARSET
 ////////////////////////////////////////////////////////////////////////////////
 if (strpos($REX['LANG'],'utf'))
@@ -142,10 +146,13 @@ foreach ($buttons as $button)
         $shortcuts[$p[0]] = $p[1];
       }
 
-      $className = trim(str_replace('\'','',$params['className']));
-      $className = trim(str_replace('markitup-','',$className));
+      if(isset($params['className']))
+      {
+        $className = trim(str_replace('\'','',$params['className']));
+        $className = trim(str_replace('markitup-','',$className));
+      }
 
-      if($shortcuts[$className] != '')
+      if(isset($shortcuts[$className]) && $shortcuts[$className] != '')
       {
         $params['key'] = "'".$shortcuts[$className]."'";
       }

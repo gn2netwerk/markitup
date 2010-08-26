@@ -12,5 +12,3 @@
  */
 
 $REX['ADDON']['install']['markitup'] = 0;
-
-?>

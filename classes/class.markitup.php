@@ -99,7 +99,7 @@ class a287_markitup {
 		if(OOAddon::isAvailable('version'))
 		{
 			$version_arr = $REX['LOGIN']->getSessionVar('rex_version_article');
-			$params['rex_version'] = $version_arr[1];
+			$params['rex_version'] = isset($version_arr[1]) ? $version_arr[1] : 0 ;
 		}
 		rex_register_extension('OUTPUT_FILTER', 'a287_markitup_extpoint',$params);
 	}

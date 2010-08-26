@@ -72,5 +72,3 @@ else
   // REX BOTTOM
   require $REX['INCLUDE_PATH'] . '/layout/bottom.php';
 }
-
-?>

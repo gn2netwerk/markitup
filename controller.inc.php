@@ -34,6 +34,3 @@ if (rex_request('markitup_func')!="")
     break;
   }
 }
-
-
-?>

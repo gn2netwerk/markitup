@@ -13,8 +13,8 @@
 
 // ERROR_REPORTING
 ////////////////////////////////////////////////////////////////////////////////
-@ ini_set('error_reporting', E_ALL);
-@ ini_set('display_errors', On);
+/*@ ini_set('error_reporting', E_ALL);
+@ ini_set('display_errors', On);*/
 
 // ADDON IDENTIFIER
 ////////////////////////////////////////////////////////////////////////////////
@@ -119,4 +119,3 @@ function a287_markitup($params) {
 rex_register_extension('OUTPUT_FILTER', 'a287_markitup');
 
 include $REX['INCLUDE_PATH'].'/addons/'.$myself.'/controller.inc.php';
-?>
