@@ -30,7 +30,7 @@ $standard_module_id = 0;
 $standard_module_name = "";
 
 $gm = new rex_sql;
-$gm->setQuery('select * from rex_module where ausgabe LIKE "%'.$standard_search.'%"');
+$gm->setQuery('select * from '.$REX['TABLE_PREFIX'].'module where ausgabe LIKE "%'.$standard_search.'%"');
 
 foreach($gm->getArray() as $standard_module)
 {
@@ -48,7 +48,7 @@ if ($func == 'install_standard')
 
   $mi = new rex_sql;
   // $mi->debugsql = 1;
-  $mi->setTable("rex_module");
+  $mi->setTable($REX['TABLE_PREFIX'].'module');
   $mi->setValue("eingabe",addslashes($in));
   $mi->setValue("ausgabe",addslashes($out));
 
@@ -79,7 +79,7 @@ $wysiwyg_module_id = 0;
 $wysiwyg_module_name = "";
 
 $gm = new rex_sql;
-$gm->setQuery('select * from rex_module where ausgabe LIKE "%'.$wysiwyg_search.'%"');
+$gm->setQuery('select * from '.$REX['TABLE_PREFIX'].'module where ausgabe LIKE "%'.$wysiwyg_search.'%"');
 
 foreach($gm->getArray() as $wysiwyg_module)
 {
@@ -97,7 +97,7 @@ if ($func == 'install_wysiwyg')
 
   $mi = new rex_sql;
   // $mi->debugsql = 1;
-  $mi->setTable("rex_module");
+  $mi->setTable($REX['TABLE_PREFIX'].'module');
   $mi->setValue("eingabe",addslashes($in));
   $mi->setValue("ausgabe",addslashes($out));
 

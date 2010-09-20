@@ -30,3 +30,4 @@ rex_a79_help_overview();
 {
   echo rex_warning('Dieses Modul benötigt das "textile" Addon!');
 }
+?>
