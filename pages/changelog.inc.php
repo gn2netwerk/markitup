@@ -15,7 +15,7 @@
 global $REX;
 
 $Parser = new SimplePie();
-$Parser->set_cache_location($REX['INCLUDE_PATH'].'/generated/files');
+//$Parser->set_cache_location($REX['INCLUDE_PATH'].'/generated/files');
 $Parser->set_feed_url('http://www.gn2-code.de/projects/markitup/activity.atom?key=4372f934b085621f0878e4d8d2dc8b1a4c3fd9dc');
 $Parser->init();
 $Parser->handle_content_type();
