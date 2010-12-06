@@ -44,7 +44,7 @@ if($slice_id > 0)
 {
   $rev = new rex_sql;
   //$rev->debug = true;
-  $rev->setQuery('select `revision` from rex_article_slice where `id` ='.$slice_id);
+  $rev->setQuery('select `revision` from '.$REX['TABLE_PREFIX'].'article_slice where `id` ='.$slice_id);
   $rex_version = $rev->getValue('revision');
 }
 
