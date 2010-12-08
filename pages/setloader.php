@@ -65,7 +65,7 @@ if($REX['ADDON']['markitup']['default']['preview'] == 'inline')
 }
 else
 {
-  if ($REX['MOD_REWRITE'] == true && (OOAddon::isAvailable('rexseo') || OOAddon::isAvailable('url_rewrite')))
+  if(file_exists($REX['INCLUDE_PATH'].'/generated/files/pathlist.php') && ($REX['MOD_REWRITE'] == true && (OOAddon::isAvailable('rexseo') || OOAddon::isAvailable('url_rewrite'))))
   {
     require_once $REX['INCLUDE_PATH'].'/generated/files/pathlist.php';
     $parser_path = 'http://'.$_SERVER['HTTP_HOST'].'/'.$REXPATH[$article_id][$clang].'?slice_id='.$slice_id.'&rex_version='.$rex_version;
