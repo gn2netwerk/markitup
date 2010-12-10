@@ -11,7 +11,7 @@
  * @version svn:$Id$
  */
 
-// ERROR_REPORTING OFF
+// FORCE ERROR_REPORTING OFF
 ////////////////////////////////////////////////////////////////////////////////
 error_reporting(0);
 ini_set('error_reporting', 0);
@@ -36,8 +36,9 @@ $clang      = rex_request('clang', 'int', '1');
 $slice_id   = rex_request('slice_id', 'int');
 $function   = rex_request('function', 'string');
 $preview    = $REX['ADDON']['markitup']['default']['preview'];
+$buttons    = explode(',',rex_request('a287_markitup_set'));
 
-// AUS SLICE ID AUF VERSION SCHLIESSEN
+// GET REVISION VIA SLICE ID
 ////////////////////////////////////////////////////////////////////////////////
 $rex_version = 0;
 if($slice_id > 0)
@@ -48,16 +49,24 @@ if($slice_id > 0)
   $rex_version = $rev->getValue('revision');
 }
 
-// MAIN
+// TEXTAREA RESIZE MODE
 ////////////////////////////////////////////////////////////////////////////////
-echo 'set_'.$setname.' = {';
-
+if($REX['ADDON']['markitup']['default']['resizemode'] == 0)
+{
+  $resizemode = 'resizeHandle: false,'.PHP_EOL;
+}
+else
+{
+  $resizemode = '';
+}
+// INLINE/WYSIWYG PREVIEW
+////////////////////////////////////////////////////////////////////////////////
 if($REX['ADDON']['markitup']['default']['preview'] == 'inline')
 {
   $parser_path = 'index.php?page=markitup&subpage=preview&article_id='.$article_id.'&clang='.$article_clang.'&slice_id='.$slice_id.'&rex_version='.$rex_version;
 
-  echo '
-    nameSpace:"set-'.$setname.'",
+  $SET = 'set_'.$setname.' = {
+    nameSpace:"set-'.$setname.'",'.$resizemode.'
     previewParserPath: "'.$parser_path.'",
     previewParserVar: "markitup_textile_preview_'.$slice_id.'",
     previewAutoRefresh: true,
@@ -75,8 +84,8 @@ else
     $parser_path = 'http://'.$_SERVER['HTTP_HOST'].'/index.php?article_id='.$article_id.'&clang='.$article_clang.'&slice_id='.$slice_id.'&rex_version='.$rex_version;
   }
 
-  echo '
-    nameSpace:"set-'.$setname.'",
+  $SET = 'set_'.$setname.' = {
+    nameSpace:"set-'.$setname.'",'.$resizemode.'
     previewInWindow: "width=1000, height=800, resizable=yes, scrollbars=yes",
     previewParserPath: "'.$parser_path.'",
     previewParserVar: "markitup_textile_preview_'.$slice_id.'",
@@ -84,16 +93,15 @@ else
     markupSet:  [';
 }
 
-ob_start();
-global $REX;
-$buttons = explode(',',rex_request('a287_markitup_set'));
-
-// @ MODUL ADD & WYSIWYG PREVIEW -> PREVIEW BUTTON DISABLED
+// ON MODUL ADD & WYSIWYG PREVIEW -> PREVIEW BUTTON DISABLED
+////////////////////////////////////////////////////////////////////////////////
 if($function == 'add' && $preview == 'wysiwyg')
 {
   $buttons = array_diff($buttons,array('preview'));
 }
 
+// BUTTONS
+////////////////////////////////////////////////////////////////////////////////
 foreach ($buttons as $button)
 {
   $button = str_replace('/','',$button);
@@ -106,6 +114,7 @@ foreach ($buttons as $button)
     $params = array();
     $data = file_get_contents($fn);
     $data = explode("###\n",$data);
+
     foreach ($data as $line)
     {
       $line = explode(':::::',$line);
@@ -122,21 +131,12 @@ foreach ($buttons as $button)
             $srch[] = $match;
             $rplc[] = rex_translate($match);
           }
-
           $string = str_replace($srch, $rplc, $string);
         }
-        /*
-        $search = 'markitup_name_'.$button;
-
-        if (strpos($string, $search) !== false)
-        {
-          $string = str_replace($search, $I18N->msg($search), $string);
-        }
-        */
         $params[$line[0]]= $string;
-
       }
     }
+
     if (count($params)>0)
     {
       // KEY DEFINITION FROM BACKEND SETTINGS
@@ -159,36 +159,33 @@ foreach ($buttons as $button)
         $params['key'] = "'".$shortcuts[$className]."'";
       }
 
-      echo '{';
+      $SET .= '{';
       $pcount = 0;
       foreach ($params as $k=>$v)
       {
         $pcount++;
-        echo $k.':'.$v;
+        $SET .= $k.':'.$v;
         if ($pcount<count($params))
         {
-          echo ', '  ;
+          $SET .= ', '  ;
         }
       }
-      echo '},';
+      $SET .= '},';
     }
 
   }
 }
-$out=ob_get_contents();
-ob_end_clean();
-$out = trim($out);
-$out = trim($out,',');
-echo $out;
 
-echo "\n".']}'."\n";
+$SET = trim($SET);
+$SET = trim($SET,',');
+$SET .= '
+]}
 
-?>
 function insertFileLink(file)
-{ jQuery.markItUp({openWith:'"', closeWith:'":'+file}); }
+{ jQuery.markItUp({openWith:\'"\', closeWith:\'":\'+file}); }
 
 function insertLink(url,desc)
-{ jQuery.markItUp({openWith:'"', closeWith:'":'+url}); }
+{ jQuery.markItUp({openWith:\'"\', closeWith:\'":\'+url}); }
 
 function insertImage(src, desc)
 {
@@ -214,3 +211,6 @@ aQueryString[iParam].indexOf(strParamName.toLowerCase() + "=") > -1 ){
   }
   return unescape(strReturn);
 }
+';
+
+echo $SET;

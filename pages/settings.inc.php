@@ -23,23 +23,26 @@ $height          = rex_request('height', 'string');
 $preview         = rex_request('preview', 'string');
 $shortcuts       = rex_request('shortcuts', 'string');
 $shortcuts       = rtrim(str_replace("\n",'|',str_replace("\r",'',$shortcuts)),'|');
+$resizemode      = rex_request('resizemode', 'int');
 
 // UPDATE/SAVE SETTINGS
 ////////////////////////////////////////////////////////////////////////////////
 if ($func == "update")
 {
-  $REX['ADDON']['markitup']['default']['buttons'] = $buttons;
-  $REX['ADDON']['markitup']['default']['width']   = $width;
-  $REX['ADDON']['markitup']['default']['height']  = $height;
-  $REX['ADDON']['markitup']['default']['preview'] = $preview;
-  $REX['ADDON']['markitup']['default']['shortcuts'] = $shortcuts;
+  $REX['ADDON']['markitup']['default']['buttons']    = $buttons;
+  $REX['ADDON']['markitup']['default']['width']      = $width;
+  $REX['ADDON']['markitup']['default']['height']     = $height;
+  $REX['ADDON']['markitup']['default']['preview']    = $preview;
+  $REX['ADDON']['markitup']['default']['shortcuts']  = $shortcuts;
+  $REX['ADDON']['markitup']['default']['resizemode'] = $resizemode;
 
   $content = '
-$REX[\'ADDON\'][\'markitup\'][\'default\'][\'buttons\']   = \''.$buttons.'\';
-$REX[\'ADDON\'][\'markitup\'][\'default\'][\'width\']     = \''.$width.'\';
-$REX[\'ADDON\'][\'markitup\'][\'default\'][\'height\']    = \''.$height.'\';
-$REX[\'ADDON\'][\'markitup\'][\'default\'][\'preview\']   = \''.$preview.'\';
-$REX[\'ADDON\'][\'markitup\'][\'default\'][\'shortcuts\'] = \''.$shortcuts.'\';
+$REX[\'ADDON\'][\'markitup\'][\'default\'][\'buttons\']    = \''.$buttons.'\';
+$REX[\'ADDON\'][\'markitup\'][\'default\'][\'width\']      = \''.$width.'\';
+$REX[\'ADDON\'][\'markitup\'][\'default\'][\'height\']     = \''.$height.'\';
+$REX[\'ADDON\'][\'markitup\'][\'default\'][\'preview\']    = \''.$preview.'\';
+$REX[\'ADDON\'][\'markitup\'][\'default\'][\'shortcuts\']  = \''.$shortcuts.'\';
+$REX[\'ADDON\'][\'markitup\'][\'default\'][\'resizemode\'] =   '.$resizemode.';
 ';
 
   $file = $REX['INCLUDE_PATH'].'/addons/markitup/config.inc.php';
@@ -224,6 +227,27 @@ foreach($def_preview_option as $val => $str)
     $preview_option .= '<option value="'.$val.'">'.$str.'</option>';
   }
 }
+
+// TEXTAREA RESIZEMODE SELECT BOX OPTIONS
+////////////////////////////////////////////////////////////////////////////////
+$def_resizemode_option = array(
+  0 => 'auto',
+  1 => 'manual'
+);
+
+$resizemode_option = '';
+foreach($def_resizemode_option as $val => $str)
+{
+  if($val == $REX['ADDON']['markitup']['default']['resizemode'])
+  {
+    $resizemode_option .= '<option value="'.$val.'" selected="selected">'.$str.'</option>';
+  }
+  else
+  {
+    $resizemode_option .= '<option value="'.$val.'">'.$str.'</option>';
+  }
+}
+
 // SHORTCUTS
 ////////////////////////////////////////////////////////////////////////////////
 $shortcuts = stripslashes($REX['ADDON']['markitup']['default']['shortcuts']);
@@ -347,21 +371,30 @@ function openPage(src)
 
       <div class="rex-form-row">
         <p class="rex-form-col-a rex-form-text">
-          <label for="width">Breite:</label>
+          <label for="width">Width:</label>
           <input type="text" id="width" name="width" value="'.stripslashes($REX['ADDON']['markitup']['default']['width']).'">
         </p>
       </div>
 
       <div class="rex-form-row">
         <p class="rex-form-col-a rex-form-text">
-          <label for="height">H&ouml;he:</label>
+          <label for="height">Min-Height:</label>
           <input type="text" id="height" name="height" value="'.stripslashes($REX['ADDON']['markitup']['default']['height']).'">
         </p>
       </div>
 
       <div class="rex-form-row">
         <p class="rex-form-col-a rex-form-select">
-          <label for="preview">Preview Typ:</label>
+          <label for="resizemode">Textarea Resize:</label>
+          <select id="resizemode" name="resizemode" class="rex-form-select">
+            '.$resizemode_option.'
+          </select>
+        </p>
+      </div>
+
+      <div class="rex-form-row">
+        <p class="rex-form-col-a rex-form-select">
+          <label for="preview">Preview Type:</label>
           <select id="preview" name="preview" class="rex-form-select">
             '.$preview_option.'
           </select>
