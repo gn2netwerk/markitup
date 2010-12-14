@@ -11,11 +11,11 @@
  * @version svn:$Id$
  */
 
- 
 // ERROR_REPORTING
 ////////////////////////////////////////////////////////////////////////////////
 /*ini_set('error_reporting', E_ALL);
-ini_set('display_errors', On);*/
+//ini_set('error_reporting', E_STRICT);
+ini_set('display_errors', 1);*/
 
 // ADDON IDENTIFIER
 ////////////////////////////////////////////////////////////////////////////////
@@ -53,11 +53,12 @@ $REX['ADDON']['markitup']['default']['resizemode'] =   0;
 // --- /DYN
 
 /* DEFAULTS BACKUP:
-$REX['ADDON']['markitup']['default']['buttons']   = 'h1,h2,h3,h4,h5,h6,separator,bold,italic,stroke,separator,listbullet,listnumeric,separator,image,linkmedia,separator,linkintern,linkextern,linkmailto,separator,code,blockquote,separator,preview';
-$REX['ADDON']['markitup']['default']['width']     = '680';
-$REX['ADDON']['markitup']['default']['height']    = '250';
-$REX['ADDON']['markitup']['default']['preview']   = 'wysiwyg';
-$REX['ADDON']['markitup']['default']['shortcuts'] = 'h1:1|h2:2|h3:3|h4:4|h5:5|h6:6|bold:B|italic:I|stroke:S|image:P|linkmedia:M|linkintern:L|linkextern:E|linkmailto:M|preview:Y';
+$REX['ADDON']['markitup']['default']['buttons']    = 'h1,h2,h3,h4,h5,h6,separator,bold,italic,stroke,separator,listbullet,listnumeric,separator,image,linkmedia,separator,linkintern,linkextern,linkmailto,separator,code,blockquote,separator,preview';
+$REX['ADDON']['markitup']['default']['width']      = '680';
+$REX['ADDON']['markitup']['default']['height']     = '250';
+$REX['ADDON']['markitup']['default']['preview']    = 'wysiwyg';
+$REX['ADDON']['markitup']['default']['shortcuts']  = 'h1:1|h2:2|h3:3|h4:4|h5:5|h6:6|bold:B|italic:I|stroke:S|image:P|linkmedia:M|linkintern:L|linkextern:E|linkmailto:M|preview:Y';
+$REX['ADDON']['markitup']['default']['resizemode'] =   0;
 */
 
 // STATIC/HIDDEN SETTINGS

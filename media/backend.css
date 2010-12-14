@@ -117,9 +117,18 @@ span.jsopenwin {
 #markitup_redirects {
   height:100px;
 }
-.markitup_ticket {
-	margin:2px 0 2px 0;
+
+/*REDMINE RSS*/
+
+.markitup ul.redmine-feed {
+  list-style-type:none;
 }
-.markitup_ticket .markitup_date {
+
+.markitup ul.redmine-feed li {
+  background:none;
+  border:0;
+  padding:0;
+}
+.markitup ul.redmine-feed .redmine-date {
 	margin-right:15px;
 }
