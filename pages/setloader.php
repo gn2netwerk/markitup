@@ -79,6 +79,11 @@ else
     require_once $REX['INCLUDE_PATH'].'/generated/files/pathlist.php';
     $parser_path = 'http://'.$_SERVER['HTTP_HOST'].'/'.$REXPATH[$article_id][$clang].'?slice_id='.$slice_id.'&rex_version='.$rex_version;
   }
+  elseif(file_exists($REX['INCLUDE_PATH'].'/generated/files/rexseo_pathlist.php') && ($REX['MOD_REWRITE'] == true && (OOAddon::isAvailable('rexseo'))))
+  {
+    require_once $REX['INCLUDE_PATH'].'/generated/files/rexseo_pathlist.php';
+    $parser_path = 'http://'.$_SERVER['HTTP_HOST'].'/'.$REXSEO_IDS[$article_id][$clang].'?slice_id='.$slice_id.'&rex_version='.$rex_version;
+  }
   else
   {
     $parser_path = 'http://'.$_SERVER['HTTP_HOST'].'/index.php?article_id='.$article_id.'&clang='.$article_clang.'&slice_id='.$slice_id.'&rex_version='.$rex_version;
