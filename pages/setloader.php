@@ -186,17 +186,28 @@ $SET = trim($SET,',');
 $SET .= '
 ]}
 
-function insertFileLink(file)
-{ jQuery.markItUp({openWith:\'"\', closeWith:\'":\'+file}); }
+function insertFileLink(file){
+  jQuery.markItUp({
+    openWith:\'"\',
+    closeWith:\'":\'+file,
+    placeHolder:file
+  });
+}
 
-function insertLink(url,desc)
-{ jQuery.markItUp({openWith:\'"\', closeWith:\'":\'+url}); }
+function insertLink(url,desc){
+  jQuery.markItUp({
+    openWith:\'"\',
+    closeWith:\'":\'+url,
+    placeHolder:desc
+  });
+}
 
-function insertImage(src, desc)
-{
+function insertImage(src, desc){
   // jQuery.markItUp({replaceWith:"!./"+ src +"!"});
   img = src.replace(/files\//, "");
-  jQuery.markItUp({ replaceWith:"!index.php?rex_resize=[![Image Width]!]w__"+ img +"!"});
+  jQuery.markItUp({
+    replaceWith:"!index.php?rex_resize=[![Image Width]!]w__"+ img +"!"
+    });
 }
 
 function markitup_getURLParam(strParamName){

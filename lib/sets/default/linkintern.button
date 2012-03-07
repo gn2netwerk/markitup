@@ -3,8 +3,4 @@ name:::::'translate:markitup_name_linkintern'
 ###
 className:::::'markitup-linkintern'
 ###
-openWith:::::''
-###
-closeWith:::::' '
-###
 beforeInsert:::::function() { openLinkMap('TINY','&clang='+markitup_getURLParam('clang')); }
