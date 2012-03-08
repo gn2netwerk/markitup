@@ -22,11 +22,10 @@ $func    = rex_request('func', 'string');
 ////////////////////////////////////////////////////////////////////////////////
 $chapterpages = array (
 ''            => array('Addon Hilfe','_help.txt','textile'),
-'download'    => array('Downloads'                    ,'pages/redmine_feeds.inc.php','php'),
-'changelog'   => array('Changelog'                    ,'pages/redmine_feeds.inc.php','php'),
-'tickets'     => array('Tickets'                      ,'pages/redmine_feeds.inc.php','php'),
-'forum'       => array('Forum'                        ,'http://gn2-code.de/projects/markitup/boards','jsopenwin'),
-'wiki'        => array('Wiki'                         ,'http://gn2-code.de/projects/markitup/wiki','jsopenwin')
+'download'    => array('Downloads'                    ,'https://github.com/gn2netwerk/markitup/downloads','jsopenwin'),
+'changelog'   => array('Changelog'                    ,'https://github.com/gn2netwerk/markitup/network','jsopenwin'),
+'tickets'     => array('Issues'                       ,'https://github.com/gn2netwerk/markitup/issues','jsopenwin'),
+'wiki'        => array('Wiki'                         ,'https://github.com/gn2netwerk/markitup/wiki','jsopenwin')
 );
 
 // BUILD CHAPTER NAVIGATION
