@@ -21,14 +21,14 @@ $myroot  = $REX['INCLUDE_PATH'].'/addons/'.$myself;
 
 // BACKEND CSS
 ////////////////////////////////////////////////////////////////////////////////
-$header = array(
-'  <link rel="stylesheet" type="text/css" href="index.php?markitup_func=backend.css" media="screen, projection, print" />
-'
-);
-
-if ($REX['REDAXO']) {
-  include_once $myroot.'/functions/function.rexdev_header_add.inc.php';
-  rex_register_extension('PAGE_HEADER', 'rexdev_header_add',$header);
+if ($REX['REDAXO']){
+  $header = '
+<!-- markitup -->
+  <link rel="stylesheet" type="text/css" href="index.php?markitup_func=backend.css" media="screen, projection, print" />
+<!-- end markitup -->
+';
+  $header_include = 'return $params["subject"].\''.$header.'\';';
+  rex_register_extension('PAGE_HEADER', create_function('$params',$header_include));
 }
 
 // INCLUDE CLASSES
