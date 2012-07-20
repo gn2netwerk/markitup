@@ -6,17 +6,10 @@
  *
  * @author Markitup by Jay Salvat - http://markitup.jaysalvat.com
  * @author Redaxo Addon by http://www.gn2-netwerk.de/
- * @package redaxo4.2
- * @version 1.1
- * @version svn:$Id$
+ * @package redaxo 4.2/4.3/4.4
+ * @version 1.1.60
  */
 
-
-//  ERROR_REPORTING
-////////////////////////////////////////////////////////////////////////////////
-/*ini_set('error_reporting', E_ALL);
-//ini_set('error_reporting', E_STRICT);
-ini_set('display_errors', 1);*/
 
 // ADDON IDENTIFIER
 ////////////////////////////////////////////////////////////////////////////////
@@ -29,7 +22,7 @@ $REX['ADDON'][$myself]['VERSION'] = array
 (
 'VERSION'      => 1,
 'MINORVERSION' => 1,
-'SUBVERSION'   => preg_replace('/[^0-9]/','',"$Revision$")
+'SUBVERSION'   => 60
 );
 
 // ADDON REX COMMONS

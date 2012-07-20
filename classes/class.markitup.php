@@ -6,9 +6,8 @@
  *
  * @author Markitup by Jay Salvat - http://markitup.jaysalvat.com
  * @author Redaxo Addon by http://www.gn2-netwerk.de/
- * @package redaxo4.2
- * @version 1.1
- * @version svn:$Id$
+ * @package redaxo 4.2/4.3/4.4
+ * @version 1.1.60
  */
 
 function a287_markitup_extpoint($params) {

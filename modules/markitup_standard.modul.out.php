@@ -3,10 +3,9 @@
  * MARKITUP Addon - STANDARD MODUL OUT
  * ### UID:m287standard ###
  *
- * @package redaxo4.2
- * @version Addon 1.1
- * @version Modul 1.0
- * @version svn:$Id$
+ * @package redaxo 4.2/4.3/4.4
+ * @version Addon 1.1.60
+ * @version Modul 1.1
  */
 
 if(OOAddon::isAvailable('textile'))
