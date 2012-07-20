@@ -31,10 +31,6 @@ if ($REX['REDAXO']){
   rex_register_extension('PAGE_HEADER', create_function('$params',$header_include));
 }
 
-// INCLUDE FUNCTIONS
-////////////////////////////////////////////////////////////////////////////////
-require_once $myroot.'/functions/function.rexdev_incparse.inc.php';
-
 // MAIN
 ////////////////////////////////////////////////////////////////////////////////
 if ($subpage == 'preview')

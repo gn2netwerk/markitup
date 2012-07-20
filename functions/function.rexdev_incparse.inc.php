@@ -6,9 +6,6 @@
  * @package redaxo4.2
  * @version svn:$Id$
  */
-
-// INCLUDE PARSER FUNCTION
-////////////////////////////////////////////////////////////////////////////////
 if (!function_exists('rexdev_incparse'))
 {
   function rexdev_incparse($root,$source,$parsemode,$return=false)
@@ -19,7 +16,7 @@ if (!function_exists('rexdev_incparse'))
       case 'textile':
       $source = $root.$source;
       $content = file_get_contents($source);
-      $html = rexdev_textileparser($content,true);
+      $html = markitup_textileparser($content,true);
       break;
 
       case 'txt':
@@ -73,9 +70,9 @@ if (!function_exists('rexdev_incparse'))
 
 // TEXTILE PARSER FUNCTION
 ////////////////////////////////////////////////////////////////////////////////
-if (!function_exists('rexdev_textileparser'))
+if (!function_exists('markitup_textileparser'))
 {
-  function rexdev_textileparser($textile,$return=false)
+  function markitup_textileparser($textile,$return=false)
   {
     if(OOAddon::isAvailable("textile"))
     {

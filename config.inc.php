@@ -69,8 +69,7 @@ $REX['ADDON'][$myself]['svn_version_notify'] = false;
 // INCLUDES
 ////////////////////////////////////////////////////////////////////////////////
 require_once $REX['INCLUDE_PATH'].'/addons/markitup/classes/class.markitup.php';
-require_once $REX['INCLUDE_PATH'].'/addons/markitup/functions/function.rexdev_scandir.inc.php';
-require_once $REX['INCLUDE_PATH'].'/addons/markitup/functions/function.markitup_previewlinks.inc.php';
+require_once $REX['INCLUDE_PATH'].'/addons/markitup/functions/function.markitup_functions.inc.php';
 
 // LANG FILES
 ////////////////////////////////////////////////////////////////////////////////
@@ -81,7 +80,7 @@ if ($REX['REDAXO'])
 
   // 3RD PARTY
   $lang_root = $REX['INCLUDE_PATH'].'/addons/' . $myself . '/lang/';
-  $extra_langs = rexdev_scandir($lang_root,0,array(),array());
+  $extra_langs = markitup_scandir($lang_root,0,array(),array());
   $extra_langs = $extra_langs['folders'];
   if(count($extra_langs) > 0)
   {

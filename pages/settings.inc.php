@@ -54,9 +54,8 @@ $REX[\'ADDON\'][\'markitup\'][\'default\'][\'resizemode\'] =   '.$resizemode.';
 
 // BUTTON SET WIDGET
 ////////////////////////////////////////////////////////////////////////////////
-require_once $REX['INCLUDE_PATH'].'/addons/markitup/functions/function.rexdev_scandir.inc.php';
 $button_root = $REX['INCLUDE_PATH'].'/addons/markitup/lib/sets/default/';
-$found_buttons = rexdev_scandir($button_root,0,array(),array('*.button'));
+$found_buttons = markitup_scandir($button_root,0,array(),array('*.button'));
 $found_buttons = $found_buttons['files'];
 
 $builtin_buttons = array(

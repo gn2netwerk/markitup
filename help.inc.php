@@ -18,7 +18,7 @@ $myroot = $REX['INCLUDE_PATH'].'/addons/'.$myself.'/';
 
 // LOCAL INCLUDES
 ////////////////////////////////////////////////////////////////////////////////
-require_once $myroot.'/functions/function.rexdev_incparse.inc.php';
+require_once $myroot.'/functions/function.markitup_incparse.inc.php';
 
 // HELP CONTENT
 ////////////////////////////////////////////////////////////////////////////////
@@ -35,7 +35,7 @@ foreach($help_includes as $key => $def)
     <h2 class="rex-hl2" style="font-size:1em">'.$def[0].' <span style="color: gray; font-style: normal; font-weight: normal;">( '.$def[1].' )</span></h2>
     <div class="rex-addon-content">
       <div class="rexseo">
-        '.rexdev_incparse($myroot,$def[1],$def[2],true).'
+        '.markitup_incparse($myroot,$def[1],$def[2],true).'
       </div>
     </div>
   </div>';
