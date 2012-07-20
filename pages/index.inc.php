@@ -31,17 +31,9 @@ if ($REX['REDAXO']){
   rex_register_extension('PAGE_HEADER', create_function('$params',$header_include));
 }
 
-// INCLUDE CLASSES
-////////////////////////////////////////////////////////////////////////////////
-if(!class_exists('simplepie'))
-{
-  require_once $myroot.'/classes/class.simplepie.inc.php';
-}
-
 // INCLUDE FUNCTIONS
 ////////////////////////////////////////////////////////////////////////////////
 require_once $myroot.'/functions/function.rexdev_incparse.inc.php';
-require_once $myroot.'/functions/function.a287_redmine_project_feed.inc.php';
 
 // MAIN
 ////////////////////////////////////////////////////////////////////////////////
