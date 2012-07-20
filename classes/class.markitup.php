@@ -47,6 +47,48 @@ jQuery(function() {
 });'.PHP_EOL;
     }
 
+if(OOPlugin::isAvailable('be_style','rex_codemirror'))
+{
+    $scripts .= '
+jQuery(function($){
+  area = $("'.$params['selector'].'");
+
+  // GET TEXTAREA DIMENSIONS
+  w = area.width();
+  h = area.height();
+  ml = area.css("margin-left");
+
+  markitup_codemirror = CodeMirror.fromTextArea(area.get(0), {
+    mode: "php",
+    lineNumbers: true,
+    lineWrapping: false,
+    theme:"'.$REX['rex_codemirror']['settings']['theme'].'",
+    matchBrackets: true,
+    mode: "application/x-httpd-php",
+    indentUnit: 2,
+    indentWithTabs: true,
+    enterMode: "keep",
+    tabMode: "shift",
+    extraKeys: {
+      "'.$REX['rex_codemirror']['settings']['keys']['enter_fullscreen'].'": function(cm) {
+        setFullScreen(cm, !isFullScreen(cm));
+      },
+      "'.$REX['rex_codemirror']['settings']['keys']['leave_fullscreen'].'": function(cm) {
+        if (isFullScreen(cm)) setFullScreen(cm, false);
+      }
+    }
+  });
+
+  // REAPPLY TEXTAREA DIMENSIONS
+  markitup_codemirror.getWrapperElement().style.width = w+"px";
+  markitup_codemirror.getWrapperElement().style.marginLeft = ml;
+  markitup_codemirror.getScrollerElement().style.height = h+"px";
+  markitup_codemirror.refresh()
+
+});
+'.PHP_EOL;
+}
+
     $scripts .= '</script>'.PHP_EOL;
   }
 
