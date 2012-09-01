@@ -55,7 +55,7 @@ $REX[\'ADDON\'][\'markitup\'][\'default\'][\'resizemode\'] =   '.$resizemode.';
 ////////////////////////////////////////////////////////////////////////////////
 $button_root = $REX['INCLUDE_PATH'].'/addons/markitup/lib/sets/default/';
 $found_buttons = markitup_scandir($button_root,0,array(),array('*.button'));
-$found_buttons = $found_buttons['files'];
+$found_buttons = $found_buttons['files'] ? $found_buttons['files'] : array();
 
 $builtin_buttons = array(
 
