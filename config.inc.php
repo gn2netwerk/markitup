@@ -7,7 +7,7 @@
  * @author Markitup by Jay Salvat - http://markitup.jaysalvat.com
  * @author Redaxo Addon by http://www.gn2-netwerk.de/
  * @package redaxo 4.2/4.3/4.4
- * @version 1.1.60
+ * @version 1.1.61
  */
 
 
@@ -22,7 +22,7 @@ $REX['ADDON'][$myself]['VERSION'] = array
 (
 'VERSION'      => 1,
 'MINORVERSION' => 1,
-'SUBVERSION'   => 60
+'SUBVERSION'   => 61
 );
 
 // ADDON REX COMMONS
