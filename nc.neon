@@ -1,0 +1,15 @@
+# nc.neon
+
+name: markitup
+
+depends: 
+	- textile
+
+functions: 
+
+php: 5.0 5.1 5.2 5.3
+
+system:
+	REX: 4.2 4.3 4.4
+		
+docs:
