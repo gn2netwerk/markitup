@@ -12,17 +12,19 @@
 
 // GET PARAMS
 ////////////////////////////////////////////////////////////////////////////////
-$myself          = rex_request('page', 'string');
-$subpage         = rex_request('subpage', 'string');
-$func            = rex_request('func', 'string');
-$buttons         = rex_request('MEDIALIST', 'array');
-$buttons         = isset($buttons[1]) ? $buttons[1] : '';
-$width           = rex_request('width', 'string');
-$height          = rex_request('height', 'string');
-$preview         = rex_request('preview', 'string');
-$shortcuts       = rex_request('shortcuts', 'string');
-$shortcuts       = rtrim(str_replace("\n",'|',str_replace("\r",'',$shortcuts)),'|');
-$resizemode      = rex_request('resizemode', 'int');
+$myself            = rex_request('page', 'string');
+$subpage           = rex_request('subpage', 'string');
+$func              = rex_request('func', 'string');
+$buttons           = rex_request('MEDIALIST', 'array');
+$buttons           = isset($buttons[1]) ? $buttons[1] : '';
+$width             = rex_request('width', 'string');
+$height            = rex_request('height', 'string');
+$preview           = rex_request('preview', 'string');
+$shortcuts         = rex_request('shortcuts', 'string');
+$shortcuts         = rtrim(str_replace("\n",'|',str_replace("\r",'',$shortcuts)),'|');
+$resizemode        = rex_request('resizemode', 'int');
+$autoenable_status = rex_request('autoenable_status', 'int');
+$autoenable_class  = rex_request('autoenable_class', 'string','rex-markitup');
 
 // UPDATE/SAVE SETTINGS
 ////////////////////////////////////////////////////////////////////////////////
@@ -34,6 +36,8 @@ if ($func == "update")
   $REX['ADDON']['markitup']['default']['preview']    = $preview;
   $REX['ADDON']['markitup']['default']['shortcuts']  = $shortcuts;
   $REX['ADDON']['markitup']['default']['resizemode'] = $resizemode;
+  $REX['ADDON']['markitup']['autoenable_status']     = $autoenable_status;
+  $REX['ADDON']['markitup']['autoenable_class']      = $autoenable_class;
 
   $content = '
 $REX[\'ADDON\'][\'markitup\'][\'default\'][\'buttons\']    = \''.$buttons.'\';
@@ -42,6 +46,8 @@ $REX[\'ADDON\'][\'markitup\'][\'default\'][\'height\']     = \''.$height.'\';
 $REX[\'ADDON\'][\'markitup\'][\'default\'][\'preview\']    = \''.$preview.'\';
 $REX[\'ADDON\'][\'markitup\'][\'default\'][\'shortcuts\']  = \''.$shortcuts.'\';
 $REX[\'ADDON\'][\'markitup\'][\'default\'][\'resizemode\'] =   '.$resizemode.';
+$REX[\'ADDON\'][\'markitup\'][\'autoenable_status\']       =   '.$autoenable_status.';
+$REX[\'ADDON\'][\'markitup\'][\'autoenable_class\']        = \''.$autoenable_class.'\';
 ';
 
   $file = $REX['INCLUDE_PATH'].'/addons/markitup/config.inc.php';
@@ -209,6 +215,21 @@ $shortcuts_size = count(explode('|',$REX['ADDON']['markitup']['default']['shortc
 $rex_keys = implode(', ',$REX['ACKEY']);
 
 
+// AUTOENABLE STATUS SELECT
+////////////////////////////////////////////////////////////////////////////////
+$tmp = new rex_select;
+$tmp->setName('autoenable_status');
+$tmp->setId('autoenable_status');
+$tmp->addOptions(array(
+  '1'  => 'true',
+  '0'  => 'false',
+  )
+);
+$tmp->setSelected($REX['ADDON']['markitup']['autoenable_status']);
+$tmp->setSize(1);
+$autoenable_status_sel = $tmp->get();
+
+
 // FORM
 ////////////////////////////////////////////////////////////////////////////////
 echo '
@@ -367,6 +388,27 @@ function openPage(src)
             <textarea id="shortcuts" name="shortcuts" rows="'.$shortcuts_size.'">'.$shortcuts.'</textarea>
           </p>
         </div>
+
+      </div><!--rex-form-wrapper-->
+    </fieldset>
+
+    <fieldset class="rex-form-col-1">
+      <legend>Autoenable per textarea classname</legend>
+      <div class="rex-form-wrapper">
+
+      <div class="rex-form-row">
+        <p class="rex-form-col-a rex-form-select">
+          <label for="autoenable_status">Active:</label>
+            '.$autoenable_status_sel.'
+        </p>
+      </div>
+
+      <div class="rex-form-row">
+        <p class="rex-form-col-a rex-form-text">
+          <label for="autoenable_class">Classname:</label>
+          <input type="text" id="autoenable_class" name="autoenable_class" value="'.stripslashes($REX['ADDON']['markitup']['autoenable_class']).'">
+        </p>
+      </div>
 
 
       <div class="rex-form-row rex-form-element-v2">

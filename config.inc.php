@@ -48,6 +48,8 @@ $REX['ADDON']['markitup']['default']['height']     = '68';
 $REX['ADDON']['markitup']['default']['preview']    = 'wysiwyg';
 $REX['ADDON']['markitup']['default']['shortcuts']  = 'h1:1|h2:2|h3:3|h4:4|h5:5|h6:6|bold:B|italic:I|stroke:S|image:P|linkmedia:M|linkintern:L|linkextern:E|linkmailto:M|preview:Y';
 $REX['ADDON']['markitup']['default']['resizemode'] =   0;
+$REX['ADDON']['markitup']['autoenable_status']       =   1;
+$REX['ADDON']['markitup']['autoenable_class']        = 'rex-markitup';
 // --- /DYN
 
 /* DEFAULTS BACKUP:
@@ -57,6 +59,8 @@ $REX['ADDON']['markitup']['default']['height']     = '250';
 $REX['ADDON']['markitup']['default']['preview']    = 'wysiwyg';
 $REX['ADDON']['markitup']['default']['shortcuts']  = 'h1:1|h2:2|h3:3|h4:4|h5:5|h6:6|bold:B|italic:I|stroke:S|image:P|linkmedia:M|linkintern:L|linkextern:E|linkmailto:M|preview:Y';
 $REX['ADDON']['markitup']['default']['resizemode'] =   0;
+$REX['ADDON']['markitup']['autoenable_status']     =   1;
+$REX['ADDON']['markitup']['autoenable_class']      =   'rex-markitup';
 */
 
 // STATIC/HIDDEN SETTINGS
@@ -91,82 +95,86 @@ if ($REX['REDAXO'])
 
 // INCLUDE ASSETS
 ////////////////////////////////////////////////////////////////////////////////
-rex_register_extension('OUTPUT_FILTER', 'a287_markitup_assets');
-
-function a287_markitup_assets($params)
+if($REX['REDAXO'])
 {
-  global $REX;
-  $output = $params['subject'];
+  rex_register_extension('OUTPUT_FILTER', 'a287_markitup_assets');
 
-  // AUTO ENABLE TEXTAREAS WITH CLASS "markitup"
-  if( preg_match('@<textarea[^>]*class="[^"]*markitup@', $output) !=false ) {
-    a287_markitup::markitup('textarea.markitup');
-  }
-
-  $scripts = PHP_EOL;
-  if ($REX['REDAXO'])
+  function a287_markitup_assets($params)
   {
-    $scripts.= PHP_EOL.'<!-- markitup -->'.PHP_EOL.
-    '  <script type="text/javascript" src="include/addons/markitup/lib/jquery.markitup.pack.js"></script>'.PHP_EOL;
-    if($REX['ADDON']['markitup']['default']['resizemode'] == 0)
+    global $REX;
+    $output = $params['subject'];
+
+    $scripts = PHP_EOL;
+    if ($REX['REDAXO'])
     {
-      $scripts.='  <script type="text/javascript" src="include/addons/markitup/lib/jquery.autogrow-textarea.js"></script>'.PHP_EOL;
+      $scripts.= PHP_EOL.'<!-- markitup -->'.PHP_EOL.
+      '  <script type="text/javascript" src="include/addons/markitup/lib/jquery.markitup.pack.js"></script>'.PHP_EOL;
+      if($REX['ADDON']['markitup']['default']['resizemode'] == 0)
+      {
+        $scripts.='  <script type="text/javascript" src="include/addons/markitup/lib/jquery.autogrow-textarea.js"></script>'.PHP_EOL;
+      }
+    $scripts.='  <link rel="stylesheet" type="text/css" href="include/addons/markitup/lib/skins/markitup/style.css" />'.PHP_EOL.
+    '<!-- end markitup -->'.PHP_EOL;
     }
-  $scripts.='  <link rel="stylesheet" type="text/css" href="include/addons/markitup/lib/skins/markitup/style.css" />'.PHP_EOL.
-  '<!-- end markitup -->'.PHP_EOL;
+
+    $output = str_replace('</head>',$scripts.'</head>',$output);
+    return $output;
   }
-
-
-  $output = str_replace('</head>',$scripts.'</head>',$output);
-  return $output;
 }
 
 
 // AUTO INIT
 ////////////////////////////////////////////////////////////////////////////////
-rex_register_extension('OUTPUT_FILTER', 'a287_markitup_autoinit');
-
-function a287_markitup_autoinit($params)
+if($REX['REDAXO'] && $REX['ADDON']['markitup']['autoenable_status'] == 1)
 {
-  global $REX;
-  $output = $params['subject'];
+  rex_register_extension('OUTPUT_FILTER', 'a287_markitup_autoinit');
 
-  // SEARCH TEXTAREAS WITH CLASS "markitup"
-  if(preg_match('@<textarea[^>]*class="[^"]*markitup@', $output) ==false ) {
-    return $output;
-  }
-
-  $src_params  = '&article_id='.$params['article_id'];
-  $src_params .= '&clang='.$params['clang'];
-  $src_params .= '&slice_id='.$params['slice_id'];
-  $src_params .= '&function='.rex_request('function','string');
-
-  $buttons = $REX['ADDON']['markitup']['default']['buttons'];
-  $width   = $REX['ADDON']['markitup']['default']['width'];
-  $height  = $REX['ADDON']['markitup']['default']['height'];
-
-  if (isset($params['rex_version'])) {
-    $src_params .= '&rex_version='.$params['rex_version'];
-  }
-
-  $scripts = PHP_EOL.'<!-- markitup (autoenabled) -->
-  <script type="text/javascript">var set_'.md5($buttons).';</script>
-  <script type="text/javascript" src="index.php?a287_markitup_set='.$buttons.$src_params.'"></script>
-  <link rel="stylesheet" type="text/css" href="index.php?a287_markitup_css='.$buttons.'&width='.$width.'&height='.$height.'" />
-  <script type="text/javascript">
-  jQuery(document).ready(function() {
-    jQuery("textarea.markitup").markItUp(set_'.md5($buttons).');
-  });'.PHP_EOL;
-
-  if($REX['ADDON']['markitup']['default']['resizemode'] == 0)
+  function a287_markitup_autoinit($params)
   {
-  $scripts .= '
-  jQuery(function() {
-    jQuery("textarea.markitup").autogrow();
-  });'.PHP_EOL;
+    global $REX;
+    $output    = $params['subject'];
+    $classname = $REX['ADDON']['markitup']['autoenable_class'] != ''
+               ? $REX['ADDON']['markitup']['autoenable_class']
+               : 'rex-markitup';
+
+    // SEARCH TEXTAREAS WITH CLASS "markitup"
+    $regex = '@<textarea[^>]*class="[^"]*'.$classname.'@';
+    if(preg_match($regex, $output) == false ) {
+      return $output;
+    }
+
+    $src_params  = '&article_id='.$params['article_id'];
+    $src_params .= '&clang='.$params['clang'];
+    $src_params .= '&slice_id='.$params['slice_id'];
+    $src_params .= '&function='.rex_request('function','string');
+
+    $buttons = $REX['ADDON']['markitup']['default']['buttons'];
+    $width   = $REX['ADDON']['markitup']['default']['width'];
+    $height  = $REX['ADDON']['markitup']['default']['height'];
+
+    if (isset($params['rex_version'])) {
+      $src_params .= '&rex_version='.$params['rex_version'];
+    }
+
+    $scripts = PHP_EOL.'<!-- markitup (autoenabled) -->
+    <script type="text/javascript">var set_'.md5($buttons).';</script>
+    <script type="text/javascript" src="index.php?a287_markitup_set='.$buttons.$src_params.'"></script>
+    <link rel="stylesheet" type="text/css" href="index.php?a287_markitup_css='.$buttons.'&width='.$width.'&height='.$height.'" />
+    <script type="text/javascript">
+    jQuery(document).ready(function() {
+      jQuery("textarea.'.$classname.'").markItUp(set_'.md5($buttons).');
+    });'.PHP_EOL;
+
+    if($REX['ADDON']['markitup']['default']['resizemode'] == 0)
+    {
+    $scripts .= '
+    jQuery(function() {
+      jQuery("textarea.'.$classname.'").autogrow();
+    });'.PHP_EOL;
+    }
+
+    $scripts .= '    </script>'.PHP_EOL.'<!-- end markitup (autoenabled) -->'.PHP_EOL;
+
+    return str_replace('</head>',$scripts.'</head>',$output);
   }
-
-  $scripts .= '  </script>'.PHP_EOL.'<!-- end markitup (autoenabled) -->'.PHP_EOL;
-
-  return str_replace('</head>',$scripts.'</head>',$output);
 }
