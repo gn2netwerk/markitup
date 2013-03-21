@@ -20,20 +20,22 @@ $standard_module_id = rex_request('standard_module_id', 'int');
 
 // STANDARD MODUL INSTALL
 ////////////////////////////////////////////////////////////////////////////////
-$standard_modul_in  = $REX['INCLUDE_PATH'].'/addons/'.$myself.'/modules/markitup_standard.modul.in.php';
-$standard_modul_in_file = array_pop(explode('/',$standard_modul_in));
-$standard_modul_out = $REX['INCLUDE_PATH'].'/addons/'.$myself.'/modules/markitup_standard.modul.out.php';
-$standard_modul_out_file = array_pop(explode('/',$standard_modul_out));
-$standard_search = '### UID:m287standard ###';
-$standard_module_id = 0;
-$standard_module_name = "";
+$standard_modul_in       = $REX['INCLUDE_PATH'].'/addons/'.$myself.'/modules/markitup_standard.modul.in.php';
+$standard_modul_in_file  = explode('/',$standard_modul_in);
+$standard_modul_in_file  = array_pop($standard_modul_in_file);
+$standard_modul_out      = $REX['INCLUDE_PATH'].'/addons/'.$myself.'/modules/markitup_standard.modul.out.php';
+$standard_modul_out_file = explode('/',$standard_modul_out);
+$standard_modul_out_file = array_pop($standard_modul_out_file);
+$standard_search         = '### UID:m287standard ###';
+$standard_module_id      = 0;
+$standard_module_name    = "";
 
 $gm = new rex_sql;
 $gm->setQuery('select * from '.$REX['TABLE_PREFIX'].'module where ausgabe LIKE "%'.$standard_search.'%"');
 
 foreach($gm->getArray() as $standard_module)
 {
-  $standard_module_id = $standard_module["id"];
+  $standard_module_id   = $standard_module["id"];
   $standard_module_name = $standard_module["name"];
 }
 
@@ -42,7 +44,7 @@ if ($func == 'install_standard')
   $default_module_name = "Markitup STANDARD Modul";
 
   // Daten einlesen
-  $in = rex_get_file_contents($standard_modul_in);
+  $in  = rex_get_file_contents($standard_modul_in);
   $out = rex_get_file_contents($standard_modul_out);
 
   $mi = new rex_sql;
@@ -69,20 +71,22 @@ if ($func == 'install_standard')
 
 // WYSIWYG MODUL INSTALL
 ////////////////////////////////////////////////////////////////////////////////
-$wysiwyg_modul_in  = $REX['INCLUDE_PATH'].'/addons/'.$myself.'/modules/markitup_wysiwyg.modul.in.php';
-$wysiwyg_modul_in_file = array_pop(explode('/',$wysiwyg_modul_in));
-$wysiwyg_modul_out = $REX['INCLUDE_PATH'].'/addons/'.$myself.'/modules/markitup_wysiwyg.modul.out.php';
-$wysiwyg_modul_out_file = array_pop(explode('/',$wysiwyg_modul_out));
-$wysiwyg_search = '### UID:m287wysiwyg ###';
-$wysiwyg_module_id = 0;
-$wysiwyg_module_name = "";
+$wysiwyg_modul_in       = $REX['INCLUDE_PATH'].'/addons/'.$myself.'/modules/markitup_wysiwyg.modul.in.php';
+$wysiwyg_modul_in_file  = explode('/',$wysiwyg_modul_in);
+$wysiwyg_modul_in_file  = array_pop($wysiwyg_modul_in_file);
+$wysiwyg_modul_out      = $REX['INCLUDE_PATH'].'/addons/'.$myself.'/modules/markitup_wysiwyg.modul.out.php';
+$wysiwyg_modul_out_file = explode('/',$wysiwyg_modul_out);
+$wysiwyg_modul_out_file = array_pop($wysiwyg_modul_out_file);
+$wysiwyg_search         = '### UID:m287wysiwyg ###';
+$wysiwyg_module_id      = 0;
+$wysiwyg_module_name    = "";
 
 $gm = new rex_sql;
 $gm->setQuery('select * from '.$REX['TABLE_PREFIX'].'module where ausgabe LIKE "%'.$wysiwyg_search.'%"');
 
 foreach($gm->getArray() as $wysiwyg_module)
 {
-  $wysiwyg_module_id = $wysiwyg_module["id"];
+  $wysiwyg_module_id   = $wysiwyg_module["id"];
   $wysiwyg_module_name = $wysiwyg_module["name"];
 }
 
@@ -91,7 +95,7 @@ if ($func == 'install_wysiwyg')
   $default_module_name = "Markitup WYSIWYG Modul";
 
   // Daten einlesen
-  $in = rex_get_file_contents($wysiwyg_modul_in);
+  $in  = rex_get_file_contents($wysiwyg_modul_in);
   $out = rex_get_file_contents($wysiwyg_modul_out);
 
   $mi = new rex_sql;
