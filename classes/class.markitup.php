@@ -10,7 +10,8 @@
  * @version 1.1.62
  */
 
-function a287_markitup_extpoint($params) {
+function a287_markitup_extpoint($params)
+{
   global $REX;
   $output = $params['subject'];
 
@@ -18,15 +19,15 @@ function a287_markitup_extpoint($params) {
   $scripts = PHP_EOL;
   if ($REX['REDAXO'])
   {
-
-    $src_params = '';
-    $src_params .= '&article_id='.$params['article_id'];
+    $src_params  = '&article_id='.$params['article_id'];
     $src_params .= '&clang='.$params['clang'];
     $src_params .= '&slice_id='.$params['slice_id'];
     $src_params .= '&function='.rex_request('function','string');
 
     if (isset($params['rex_version']))
+    {
       $src_params .= '&rex_version='.$params['rex_version'];
+    }
 
     $scripts.='<script type="text/javascript">var set_'.md5($params['buttons']).';</script>
 
@@ -97,12 +98,16 @@ jQuery(function() {
 }
 
 
-class a287_markitup {
-  function a287_markitup() {
+class a287_markitup
+{
+  function a287_markitup()
+  {
+    // foo..
   }
 
 
-  function markitup($cssClass,$buttons=null,$width=null,$height=null) {
+  static function markitup($cssClass,$buttons=null,$width=null,$height=null)
+  {
     global $REX;
 
     // DEFAULTS
@@ -137,11 +142,11 @@ class a287_markitup {
     $slice_id = rex_request('slice_id', 'int');
 
     $params['selector']   = $cssClass;
-    $params['buttons']     = $buttons;
-    $params['width']       = $width;
+    $params['buttons']    = $buttons;
+    $params['width']      = $width;
     $params['height']     = $height;
     $params['article_id'] = $REX['ARTICLE_ID'];
-    $params['clang']       = $REX['CUR_CLANG'];
+    $params['clang']      = $REX['CUR_CLANG'];
     $params['slice_id']   = $slice_id;
 
     if(OOAddon::isAvailable('version'))
