@@ -83,7 +83,7 @@ span.jsopenwin {
 .markitup p.rex-code {
   overflow:auto;
   border:1px solid #CBCBCB;
-  background:white url("../files/addons/be_style/plugins/agk_skin/website.gif") repeat-x 0 -100px;
+  background:#fff;
   margin:2px 4px 8px 0;
   padding:8px;
   line-height:12px;
