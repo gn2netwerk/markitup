@@ -34,8 +34,8 @@ $myself = 'markitup';
 $REX['ADDON']['rxid'][$myself]    = '287';
 $REX['ADDON']['page'][$myself]    = $myself;
 $REX['ADDON']['name'][$myself]    = 'Markitup';
-$REX['ADDON']['version'][$myself] = '1.2.0 b2';
-$REX['ADDON']['author'][$myself]  = 'Jay Salvat, Rüdiger Nitschke, Dave Holloway';
+$REX['ADDON']['version'][$myself] = '1.2.0 b3';
+$REX['ADDON']['author'][$myself]  = 'Jay Salvat, Rüdiger Nitschke, Dave Holloway, jdlx';
 $REX['ADDON']['perm'][$myself]    = $myself.'[]';
 $REX['PERM'][]                    = $myself.'[]';
 

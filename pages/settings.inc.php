@@ -46,8 +46,8 @@ $REX[\'ADDON\'][\'markitup\'][\'default\'][\'height\']     = \''.$height.'\';
 $REX[\'ADDON\'][\'markitup\'][\'default\'][\'preview\']    = \''.$preview.'\';
 $REX[\'ADDON\'][\'markitup\'][\'default\'][\'shortcuts\']  = \''.$shortcuts.'\';
 $REX[\'ADDON\'][\'markitup\'][\'default\'][\'resizemode\'] =   '.$resizemode.';
-$REX[\'ADDON\'][\'markitup\'][\'autoenable_status\']       =   '.$autoenable_status.';
-$REX[\'ADDON\'][\'markitup\'][\'autoenable_class\']        = \''.$autoenable_class.'\';
+$REX[\'ADDON\'][\'markitup\'][\'autoenable_status\']     =   '.$autoenable_status.';
+$REX[\'ADDON\'][\'markitup\'][\'autoenable_class\']      = \''.$autoenable_class.'\';
 ';
 
   $file = $REX['INCLUDE_PATH'].'/addons/markitup/config.inc.php';
