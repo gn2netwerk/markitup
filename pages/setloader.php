@@ -17,7 +17,7 @@ ini_set('error_reporting', 0);
 
 // SWITCH CHARSET
 ////////////////////////////////////////////////////////////////////////////////
-if (strpos($REX['LANG'],'utf'))
+if (rex_lang_is_utf8())
 {
   header('Content-type:text/javascript; charset=utf-8');
 }

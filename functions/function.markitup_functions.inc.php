@@ -146,7 +146,7 @@ if (!function_exists('markitup_textileparser'))
         $textile = htmlspecialchars_decode($textile);
         $textile = str_replace("<br />","",$textile);
         $textile = str_replace("&#039;","'",$textile);
-        if (strpos($REX['LANG'],'utf'))
+        if (rex_lang_is_ut8())
         {
           $html = rex_a79_textile($textile);
         }
@@ -192,7 +192,7 @@ if (!function_exists('echotextile'))
     if(OOAddon::isAvailable("textile")) {
       if($msg!='') {
          $msg = str_replace(" ","",$msg); // tabs entfernen
-         if (strpos($REX['LANG'],'utf')) {
+         if (rex_lang_is_ut8()) {
           echo rex_a79_textile($msg);
         } else {
           echo utf8_decode(rex_a79_textile($msg));
