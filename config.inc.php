@@ -11,6 +11,38 @@
  */
 
 
+// ADDON IDENTIFIER
+////////////////////////////////////////////////////////////////////////////////
+$myself = 'markitup';
+
+
+// INCLUDES
+////////////////////////////////////////////////////////////////////////////////
+require_once $REX['INCLUDE_PATH'].'/addons/markitup/classes/class.markitup.php';
+require_once $REX['INCLUDE_PATH'].'/addons/markitup/functions/function.markitup_functions.inc.php';
+
+
+// LANG FILES
+////////////////////////////////////////////////////////////////////////////////
+if ($REX['REDAXO'])
+{
+  // BUILTIN
+  $I18N->appendFile($REX['INCLUDE_PATH'] . '/addons/' . $myself . '/lang');
+
+  // 3RD PARTY
+  $lang_root = $REX['INCLUDE_PATH'].'/addons/' . $myself . '/lang/';
+  $extra_langs = markitup_scandir($lang_root,0,array(),array());
+  $extra_langs = $extra_langs['folders'];
+  if(count($extra_langs) > 0)
+  {
+    foreach($extra_langs as $lang)
+    {
+      $I18N->appendFile($REX['INCLUDE_PATH'] . '/addons/' . $myself . '/lang/'.$lang);
+    }
+  }
+}
+
+
 // LOADERS & CONTROLLERS
 ////////////////////////////////////////////////////////////////////////////////
 include $REX['INCLUDE_PATH'].'/addons/markitup/controller.inc.php';
@@ -24,10 +56,6 @@ if (rex_request('a287_markitup_set')!="") {
   exit();
 }
 
-
-// ADDON IDENTIFIER
-////////////////////////////////////////////////////////////////////////////////
-$myself = 'markitup';
 
 // ADDON REX COMMONS
 ////////////////////////////////////////////////////////////////////////////////
@@ -62,35 +90,6 @@ $REX['ADDON']['markitup']['default']['resizemode'] =   0;
 $REX['ADDON']['markitup']['autoenable_status']     =   1;
 $REX['ADDON']['markitup']['autoenable_class']      =   'rex-markitup';
 */
-
-// STATIC/HIDDEN SETTINGS
-////////////////////////////////////////////////////////////////////////////////
-$REX['ADDON'][$myself]['svn_version_notify'] = false;
-
-// INCLUDES
-////////////////////////////////////////////////////////////////////////////////
-require_once $REX['INCLUDE_PATH'].'/addons/markitup/classes/class.markitup.php';
-require_once $REX['INCLUDE_PATH'].'/addons/markitup/functions/function.markitup_functions.inc.php';
-
-// LANG FILES
-////////////////////////////////////////////////////////////////////////////////
-if ($REX['REDAXO'])
-{
-  // BUILTIN
-  $I18N->appendFile($REX['INCLUDE_PATH'] . '/addons/' . $myself . '/lang');
-
-  // 3RD PARTY
-  $lang_root = $REX['INCLUDE_PATH'].'/addons/' . $myself . '/lang/';
-  $extra_langs = markitup_scandir($lang_root,0,array(),array());
-  $extra_langs = $extra_langs['folders'];
-  if(count($extra_langs) > 0)
-  {
-    foreach($extra_langs as $lang)
-    {
-      $I18N->appendFile($REX['INCLUDE_PATH'] . '/addons/' . $myself . '/lang/'.$lang);
-    }
-  }
-}
 
 
 // INCLUDE ASSETS
