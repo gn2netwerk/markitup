@@ -142,18 +142,15 @@ if($REX['REDAXO'] && $REX['ADDON']['markitup']['autoenable_status'] == 1)
       return $output;
     }
 
-    $src_params  = '&article_id='.$params['article_id'];
-    $src_params .= '&clang='.$params['clang'];
-    $src_params .= '&slice_id='.$params['slice_id'];
+    $src_params  = '&article_id='.$REX['ARTICLE_ID'];
+    $src_params .= '&clang='.$REX['CUR_CLANG'];
+    $src_params .= '&slice_id='.rex_request('slice_id','string');
     $src_params .= '&function='.rex_request('function','string');
+    $src_params .= '&rex_version='.rex_request('rex_set_version','int',0);
 
     $buttons = $REX['ADDON']['markitup']['default']['buttons'];
     $width   = $REX['ADDON']['markitup']['default']['width'];
     $height  = $REX['ADDON']['markitup']['default']['height'];
-
-    if (isset($params['rex_version'])) {
-      $src_params .= '&rex_version='.$params['rex_version'];
-    }
 
     $scripts = PHP_EOL.'<!-- markitup (autoenabled) -->
     <script type="text/javascript">var set_'.md5($buttons).';</script>
