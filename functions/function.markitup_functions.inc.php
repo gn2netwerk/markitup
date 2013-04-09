@@ -146,7 +146,7 @@ if (!function_exists('markitup_textileparser'))
         $textile = htmlspecialchars_decode($textile);
         $textile = str_replace("<br />","",$textile);
         $textile = str_replace("&#039;","'",$textile);
-        if (rex_lang_is_ut8())
+        if (rex_lang_is_utf8())
         {
           $html = rex_a79_textile($textile);
         }
