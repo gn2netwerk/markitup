@@ -94,7 +94,7 @@ if (rex_request('a287_markitup_set')!="") {
 
 // INCLUDE ASSETS
 ////////////////////////////////////////////////////////////////////////////////
-if($REX['REDAXO'] && (rex_request('page','string')!='marktiup' && rex_request('subpage','string')!='preview') )
+if($REX['REDAXO'] && (rex_request('page','string')!='markitup' && rex_request('subpage','string')!='preview') )
 {
   rex_register_extension('OUTPUT_FILTER', 'a287_markitup_assets');
 
