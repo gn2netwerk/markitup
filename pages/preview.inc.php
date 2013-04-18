@@ -16,7 +16,7 @@ $slice_id = rex_request('slice_id', 'int');
 
 
 
-if(rex_lang_is_ut8())
+if(rex_lang_is_utf8())
 {
   $charset = 'utf-8';
   $textile = $_REQUEST['markitup_textile_preview_'.$slice_id];
