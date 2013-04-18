@@ -42,8 +42,7 @@ $buttons    = explode(',',rex_request('a287_markitup_set'));
 $rex_version = 0;
 if($slice_id > 0)
 {
-  $rev = new rex_sql;
-  //$rev->debug = true;
+  $rev = rex_sql::factory();
   $rev->setQuery('select `revision` from '.$REX['TABLE_PREFIX'].'article_slice where `id` ='.$slice_id);
   $rex_version = $rev->getValue('revision');
 }
