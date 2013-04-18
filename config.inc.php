@@ -43,20 +43,6 @@ if ($REX['REDAXO'])
 }
 
 
-// LOADERS & CONTROLLERS
-////////////////////////////////////////////////////////////////////////////////
-include $REX['INCLUDE_PATH'].'/addons/markitup/controller.inc.php';
-
-if (rex_request('a287_markitup_css')!="") {
-  require_once $REX['INCLUDE_PATH'].'/addons/markitup/pages/cssloader.php';
-  exit();
-}
-if (rex_request('a287_markitup_set')!="") {
-  require_once $REX['INCLUDE_PATH'].'/addons/markitup/pages/setloader.php';
-  exit();
-}
-
-
 // ADDON REX COMMONS
 ////////////////////////////////////////////////////////////////////////////////
 $REX['ADDON']['rxid'][$myself]    = '287';
@@ -73,11 +59,11 @@ $REX['PERM'][]                    = $myself.'[]';
 $REX['ADDON']['markitup']['default']['buttons']    = 'h1,h2,h3,h4,h5,h6,separator,bold,italic,stroke,separator,listbullet,listnumeric,separator,image,linkmedia,separator,linkintern,linkextern,linkmailto,separator,code,blockquote,separator,preview';
 $REX['ADDON']['markitup']['default']['width']      = '680';
 $REX['ADDON']['markitup']['default']['height']     = '68';
-$REX['ADDON']['markitup']['default']['preview']    = 'wysiwyg';
+$REX['ADDON']['markitup']['default']['preview']    = 'inline';
 $REX['ADDON']['markitup']['default']['shortcuts']  = 'h1:1|h2:2|h3:3|h4:4|h5:5|h6:6|bold:B|italic:I|stroke:S|image:P|linkmedia:M|linkintern:L|linkextern:E|linkmailto:M|preview:Y';
 $REX['ADDON']['markitup']['default']['resizemode'] =   0;
-$REX['ADDON']['markitup']['autoenable_status']       =   1;
-$REX['ADDON']['markitup']['autoenable_class']        = 'rex-markitup';
+$REX['ADDON']['markitup']['autoenable_status']     =   1;
+$REX['ADDON']['markitup']['autoenable_class']      = 'rex-markitup';
 // --- /DYN
 
 /* DEFAULTS BACKUP:
@@ -90,6 +76,20 @@ $REX['ADDON']['markitup']['default']['resizemode'] =   0;
 $REX['ADDON']['markitup']['autoenable_status']     =   1;
 $REX['ADDON']['markitup']['autoenable_class']      =   'rex-markitup';
 */
+
+
+// LOADERS & CONTROLLERS
+////////////////////////////////////////////////////////////////////////////////
+include $REX['INCLUDE_PATH'].'/addons/markitup/controller.inc.php';
+
+if (rex_request('a287_markitup_css')!="") {
+  require_once $REX['INCLUDE_PATH'].'/addons/markitup/pages/cssloader.php';
+  exit();
+}
+if (rex_request('a287_markitup_set')!="") {
+  require_once $REX['INCLUDE_PATH'].'/addons/markitup/pages/setloader.php';
+  exit();
+}
 
 
 // INCLUDE ASSETS
