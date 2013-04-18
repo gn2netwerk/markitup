@@ -233,6 +233,7 @@ $autoenable_status_sel = $tmp->get();
 // FORM
 ////////////////////////////////////////////////////////////////////////////////
 echo '
+<!-- markitup -->
 <script type="text/javascript">
 <!--
 
@@ -277,6 +278,7 @@ function openPage(src)
 
 //-->
 </script>
+<!-- /markitup -->
 
 <div class="rex-addon-output">
   <div class="rex-form">
