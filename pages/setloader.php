@@ -62,7 +62,7 @@ else
 ////////////////////////////////////////////////////////////////////////////////
 if($REX['ADDON']['markitup']['default']['preview'] == 'inline')
 {
-  $parser_path = 'index.php?page=markitup&subpage=preview&article_id='.$article_id.'&clang='.$article_clang.'&slice_id='.$slice_id.'&rex_version='.$rex_version;
+  $parser_path = 'index.php?page=markitup&subpage=preview&article_id='.$article_id.'&clang='.$clang.'&slice_id='.$slice_id.'&rex_version='.$rex_version;
 
   $SET = 'set_'.$setname.' = {
     nameSpace:"set-'.$setname.'",'.$resizemode.'
@@ -85,7 +85,7 @@ else
   }
   else
   {
-    $parser_path = 'http://'.$_SERVER['HTTP_HOST'].'/index.php?article_id='.$article_id.'&clang='.$article_clang.'&slice_id='.$slice_id.'&rex_version='.$rex_version;
+    $parser_path = 'http://'.$_SERVER['HTTP_HOST'].'/index.php?article_id='.$article_id.'&clang='.$clang.'&slice_id='.$slice_id.'&rex_version='.$rex_version;
   }
 
   $SET = 'set_'.$setname.' = {
