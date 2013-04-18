@@ -16,7 +16,7 @@ function a287_markitup_extpoint($params)
   $output = $params['subject'];
 
 
-  $scripts = PHP_EOL;
+  $scripts = PHP_EOL.'<!-- markitup -->'.PHP_EOL;
   if ($REX['REDAXO'])
   {
     $src_params  = '&article_id='.$params['article_id'];
@@ -89,7 +89,7 @@ jQuery(function() {
 # '.PHP_EOL;
 # }
 
-    $scripts .= '</script>'.PHP_EOL;
+    $scripts .= '</script>'.PHP_EOL.'<!-- /markitup -->'.PHP_EOL;
   }
 
 
