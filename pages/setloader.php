@@ -10,10 +10,7 @@
  * @version 1.2.2
  */
 
-// FORCE ERROR_REPORTING OFF
-////////////////////////////////////////////////////////////////////////////////
-error_reporting(0);
-ini_set('error_reporting', 0);
+
 
 // SWITCH CHARSET
 ////////////////////////////////////////////////////////////////////////////////
@@ -80,7 +77,7 @@ else
   elseif(file_exists($REX['INCLUDE_PATH'].'/generated/files/rexseo_pathlist.php') && ($REX['MOD_REWRITE'] == true && (OOAddon::isAvailable('rexseo'))))
   {
     require_once $REX['INCLUDE_PATH'].'/generated/files/rexseo_pathlist.php';
-    $parser_path = 'http://'.$_SERVER['HTTP_HOST'].'/'.$REXSEO_IDS[$article_id][$clang].'?slice_id='.$slice_id.'&rex_version='.$rex_version;
+    $parser_path = 'http://'.$_SERVER['HTTP_HOST'].'/'.$REXSEO_IDS[$article_id][$clang]['url'].'?slice_id='.$slice_id.'&rex_version='.$rex_version;
   }
   else
   {
