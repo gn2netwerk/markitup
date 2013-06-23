@@ -107,7 +107,7 @@ if($REX['REDAXO'] && (rex_request('page','string')!='markitup' && rex_request('s
     if ($REX['REDAXO'])
     {
       $scripts.= PHP_EOL.'<!-- markitup -->'.PHP_EOL.
-      '  <script type="text/javascript" src="include/addons/markitup/lib/jquery.markitup.pack.js"></script>'.PHP_EOL;
+      '  <script type="text/javascript" src="include/addons/markitup/lib/jquery.markitup.js"></script>'.PHP_EOL;
       if($REX['ADDON']['markitup']['default']['resizemode'] == 0)
       {
         $scripts.='  <script type="text/javascript" src="include/addons/markitup/lib/jquery.autogrow-textarea.js"></script>'.PHP_EOL;
