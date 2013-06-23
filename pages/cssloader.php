@@ -37,7 +37,7 @@ foreach ($buttons as $button) {
 }
 
 <?php echo '.set-'.$setname.' .markItUpEditor'; ?> {
-	width:<?php echo (rex_request('width')-22).'px !important'; ?>;
+	width:<?php echo (rex_request('width')-28).'px !important'; ?>;
 	height:<?php echo (rex_request('height')-7).'px'; ?>;
 }
 
